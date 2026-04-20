@@ -1,0 +1,177 @@
+---
+import Ironside from "../layouts/Ironside.astro";
+---
+
+<Ironside title="Get my free quote" description="Request a free, no-obligation quote for your garage floor coating. Polyaspartic and epoxy options. Ironside Coatings replies within one business day." heroType="light">
+
+<!-- HERO -->
+<section class="hero-light" style="padding:120px 32px 64px">
+  <div class="inner">
+    <div class="kicker">Free quote &middot; no obligation</div>
+    <h1 class="h-hero mt-3" style="max-width:22ch">Tell us about your garage. We&rsquo;ll reply within one business day.</h1>
+  </div>
+</section>
+
+<!-- MAIN CONTENT: FORM + SIDEBAR -->
+<section class="section" style="padding-top:24px">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:3fr 2fr;gap:64px;align-items:start">
+
+      <!-- QUOTE FORM -->
+      <form class="quote-form" style="background:var(--bg-elevated);border:1px solid var(--border-default);padding:48px">
+
+        <!-- STEP 01: CONTACT -->
+        <div class="quote-step">
+          <div class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--accent)">01 &middot; CONTACT</div>
+          <div class="field-grid" style="margin-top:20px">
+            <div class="field"><label>Full name</label><input type="text" placeholder="Mark Duncan" /></div>
+            <div class="field"><label>Phone</label><input type="tel" placeholder="905 555 0174" /></div>
+          </div>
+          <div class="field" style="margin-top:16px"><label>Email</label><input type="email" placeholder="mark@example.com" /></div>
+          <div class="field" style="margin-top:16px"><label>Service address</label><input type="text" placeholder="1234 Maple Grove Rd, Oakville" /></div>
+        </div>
+
+        <!-- STEP 02: GARAGE -->
+        <div class="quote-step" style="margin-top:40px;padding-top:32px;border-top:1px solid var(--border-default)">
+          <div class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--accent)">02 &middot; GARAGE</div>
+          <label class="group-label" style="margin-top:20px">Garage size</label>
+          <div class="radio-grid" style="margin-top:12px">
+            <label class="radio-pill"><input type="radio" name="size" /><span>1-car</span><em class="mono">~240 ft&sup2;</em></label>
+            <label class="radio-pill active"><input type="radio" name="size" checked /><span>2-car</span><em class="mono">~440 ft&sup2;</em></label>
+            <label class="radio-pill"><input type="radio" name="size" /><span>3-car</span><em class="mono">~680 ft&sup2;</em></label>
+            <label class="radio-pill"><input type="radio" name="size" /><span>Larger</span><em class="mono">900+ ft&sup2;</em></label>
+            <label class="radio-pill"><input type="radio" name="size" /><span>Basement</span><em class="mono">any sq ft</em></label>
+          </div>
+        </div>
+
+        <div class="quote-step" style="margin-top:32px">
+          <label class="group-label">Timeline</label>
+          <div class="radio-grid" style="margin-top:12px;grid-template-columns:repeat(4,1fr)">
+            <label class="radio-pill"><input type="radio" name="time" /><span>ASAP</span><em class="mono">&le; 2 wk</em></label>
+            <label class="radio-pill active"><input type="radio" name="time" checked /><span>1 month</span><em class="mono">this season</em></label>
+            <label class="radio-pill"><input type="radio" name="time" /><span>1&ndash;3 mo</span><em class="mono">planning</em></label>
+            <label class="radio-pill"><input type="radio" name="time" /><span>Exploring</span><em class="mono">researching</em></label>
+          </div>
+        </div>
+
+        <!-- STEP 03: DETAILS -->
+        <div class="quote-step" style="margin-top:40px;padding-top:32px;border-top:1px solid var(--border-default)">
+          <div class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--accent)">03 &middot; DETAILS</div>
+          <div class="field" style="margin-top:20px"><label>Anything else we should know?</label><textarea rows="4" placeholder="Cracks, oil stains, previous coating, questions about color chips, etc."></textarea></div>
+          <div class="field" style="margin-top:16px">
+            <label>How did you hear about us? <em style="color:var(--fg3);font-style:normal">(optional)</em></label>
+            <select>
+              <option>Google search</option>
+              <option>Neighbour / referral</option>
+              <option>Instagram</option>
+              <option>Home show</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:32px;border-top:1px solid var(--border-default)">
+          <div class="caption">By submitting you agree to our <a href="#" style="color:var(--fg1);text-decoration:underline">privacy policy</a>. No spam, no telemarketing.</div>
+          <button type="submit" class="btn btn-lg btn-primary">Send my quote request</button>
+        </div>
+      </form>
+
+      <!-- SIDEBAR -->
+      <aside style="position:sticky;top:112px">
+
+        <!-- What happens next -->
+        <div style="background:var(--color-iron-950);color:var(--fg-inverse);padding:40px">
+          <div class="kicker" style="color:var(--accent)">What happens next</div>
+          <h3 class="h3 mt-3" style="color:var(--fg-inverse)">Four steps. Zero pressure.</h3>
+          <ol style="list-style:none;padding:0;margin:32px 0 0;display:grid;gap:24px">
+            <li style="display:flex;gap:16px">
+              <span class="mono" style="color:var(--accent);font-size:14px;width:28px;flex-shrink:0">01</span>
+              <div>
+                <div style="color:var(--fg-inverse);font-weight:600">Reply within 1 business day</div>
+                <div class="mono" style="font-size:12px;color:var(--color-iron-300);margin-top:4px">Usually under 4 hours on weekdays.</div>
+              </div>
+            </li>
+            <li style="display:flex;gap:16px">
+              <span class="mono" style="color:var(--accent);font-size:14px;width:28px;flex-shrink:0">02</span>
+              <div>
+                <div style="color:var(--fg-inverse);font-weight:600">In-home consult, 30 min</div>
+                <div class="mono" style="font-size:12px;color:var(--color-iron-300);margin-top:4px">Sample kit on your slab, moisture test.</div>
+              </div>
+            </li>
+            <li style="display:flex;gap:16px">
+              <span class="mono" style="color:var(--accent);font-size:14px;width:28px;flex-shrink:0">03</span>
+              <div>
+                <div style="color:var(--fg-inverse);font-weight:600">Written quote in 48 hours</div>
+                <div class="mono" style="font-size:12px;color:var(--color-iron-300);margin-top:4px">Line items, timeline, warranty terms.</div>
+              </div>
+            </li>
+            <li style="display:flex;gap:16px">
+              <span class="mono" style="color:var(--accent);font-size:14px;width:28px;flex-shrink:0">04</span>
+              <div>
+                <div style="color:var(--fg-inverse);font-weight:600">Schedule your install</div>
+                <div class="mono" style="font-size:12px;color:var(--color-iron-300);margin-top:4px">Typically 2&ndash;3 weeks out.</div>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Phone -->
+        <div style="margin-top:24px;padding:24px;background:var(--bg-elevated);border:1px solid var(--border-default)">
+          <div class="kicker plain" style="color:var(--fg1);font-size:12px">Prefer to call?</div>
+          <a href="tel:9055550174" class="mono" style="display:block;margin-top:8px;font-size:24px;font-weight:600;color:var(--fg1);text-decoration:none">905 &middot; 555 &middot; 0174</a>
+          <div class="caption" style="margin-top:4px">Mon&ndash;Fri 8a&ndash;6p &middot; Sat 9a&ndash;2p</div>
+        </div>
+
+        <!-- Postal code checker -->
+        <div style="margin-top:24px;padding:24px;border:1px dashed var(--border-strong)">
+          <div class="kicker plain" style="color:var(--fg1);font-size:12px">Service-area check</div>
+          <div class="field" style="margin-top:12px"><label>Postal code</label><input type="text" placeholder="L6H 0H9" style="text-transform:uppercase" /></div>
+          <button class="btn btn-sm btn-ghost" style="margin-top:12px;width:100%">Check coverage</button>
+          <div class="caption" style="margin-top:12px">Oakville &middot; Burlington &middot; Milton &middot; Hamilton &middot; Ancaster &middot; West Mississauga</div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100)">
+  <div class="container">
+    <div class="trust-strip" style="background:transparent;border:0;padding:0">
+      <div class="trust-item">
+        <div class="trust-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h8l-1 8 9-12h-8z"/></svg></div>
+        <div><div class="trust-label">1-day install</div><div class="trust-sub">Back in by tomorrow 8am</div></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-4 9-8 11-4-2-8-6-8-11V5z"/></svg></div>
+        <div><div class="trust-label">Lifetime warranty</div><div class="trust-sub">Transferable, in writing</div></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a6 6 0 100-12 6 6 0 000 12z"/><path d="M8 14l-2 8 6-3 6 3-2-8"/></svg></div>
+        <div><div class="trust-label">$5M insured</div><div class="trust-sub">WSIB &middot; certified applicator</div></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7 7-12a7 7 0 10-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2"/></svg></div>
+        <div><div class="trust-label">Oakville-based</div><div class="trust-sub">40-min radius only</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.radio-pill').forEach(function(p){
+  p.addEventListener('click',function(){
+    var input=p.querySelector('input');
+    var name=input.name;
+    document.querySelectorAll('input[name="'+name+'"]').forEach(function(i){
+      i.closest('.radio-pill').classList.remove('active');
+    });
+    p.classList.add('active');
+    input.checked=true;
+  });
+});
+</script>
+
+</Ironside>
