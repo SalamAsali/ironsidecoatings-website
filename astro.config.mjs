@@ -27,6 +27,13 @@ export default defineConfig({
 	fonts: [
 		{
 			provider: fontProviders.google(),
+			name: "Geist",
+			cssVariable: "--font-display-loaded",
+			weights: [400, 500, 600, 700, 800, 900],
+			fallbacks: ["sans-serif"],
+		},
+		{
+			provider: fontProviders.google(),
 			name: "Inter",
 			cssVariable: "--font-sans",
 			weights: [400, 500, 600, 700],
@@ -36,7 +43,7 @@ export default defineConfig({
 			provider: fontProviders.google(),
 			name: "JetBrains Mono",
 			cssVariable: "--font-mono",
-			weights: [400, 500],
+			weights: [400, 500, 600],
 			fallbacks: ["monospace"],
 		},
 	],

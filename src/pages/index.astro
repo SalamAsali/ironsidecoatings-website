@@ -1,450 +1,432 @@
 ---
-import { getEmDashCollection, getEntryTerms, getSiteSettings } from "emdash";
-import { Image } from "emdash/ui";
-import Base from "../layouts/Base.astro";
-import PostCard from "../components/PostCard.astro";
-import { getReadingTime } from "../utils/reading-time";
-import { resolveBlogSiteIdentity } from "../utils/site-identity";
-
-const { entries: posts, cacheHint } = await getEmDashCollection("posts");
-const { siteTitle, siteTagline } = resolveBlogSiteIdentity(await getSiteSettings());
-
-Astro.cache.set(cacheHint);
-
-const sortedPosts = posts.toSorted((a, b) => {
-	const dateA = a.data.publishedAt?.getTime() ?? 0;
-	const dateB = b.data.publishedAt?.getTime() ?? 0;
-	return dateB - dateA;
-});
-
-// Find the first post with a featured image for the hero
-const featuredPost = sortedPosts.find((p) => p.data.featured_image);
-const featuredIndex = featuredPost ? sortedPosts.indexOf(featuredPost) : -1;
-
-// Get remaining posts (exclude featured if found, limit to 6 for grid)
-const gridPosts = sortedPosts.filter((_, i) => i !== featuredIndex).slice(0, 6);
-
-// Total posts shown = featured (if any) + grid posts
-const totalShown = (featuredPost ? 1 : 0) + gridPosts.length;
-const hasMorePosts = sortedPosts.length > totalShown;
-
-// Fetch tags for featured post (bylines are already hydrated by getEmDashCollection)
-let featuredTags: Array<{ slug: string; label: string }> = [];
-const featuredBylines = featuredPost?.data.bylines ?? [];
-if (featuredPost) {
-	const tags = await getEntryTerms("posts", featuredPost.data.id, "tag");
-	featuredTags = tags.map((t) => ({ slug: t.slug, label: t.label }));
-}
-
-// Fetch tags for grid posts (bylines are already hydrated by getEmDashCollection)
-const gridPostsWithTags = await Promise.all(
-	gridPosts.map(async (post) => {
-		const tags = await getEntryTerms("posts", post.data.id, "tag");
-		const bylines = post.data.bylines ?? [];
-		return {
-			post,
-			tags: tags.map((t) => ({ slug: t.slug, label: t.label })),
-			bylines,
-		};
-	})
-);
-
-// Format date helper
-function formatDate(date: Date | null | undefined) {
-	if (!date) return null;
-	return date.toLocaleDateString("en-US", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	});
-}
+import Ironside from "../layouts/Ironside.astro";
 ---
 
-<Base title={siteTitle} description={siteTagline}>
-	{
-		posts.length === 0 ? (
-			<section class="empty-state">
-				<h2>No posts yet</h2>
-				<p>Create your first post in the admin panel.</p>
-				<a href="/_emdash/admin/content/posts/new" class="btn">
-					Create a post
-				</a>
-			</section>
-		) : (
-			<div class="home-content">
-				{/* Featured Post - Side by side */}
-				{featuredPost && (
-					<section class="featured-section">
-						<div class="featured-grid">
-							<a href={`/posts/${featuredPost.id}`} class="featured-image-link">
-								<div class="featured-image">
-									<Image image={featuredPost.data.featured_image} />
-								</div>
-							</a>
-							<div class="featured-content">
-								<div class="featured-meta">
-									{featuredBylines.length > 0 && (
-										<>
-											<div class="featured-bylines">
-												{featuredBylines.slice(0, 2).map((credit, index) => (
-													<>
-														{index > 0 && <span class="byline-sep">,</span>}
-														<span class="featured-byline">
-															{credit.byline.avatarMediaId && (
-																<img
-																	src={`/_emdash/api/media/file/${credit.byline.avatarMediaId}`}
-																	alt={credit.byline.displayName}
-																	class="featured-byline-avatar"
-																/>
-															)}
-															<span class="featured-byline-name">
-																{credit.byline.displayName}
-															</span>
-														</span>
-													</>
-												))}
-												{featuredBylines.length > 2 && (
-													<span class="byline-more">
-														+{featuredBylines.length - 2}
-													</span>
-												)}
-											</div>
-											<span class="meta-dot" />
-										</>
-									)}
-									{formatDate(featuredPost.data.publishedAt) && (
-										<time>{formatDate(featuredPost.data.publishedAt)}</time>
-									)}
-									<span class="meta-dot" />
-									<span>
-										{getReadingTime(featuredPost.data.content)} min read
-									</span>
-								</div>
-								<a
-									href={`/posts/${featuredPost.id}`}
-									class="featured-title-link"
-								>
-									<h1 class="featured-title">{featuredPost.data.title}</h1>
-								</a>
-								{featuredPost.data.excerpt && (
-									<p class="featured-excerpt">{featuredPost.data.excerpt}</p>
-								)}
-								{featuredTags.length > 0 && (
-									<div class="featured-tags">
-										{featuredTags.map((tag) => (
-											<a href={`/tag/${tag.slug}`} class="featured-tag">
-												{tag.label}
-											</a>
-										))}
-									</div>
-								)}
-							</div>
-						</div>
-					</section>
-				)}
+<Ironside title="Premium polyaspartic garage floors, Oakville" description="Diamond-ground polyaspartic garage floors installed in one day with a lifetime warranty. Oakville-based, serving Burlington, Milton, Hamilton, and Ancaster." heroType="dark">
 
-				{/* Latest Posts */}
-				{gridPostsWithTags.length > 0 && (
-					<section class="posts-section">
-						<header class="section-header">
-							<h2 class="section-title">Latest</h2>
-							{hasMorePosts && (
-								<a href="/posts" class="section-link">
-									View all
-								</a>
-							)}
-						</header>
-						<div class="posts-grid">
-							{gridPostsWithTags.map(({ post, tags, bylines }) => (
-								<PostCard
-									title={post.data.title ?? "Untitled"}
-									excerpt={post.data.excerpt}
-									featuredImage={post.data.featured_image}
-									href={`/posts/${post.id}`}
-									date={post.data.publishedAt ?? undefined}
-									readingTime={getReadingTime(post.data.content)}
-									tags={tags}
-									bylines={bylines}
-								/>
-							))}
-						</div>
-					</section>
-				)}
-			</div>
-		)
-	}
-</Base>
+<!-- HERO -->
+<section class="hero-dark">
+  <div class="hero-img">
+    <svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="kl" cx="68%" cy="38%" r="45%"><stop offset="0%" stop-color="#E87A41" stop-opacity="0.35"/><stop offset="100%" stop-color="#0B0D10" stop-opacity="0"/></radialGradient>
+        <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1F2428"/><stop offset="100%" stop-color="#0B0D10"/></linearGradient>
+      </defs>
+      <rect width="1280" height="720" fill="#0B0D10"/><rect width="1280" height="720" fill="url(#kl)"/>
+      <rect x="0" y="340" width="1280" height="140" fill="#131619"/>
+      <g stroke="#1F2428" stroke-width="1"><line x1="320" y1="340" x2="320" y2="480"/><line x1="960" y1="340" x2="960" y2="480"/></g>
+      <rect x="0" y="480" width="1280" height="240" fill="url(#fl)"/>
+      <g fill="#0B0D10"><path d="M 820 420 L 820 370 L 880 360 L 1020 360 L 1060 370 L 1120 385 L 1150 400 L 1150 470 L 820 470 Z"/><circle cx="890" cy="478" r="22"/><circle cx="1080" cy="478" r="22"/></g>
+      <path d="M 820 420 L 820 370 L 880 360 L 1020 360 L 1060 370 L 1120 385 L 1150 400" stroke="#E87A41" stroke-width="1" fill="none" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="hero-grad"></div><div class="hero-grain"></div><div class="hero-rim"></div>
+
+  <div class="hero-inner" style="display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:center;min-height:620px">
+    <div>
+      <div class="kicker mb-2">Polyaspartic specialists &middot; Oakville</div>
+      <h1 class="h-hero" style="margin-top:12px;max-width:14ch">The garage floor<br/>that outlasts the slab.</h1>
+      <p class="lede" style="color:var(--color-iron-300);margin-top:28px">Diamond-ground. Polyaspartic. Installed in one day. Backed by a transferable lifetime warranty. Oakville-owned, serving Burlington, Milton, Hamilton, and Ancaster.</p>
+      <div style="display:flex;gap:12px;margin-top:40px;flex-wrap:wrap">
+        <a href="/quote" class="btn btn-lg btn-primary">Get my free quote
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="/pricing" class="btn btn-lg btn-ghost-dark">See pricing tiers</a>
+      </div>
+    </div>
+    <div>
+      <div style="position:relative;aspect-ratio:4/5;border:1px solid #1F2428;background:radial-gradient(ellipse at 70% 20%, rgba(232,122,65,.18), transparent 55%),radial-gradient(ellipse at 30% 90%, rgba(184,115,51,.14), transparent 50%),linear-gradient(180deg, #131619, #0B0D10);box-shadow:0 24px 60px -12px rgba(0,0,0,.7)">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(115deg, rgba(244,243,239,.012) 0 18px, rgba(244,243,239,.04) 18px 19px)"></div>
+        <span style="position:absolute;top:20px;left:20px;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(11,13,16,.7);border:1px solid rgba(255,255,255,.08);font-family:var(--font-mono-brand);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#E7E5DF"><span style="width:6px;height:6px;background:#D95F1F"></span>Install &middot; Glen Abbey</span>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 24px;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--font-mono-brand);font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(180deg, transparent, rgba(11,13,16,.85))">
+          <div><div style="color:#F4F3EF;font-weight:500">H-01 &middot; Oakville install</div><div style="color:#6B7278;margin-top:4px">04 / 2026 &middot; 680 ft&sup2;</div></div>
+          <div style="text-align:right;color:#6B7278"><div>Premium</div><div>polyaspartic</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-inner meta-rule">
+    <span>Oakville &middot; est. 2026</span><span class="sep"></span><span>Iron-Clad Warranty &middot; Transferable</span><span class="sep"></span><span>Penntek-certified installer</span>
+  </div>
+
+  <div class="hero-inner" style="margin-top:48px">
+    <div class="trust">
+      <div class="trust-item"><svg class="t-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L4 14 L12 14 L11 22 L20 10 L12 10 Z"/></svg><div><div class="t-label">1-day install</div><div class="t-sub">Park on it next morning</div></div></div>
+      <div class="trust-item"><svg class="t-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L20 5 V11 C20 16 16 20 12 22 C8 20 4 16 4 11 V5 Z"/><path d="M9 12 l2 2 l4-4"/></svg><div><div class="t-label">Lifetime warranty</div><div class="t-sub">Transferable &middot; in writing</div></div></div>
+      <div class="trust-item"><svg class="t-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8 14 L6 22 L12 19 L18 22 L16 14"/></svg><div><div class="t-label">$5M insured</div><div class="t-sub">WSIB &middot; full liability</div></div></div>
+      <div class="trust-item"><svg class="t-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C12 22 19 15 19 10 A7 7 0 1 0 5 10 C5 15 12 22 12 22 Z"/><circle cx="12" cy="10" r="2.5"/></svg><div><div class="t-label">Oakville-based</div><div class="t-sub">40-min service radius</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM STATEMENT -->
+<section class="section">
+  <div class="container">
+    <div class="split-64" style="align-items:end">
+      <div>
+        <div class="kicker">The problem we solve</div>
+        <h2 class="h1 mt-2" style="max-width:18ch">Most garage floor coatings fail within 3 years.</h2>
+      </div>
+      <p class="p" style="color:var(--fg2);max-width:52ch">Acid-etched substrates, standard epoxy, thin topcoats &mdash; pulled up by hot tires and winter salt. We fix that with diamond-grind prep, polyaspartic chemistry, and a warranty that transfers to the next homeowner.</p>
+    </div>
+    <div class="meta-rule"><span>03 failure modes</span><span class="sep"></span><span>01 system that prevents all three</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px">
+      <div class="card">
+        <div class="mono" style="color:var(--color-danger);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px">01 &middot; Hot-tire pickup</div>
+        <div class="h4">Epoxy lifts in sheets when tires cool on it.</div>
+        <p class="p" style="color:var(--fg2);margin-top:12px;font-size:14px">Polyaspartic bonds chemically into the concrete. Park on it the day after install &mdash; no lift, no peel.</p>
+      </div>
+      <div class="card">
+        <div class="mono" style="color:var(--color-danger);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px">02 &middot; Winter salt + moisture</div>
+        <div class="h4">Acid-etching traps moisture under the coating.</div>
+        <p class="p" style="color:var(--fg2);margin-top:12px;font-size:14px">We diamond-grind to a CSP-2/3 profile and moisture-test before every pour. No acid. No gambling.</p>
+      </div>
+      <div class="card">
+        <div class="mono" style="color:var(--color-danger);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px">03 &middot; UV yellowing</div>
+        <div class="h4">Standard epoxy ambers within one summer.</div>
+        <p class="p" style="color:var(--fg2);margin-top:12px;font-size:14px">Aliphatic polyaspartic topcoat &mdash; UV stable, optically clear, won't amber through a bay-door opening.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:48px">
+      <div>
+        <div class="kicker">Services</div>
+        <h2 class="h1 mt-2" style="max-width:20ch">Four systems. One crew. One warranty.</h2>
+      </div>
+      <a href="/polyaspartic-garage-floors" class="btn btn-md btn-ghost">All services &rarr;</a>
+    </div>
+    <div class="svc-grid">
+      <a href="/polyaspartic-garage-floors" class="svc-card">
+        <span class="badge badge-accent">Flagship</span>
+        <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L4 14 L12 14 L11 22 L20 10 L12 10 Z"/></svg>
+        <h3>Polyaspartic garage floors</h3>
+        <div class="desc">The Ironside System. Diamond-ground, full-broadcast flake, aliphatic topcoat. Cures in 2 hours.</div>
+        <div class="stat-row"><span>$10&ndash;16 / ft&sup2;</span><span>1 day</span></div>
+        <div class="more">Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+      <a href="/epoxy-garage-floors" class="svc-card">
+        <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M9 3v18"/></svg>
+        <h3>Epoxy garage floors</h3>
+        <div class="desc">100% solids epoxy with urethane topcoat. The budget-tier entry point when polyaspartic isn't required.</div>
+        <div class="stat-row"><span>$5&ndash;6 / ft&sup2;</span><span>2 days</span></div>
+        <div class="more">Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+      <a href="/basement-epoxy-flooring" class="svc-card">
+        <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6v10H3z"/><path d="M9 20v-6h6v6"/></svg>
+        <h3>Basement epoxy</h3>
+        <div class="desc">Moisture-mitigating basecoat for below-grade slabs. Low-VOC formulation safe for occupied homes.</div>
+        <div class="stat-row"><span>$7&ndash;10 / ft&sup2;</span><span>1&ndash;2 days</span></div>
+        <div class="more">Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+      <a href="/metallic-epoxy-floors" class="svc-card">
+        <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 010 18M3 12h18"/></svg>
+        <h3>Metallic epoxy</h3>
+        <div class="desc">Hand-troweled metallic pigment, swirled and cleared. For statement showrooms and heated garages.</div>
+        <div class="stat-row"><span>$14&ndash;22 / ft&sup2;</span><span>2 days</span></div>
+        <div class="more">Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section section-dark">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:64px">
+      <div>
+        <div class="kicker">The Ironside System</div>
+        <h2 class="h1 mt-2" style="max-width:20ch">Five steps. One day. One truck off the slab by 8am.</h2>
+      </div>
+      <div class="mono" style="color:var(--color-iron-500);font-size:11px;letter-spacing:.14em;text-transform:uppercase">08:00 &mdash; 16:00 &middot; Same day</div>
+    </div>
+    <div class="proc">
+      <div class="proc-step">
+        <div class="thumb"></div>
+        <div class="num">STEP 01 &middot; 08:00</div>
+        <div class="title">Moisture test + diamond grind</div>
+        <div class="desc">Calcium-chloride moisture read. Then two passes with a 30hp planetary grinder &mdash; no acid, no shortcuts.</div>
+      </div>
+      <div class="proc-step">
+        <div class="thumb"></div>
+        <div class="num">STEP 02 &middot; 09:30</div>
+        <div class="title">Crack + joint repair</div>
+        <div class="desc">Polyurea crack-chase fill. Expansion joints honored or hard-filled per your call. Every crack documented in photos.</div>
+      </div>
+      <div class="proc-step">
+        <div class="thumb"></div>
+        <div class="num">STEP 03 &middot; 11:00</div>
+        <div class="title">Polyaspartic basecoat</div>
+        <div class="desc">Pigmented polyaspartic pour at 12 mil wet. Roller-applied by two techs &mdash; one leads, one back-rolls for even lay-down.</div>
+      </div>
+      <div class="proc-step">
+        <div class="thumb"></div>
+        <div class="num">STEP 04 &middot; 12:30</div>
+        <div class="title">Full flake broadcast</div>
+        <div class="desc">Vinyl decorative flake, broadcast to rejection &mdash; 100% coverage. Scraped flush once the basecoat grabs.</div>
+      </div>
+      <div class="proc-step">
+        <div class="thumb"></div>
+        <div class="num">STEP 05 &middot; 15:00</div>
+        <div class="title">Aliphatic topcoat</div>
+        <div class="desc">Clear polyaspartic topcoat. UV stable. Cures hard in 2 hours, walkable at 18:00. Park next morning.</div>
+      </div>
+    </div>
+    <div class="meta-rule"><span>Crew of two</span><span class="sep"></span><span>Photo updates every step</span><span class="sep"></span><span>Post-install care package delivered</span></div>
+  </div>
+</section>
+
+<!-- WHY IRONSIDE STATS -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:64px">
+      <div class="kicker plain" style="justify-content:center;display:inline-flex">Why Ironside</div>
+      <h2 class="h1 mt-2" style="max-width:22ch;margin:16px auto 0">Three numbers you won't hear from a franchise.</h2>
+    </div>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="num">1<span style="font-size:40px;letter-spacing:0;font-weight:600">DAY</span></div>
+        <div class="label">Install window</div>
+        <div class="desc">Drop your truck off the slab at 8am. Park back on it the next morning. Franchises quote 2&ndash;4 days because they subcontract grinding.</div>
+      </div>
+      <div class="stat" style="background:var(--color-iron-950);color:var(--fg-inverse)">
+        <div class="num" style="color:var(--fg-inverse)">&infin;</div>
+        <div class="label">Lifetime warranty</div>
+        <div class="desc" style="color:var(--color-iron-300)">Transferable to the next homeowner. Iron-Clad Warranty covers the coating system for as long as you own the house &mdash; or the next owner does.</div>
+      </div>
+      <div class="stat">
+        <div class="num">0<span style="font-size:40px;letter-spacing:0;font-weight:600">ETCH</span></div>
+        <div class="label">Acid-etched floors</div>
+        <div class="desc">Every Ironside floor is diamond-ground. Acid weakens the substrate and traps moisture. We don't cut that corner &mdash; ever.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREAS -->
+<section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+  <div class="container">
+    <div class="split-64" style="align-items:start">
+      <div>
+        <div class="kicker">Service areas</div>
+        <h2 class="h1 mt-2" style="max-width:18ch">Oakville-based. Tight radius. Deep local knowledge.</h2>
+        <p class="lede mt-2">We service a 40-minute radius around Oakville &mdash; Burlington, Milton, Hamilton, Ancaster, Stoney Creek, and West Mississauga.</p>
+        <a href="/service-areas" class="btn btn-md btn-secondary mt-4">See all service areas
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div>
+        <div style="aspect-ratio:4/3;background:var(--color-iron-950);border:1px solid var(--color-iron-800);position:relative;overflow:hidden">
+          <svg viewBox="0 0 400 300" style="width:100%;height:100%">
+            <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0L0 20" fill="none" stroke="#1F2428" stroke-width="0.5"/></pattern></defs>
+            <rect width="400" height="300" fill="#0B0D10"/><rect width="400" height="300" fill="url(#grid)"/>
+            <path d="M0 200 Q100 210 200 205 Q300 200 400 210 L400 300 L0 300 Z" fill="#131619"/>
+            <text x="200" y="270" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#6B7278" letter-spacing="2">LAKE ONTARIO</text>
+            <circle cx="200" cy="160" r="110" fill="none" stroke="#D95F1F" stroke-width="1" stroke-dasharray="3 4" opacity="0.5"/>
+            <g font-family="JetBrains Mono" font-size="10" fill="#F4F3EF">
+              <circle cx="200" cy="160" r="6" fill="#D95F1F"/><text x="212" y="163" font-weight="600">Oakville</text>
+              <circle cx="140" cy="165" r="3" fill="#E87A41"/><text x="130" y="180" text-anchor="middle" fill="#B8BCC0">Burlington</text>
+              <circle cx="175" cy="110" r="3" fill="#E87A41"/><text x="175" y="100" text-anchor="middle" fill="#B8BCC0">Milton</text>
+              <circle cx="90" cy="175" r="3" fill="#E87A41"/><text x="78" y="190" text-anchor="middle" fill="#B8BCC0">Hamilton</text>
+              <circle cx="105" cy="140" r="3" fill="#E87A41"/><text x="95" y="130" text-anchor="middle" fill="#B8BCC0">Ancaster</text>
+              <circle cx="265" cy="150" r="3" fill="#E87A41"/><text x="275" y="153" fill="#B8BCC0">Mississauga</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY PREVIEW -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:48px">
+      <div>
+        <div class="kicker">Recent work</div>
+        <h2 class="h1 mt-2">Before. After. Same afternoon.</h2>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div>
+        <div class="ba">
+          <div class="pane" style="background:#6B7278"><span class="tag">Before</span></div>
+          <div class="pane" style="background:radial-gradient(ellipse at 40% 30%, #2E353B, #0B0D10)"><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
+        </div>
+        <div class="mono mt-2" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);display:flex;justify-content:space-between"><span>Glen Abbey &middot; Oakville</span><span>Mar 2026</span></div>
+      </div>
+      <div>
+        <div class="ba">
+          <div class="pane" style="background:#8a8f94"><span class="tag">Before</span></div>
+          <div class="pane" style="background:radial-gradient(ellipse at 50% 30%, #2E353B, #0B0D10)"><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
+        </div>
+        <div class="mono mt-2" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);display:flex;justify-content:space-between"><span>Shoreacres &middot; Burlington</span><span>Feb 2026</span></div>
+      </div>
+      <div>
+        <div class="ba">
+          <div class="pane" style="background:#6B7278"><span class="tag">Before</span></div>
+          <div class="pane" style="background:radial-gradient(ellipse at 60% 40%, #2E353B, #0B0D10)"><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
+        </div>
+        <div class="mono mt-2" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);display:flex;justify-content:space-between"><span>Bronte &middot; Oakville</span><span>Jan 2026</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING PREVIEW -->
+<section class="section section-dark">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:64px">
+      <div class="kicker plain" style="justify-content:center;display:inline-flex">Pricing preview</div>
+      <h2 class="h1 mt-2" style="max-width:20ch;margin:16px auto 0">Three tiers. One standard. Honest pricing.</h2>
+    </div>
+    <div class="tier-grid">
+      <div class="tier">
+        <div class="tier-name">Essential</div>
+        <div class="pos">Single-car garage, clean slab, 1-color full broadcast.</div>
+        <div class="price">$5&ndash;6<span style="font-size:14px;letter-spacing:.1em;margin-left:6px">/ ft&sup2;</span></div>
+        <div class="price-sub">Starts at $2,500</div>
+        <ul class="feat">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Diamond grind prep</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>100% solids epoxy basecoat</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Urethane topcoat</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>5-year warranty</li>
+        </ul>
+        <a class="btn btn-md btn-ghost cta" href="/pricing">See details</a>
+      </div>
+      <div class="tier highlight">
+        <div class="tier-flag">Most installed</div>
+        <div class="tier-name">Standard</div>
+        <div class="pos">Polyaspartic system, full-flake, 2-car garage, most popular.</div>
+        <div class="price">$7&ndash;9<span style="font-size:14px;letter-spacing:.1em;margin-left:6px">/ ft&sup2;</span></div>
+        <div class="price-sub">Starts at $4,200</div>
+        <ul class="feat">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Everything in Essential</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Polyaspartic basecoat + topcoat</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Full-broadcast vinyl flake</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>15-year warranty</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>1-day install</li>
+        </ul>
+        <a class="btn btn-md btn-primary cta" href="/quote">Get my quote</a>
+      </div>
+      <div class="tier premium">
+        <div class="tier-badge">Ironside Premium</div>
+        <div class="tier-name">Premium</div>
+        <div class="pos">Iron-Clad Warranty, 2-coat topcoat, custom flake blend.</div>
+        <div class="price">$10&ndash;16<span style="font-size:14px;letter-spacing:.1em;margin-left:6px">/ ft&sup2;</span></div>
+        <div class="price-sub">Starts at $6,800</div>
+        <ul class="feat">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Everything in Standard</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Custom flake blend (8+ colors)</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Double aliphatic topcoat</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Iron-Clad Lifetime Warranty</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Post-install care kit</li>
+        </ul>
+        <a class="btn btn-md btn-inverse cta" href="/quote">Book consult</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:48px">
+      <div>
+        <div class="kicker">What neighbors say</div>
+        <h2 class="h1 mt-2">Verified reviews from GTA West.</h2>
+      </div>
+      <div class="mono" style="font-size:13px;color:var(--fg2)"><strong style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--fg1);letter-spacing:-.02em">5.0</strong> &middot; 47 reviews &middot; Google</div>
+    </div>
+    <div class="rev-grid">
+      <div class="rev">
+        <div class="stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg></div>
+        <p class="q">"Three quotes came in between $8K and $14K. Ironside was the highest and the only one that moisture-tested. Two years in, no hot-tire marks. Worth it."</p>
+        <div class="who"><span class="name">Marcus L.</span><span>Oakville &middot; Glen Abbey</span></div>
+      </div>
+      <div class="rev">
+        <div class="stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg></div>
+        <p class="q">"Truck off the floor at 8, crew gone by 5, parked on it Tuesday. They sent photos of every step. Best contractor experience I've had in twenty years of home ownership."</p>
+        <div class="who"><span class="name">Diane K.</span><span>Burlington &middot; Shoreacres</span></div>
+      </div>
+      <div class="rev">
+        <div class="stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg></div>
+        <p class="q">"Salam showed up for the consult in a clean truck with a sample kit. Explained why he wouldn't do acid etch. That's the moment I signed. Floor's flawless eighteen months later."</p>
+        <div class="who"><span class="name">Jim R.</span><span>Ancaster &middot; Meadowlands</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100)">
+  <div class="container-narrow">
+    <div class="kicker">Common questions</div>
+    <h2 class="h1 mt-2 mb-6">What homeowners ask before booking.</h2>
+    <div class="faq">
+      <details open>
+        <summary><span>How long does an Ironside floor take to install?</span><span class="chev">+</span></summary>
+        <div class="a"><p>One day for a standard 2-car garage. Grinding starts at 8am, final topcoat lays down around 3pm, walkable by 6pm, parkable the next morning. For 3-car garages or heavy prep, we schedule one and a half days.</p></div>
+      </details>
+      <details>
+        <summary><span>Is polyaspartic really better than epoxy?</span><span class="chev">+</span></summary>
+        <div class="a"><p>For cure speed, UV stability, and hot-tire resistance, yes. For raw chemical resistance, it's a wash. We install both &mdash; we'll recommend epoxy when it's the right call.</p></div>
+      </details>
+      <details>
+        <summary><span>What does "lifetime warranty" actually cover?</span><span class="chev">+</span></summary>
+        <div class="a"><p>The coating system itself &mdash; adhesion, delamination, hot-tire pickup, UV yellowing. Transferable one time to a subsequent homeowner. Full written document handed over at project close.</p></div>
+      </details>
+      <details>
+        <summary><span>Do you acid-etch?</span><span class="chev">+</span></summary>
+        <div class="a"><p>No. Acid weakens the top layer of concrete and traps moisture vapor under the coating. Every floor we install is diamond-ground to CSP-2 or CSP-3.</p></div>
+      </details>
+      <details>
+        <summary><span>Do you service my city?</span><span class="chev">+</span></summary>
+        <div class="a"><p>We're Oakville-based and service Burlington, Milton, Hamilton, Ancaster, Stoney Creek, and West Mississauga. Outside this radius we'll refer you to a vetted partner.</p></div>
+      </details>
+      <details>
+        <summary><span>Can I see samples before I commit?</span><span class="chev">+</span></summary>
+        <div class="a"><p>Yes &mdash; every in-home consult includes a physical sample kit with the 8 most-requested flake blends. You pick the floor with your actual lighting and cabinetry in view.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-band-inner">
+      <div>
+        <div class="kicker">Ready when you are</div>
+        <h2 class="h1 mt-2" style="max-width:18ch">Get a quote in one business day.</h2>
+        <p class="lede mt-2" style="color:var(--color-iron-300);max-width:56ch">Tell us the slab size, timeline, and a photo or two. We'll come back within one business day with tier recommendations and a firm install window.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-end">
+        <a href="/quote" class="btn btn-lg btn-primary" style="min-width:260px">Get my free quote
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="tel:9055550174" class="btn btn-lg btn-ghost-dark" style="min-width:260px">905 &middot; 555 &middot; 0174</a>
+        <div class="mono" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-iron-500)">Mon&ndash;Sat &middot; 7a&ndash;7p</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</Ironside>
 
 <style>
-	.home-content {
-		max-width: var(--wide-width);
-		margin: 0 auto;
-		padding: var(--spacing-16) var(--spacing-6);
-	}
-
-	/* Featured Section - Side by side */
-	.featured-section {
-		margin-bottom: var(--spacing-16);
-	}
-
-	.featured-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-8);
-		align-items: center;
-	}
-
-	.featured-image-link {
-		grid-column: 1 / 3;
-		display: block;
-		/* Extend to viewport edge, but cap at -6rem minimum extension */
-		margin-left: min(
-			-6rem,
-			calc(-1 * (var(--spacing-6) + (100vw - var(--wide-width)) / 2))
-		);
-	}
-
-	.featured-image {
-		overflow: hidden;
-		border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-		background: var(--color-surface);
-	}
-
-	.featured-image img {
-		width: 100%;
-		height: auto;
-		aspect-ratio: 4 / 3;
-		object-fit: cover;
-		transition: transform 0.4s ease;
-	}
-
-	.featured-image-link:hover .featured-image img,
-	.featured-grid:has(.featured-title-link:hover) .featured-image img {
-		transform: scale(1.02);
-	}
-
-	.featured-content {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-4);
-	}
-
-	.featured-meta {
-		display: flex;
-		align-items: center;
-		flex-wrap: wrap;
-		column-gap: var(--spacing-3);
-		row-gap: var(--spacing-1);
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
-	}
-
-	.meta-dot {
-		width: 3px;
-		height: 3px;
-		border-radius: 50%;
-		background: var(--color-muted);
-	}
-
-	/* Featured bylines */
-	.featured-bylines {
-		display: flex;
-		align-items: center;
-		gap: 2px;
-	}
-
-	.featured-byline {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--spacing-2);
-	}
-
-	.featured-byline-avatar {
-		width: var(--avatar-size-md);
-		height: var(--avatar-size-md);
-		border-radius: 50%;
-		object-fit: cover;
-	}
-
-	.featured-byline-name {
-		font-weight: 500;
-		color: var(--color-text-secondary);
-	}
-
-	.byline-sep {
-		color: var(--color-muted);
-		margin-right: 2px;
-	}
-
-	.byline-more {
-		font-size: var(--font-size-xs);
-		color: var(--color-muted);
-		margin-left: 2px;
-	}
-
-	.featured-title-link {
-		text-decoration: none;
-		color: inherit;
-	}
-
-	.featured-title {
-		font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-4xl));
-		font-weight: 700;
-		line-height: var(--leading-tight);
-		letter-spacing: var(--tracking-tight);
-		transition: color var(--transition-fast);
-	}
-
-	.featured-title-link:hover .featured-title,
-	.featured-grid:has(.featured-image-link:hover) .featured-title {
-		color: var(--color-accent);
-	}
-
-	.featured-excerpt {
-		font-size: var(--font-size-lg);
-		line-height: var(--leading-relaxed);
-		color: var(--color-text-secondary);
-	}
-
-	.featured-tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--spacing-2);
-		margin-top: var(--spacing-2);
-	}
-
-	.featured-tag {
-		display: inline-block;
-		padding: var(--spacing-1) var(--spacing-3);
-		font-size: var(--font-size-sm);
-		color: var(--color-text-secondary);
-		background: var(--color-surface);
-		border-radius: var(--radius);
-		text-decoration: none;
-		transition:
-			color var(--transition-fast),
-			background var(--transition-fast);
-	}
-
-	.featured-tag:hover {
-		color: var(--color-text);
-		background: var(--color-border);
-	}
-
-	/* Section header */
-	.section-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		margin-bottom: var(--spacing-8);
-		padding-bottom: var(--spacing-4);
-		border-bottom: 1px solid var(--color-border-subtle);
-	}
-
-	.section-title {
-		font-size: var(--font-size-sm);
-		font-weight: 500;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wider);
-		color: var(--color-muted);
-	}
-
-	.section-link {
-		font-size: var(--font-size-sm);
-		color: var(--color-accent);
-		text-decoration: none;
-		transition: color var(--transition-fast);
-	}
-
-	.section-link:hover {
-		color: var(--color-accent-hover);
-	}
-
-	/* Posts Grid */
-	.posts-section {
-	}
-
-	.posts-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-12) var(--spacing-8);
-	}
-
-	/* Empty State */
-	.empty-state {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: var(--spacing-3);
-		text-align: center;
-		padding: var(--spacing-20) var(--spacing-6);
-		max-width: 400px;
-		margin: 0 auto;
-	}
-
-	.empty-state h2 {
-		font-size: var(--font-size-2xl);
-		font-weight: 600;
-	}
-
-	.empty-state p {
-		color: var(--color-muted);
-	}
-
-	.btn {
-		display: inline-block;
-		margin-top: var(--spacing-4);
-		padding: var(--spacing-3) var(--spacing-6);
-		background: var(--color-accent);
-		color: var(--color-on-accent);
-		text-decoration: none;
-		border-radius: var(--radius);
-		font-size: var(--font-size-sm);
-		font-weight: 500;
-		transition: background var(--transition-fast);
-	}
-
-	.btn:hover {
-		background: var(--color-accent-hover);
-	}
-
-	/* Responsive */
-	@media (max-width: 900px) {
-		.home-content {
-			padding: var(--spacing-6) var(--spacing-4) var(--spacing-12);
-		}
-
-		.featured-image-link {
-			margin-left: 0;
-		}
-
-		.featured-grid {
-			grid-template-columns: 1fr;
-			gap: var(--spacing-6);
-		}
-
-		.featured-image {
-			border-radius: var(--radius-lg);
-		}
-
-		.featured-image img {
-			aspect-ratio: 16 / 9;
-		}
-
-		.posts-grid {
-			grid-template-columns: repeat(2, 1fr);
-			gap: var(--spacing-8) var(--spacing-6);
-		}
-	}
-
-	@media (max-width: 600px) {
-		.featured-title {
-			font-size: var(--font-size-2xl);
-		}
-
-		.posts-grid {
-			grid-template-columns: 1fr;
-			gap: var(--spacing-8);
-		}
-	}
+  @media (max-width: 1024px) {
+    .hero-inner[style*="grid-template-columns:7fr"] {
+      grid-template-columns: 1fr !important;
+      min-height: auto !important;
+    }
+    .hero-inner[style*="grid-template-columns:7fr"] > div:last-child {
+      display: none;
+    }
+  }
 </style>

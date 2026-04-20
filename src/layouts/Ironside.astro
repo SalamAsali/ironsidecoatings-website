@@ -1,0 +1,161 @@
+---
+import { getSiteSettings } from "emdash";
+import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
+import { createPublicPageContext } from "emdash/page";
+import { Font } from "astro:assets";
+import "../styles/ironside.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  heroType?: "dark" | "light";
+  robots?: string;
+}
+
+const { title, description, heroType = "dark", robots } = Astro.props;
+const fullTitle = `${title} — Ironside Coatings`;
+
+const pageCtx = createPublicPageContext({
+  Astro,
+  kind: "custom",
+  pageType: "website",
+  title: fullTitle,
+  pageTitle: title,
+  description,
+  siteName: "Ironside Coatings",
+  seo: { robots },
+});
+
+const isLoggedIn = !!Astro.locals.user;
+const navClass = heroType === "light" ? "ironside-nav nav-light" : "ironside-nav";
+const logoFill = heroType === "light" ? "#0B0D10" : "#F4F3EF";
+const subColor = heroType === "light" ? "var(--color-iron-500)" : "var(--color-iron-300)";
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <Font cssVariable="--font-display-loaded" preload />
+  <Font cssVariable="--font-sans" />
+  <Font cssVariable="--font-mono" />
+  <title>{fullTitle}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <EmDashHead page={pageCtx} />
+</head>
+<body>
+  <EmDashBodyStart page={pageCtx} />
+
+  <!-- NAV -->
+  <nav class={navClass}>
+    <a class="nav-logo" href="/">
+      <svg class="mark" viewBox="0 0 220 140">
+        <g fill={logoFill}>
+          <path d="M 30 28 L 170 28 L 195 42 L 195 54 L 170 54 L 170 62 L 30 62 Z"/>
+          <polygon points="60,62 140,62 135,100 65,100"/>
+          <path d="M 35 100 L 165 100 L 180 122 L 20 122 Z"/>
+        </g>
+        <rect x="97" y="72" width="6" height="20" fill="#D95F1F"/>
+      </svg>
+      <div class="wm">
+        <span class="name">IRONSIDE</span>
+        <span class="sub" style={`color:${subColor}`}>COATINGS</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/polyaspartic-garage-floors">Services</a>
+      <a href="/service-areas">Service areas</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/about">About</a>
+    </div>
+    <div class="nav-right">
+      <a class="nav-phone" href="tel:9055550174">
+        <span class="dot"></span>905 &middot; 555 &middot; 0174
+      </a>
+      <a href="/quote" class="btn btn-sm btn-primary">
+        Get my free quote
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="ironside-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="nav-logo" href="/" style="color:var(--fg-inverse)">
+            <svg class="mark" viewBox="0 0 220 140">
+              <g fill="#F4F3EF">
+                <path d="M 30 28 L 170 28 L 195 42 L 195 54 L 170 54 L 170 62 L 30 62 Z"/>
+                <polygon points="60,62 140,62 135,100 65,100"/>
+                <path d="M 35 100 L 165 100 L 180 122 L 20 122 Z"/>
+              </g>
+              <rect x="97" y="72" width="6" height="20" fill="#D95F1F"/>
+            </svg>
+            <div class="wm">
+              <span class="name">IRONSIDE</span>
+              <span class="sub">COATINGS</span>
+            </div>
+          </a>
+          <p style="font-size:14px;line-height:1.6;color:var(--color-iron-300);margin:20px 0;max-width:30ch">Oakville-owned polyaspartic and epoxy specialists. Built like the iron it's named after.</p>
+          <div class="mono" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-iron-500)">Iron-Clad Warranty &middot; Est. 2026</div>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul>
+            <li><a href="/polyaspartic-garage-floors">Polyaspartic</a></li>
+            <li><a href="/epoxy-garage-floors">Epoxy garage</a></li>
+            <li><a href="/basement-epoxy-flooring">Basement epoxy</a></li>
+            <li><a href="/metallic-epoxy-floors">Metallic epoxy</a></li>
+            <li><a href="/polyaspartic-vs-epoxy">Polyaspartic vs epoxy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Service areas</h5>
+          <ul>
+            <li><a href="/service-areas/oakville">Oakville</a></li>
+            <li><a href="/service-areas/burlington">Burlington</a></li>
+            <li><a href="/service-areas/milton">Milton</a></li>
+            <li><a href="/service-areas/hamilton">Hamilton</a></li>
+            <li><a href="/service-areas/ancaster">Ancaster</a></li>
+            <li><a href="/service-areas/mississauga">Mississauga</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Resources</h5>
+          <ul>
+            <li><a href="/epoxy-garage-floor-cost">Cost guide</a></li>
+            <li><a href="/pricing">Pricing tiers</a></li>
+            <li><a href="/warranty">Warranty</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="tel:9055550174" class="mono">905 &middot; 555 &middot; 0174</a></li>
+            <li><a href="mailto:quote@ironsidecoatings.ca">quote@ironsidecoatings.ca</a></li>
+            <li><a href="/quote">Get a quote</a></li>
+            <li><a href="/about">About Ironside</a></li>
+            <li style="color:var(--color-iron-500);font-size:13px">2285 Speers Rd, Unit 4<br/>Oakville ON L6L 2X8</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Ironside Coatings Inc.</div>
+        <div>Privacy &middot; Terms &middot; Sitemap</div>
+      </div>
+    </div>
+  </footer>
+
+  {isLoggedIn && <a href="/_emdash/admin" style="position:fixed;bottom:16px;right:16px;z-index:1000;background:var(--color-iron-950);color:var(--fg-inverse);padding:8px 12px;font-family:var(--font-mono-brand);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;text-decoration:none">Admin</a>}
+
+  <EmDashBodyEnd page={pageCtx} />
+</body>
+</html>
