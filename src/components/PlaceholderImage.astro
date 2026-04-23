@@ -1,18 +1,20 @@
 ---
 /**
- * Branded placeholder image for Ironside Coatings.
- * Generates an SVG with the iron/molten/copper aesthetic.
- * Replace with real photos when available.
+ * Image slot for Ironside Coatings.
+ * Pass `src` for a real photo (Unsplash or uploaded).
+ * Without `src`, renders a branded SVG placeholder.
  */
 interface Props {
   label: string;
+  src?: string;
+  alt?: string;
   aspect?: string;
   variant?: "dark" | "light" | "warm" | "copper" | "concrete";
   class?: string;
   style?: string;
 }
 
-const { label, aspect = "4/3", variant = "dark", class: className = "", style = "" } = Astro.props;
+const { label, src, alt, aspect = "4/3", variant = "dark", class: className = "", style = "" } = Astro.props;
 
 const variants: Record<string, { bg: string; accent: string; particle: string }> = {
   dark: { bg: "#0B0D10", accent: "#D95F1F", particle: "#B87333" },
@@ -23,6 +25,7 @@ const variants: Record<string, { bg: string; accent: string; particle: string }>
 };
 
 const v = variants[variant] || variants.dark;
+const uid = `ph-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 <div
@@ -30,44 +33,32 @@ const v = variants[variant] || variants.dark;
   style={`aspect-ratio:${aspect};${style}`}
   data-variant={variant}
 >
-  <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <rect width="400" height="300" fill={v.bg} />
-    <rect width="400" height="300" fill="url(#ph-grad)" opacity="0.6" />
-    <!-- Grain texture -->
-    <filter id="ph-noise">
-      <feTurbulence baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-      <feColorMatrix type="saturate" values="0" />
-    </filter>
-    <rect width="400" height="300" filter="url(#ph-noise)" opacity="0.03" />
-    <!-- Glow -->
-    <defs>
-      <radialGradient id="ph-grad" cx="65%" cy="35%" r="50%">
-        <stop offset="0%" stop-color={v.accent} stop-opacity="0.18" />
-        <stop offset="60%" stop-color={v.accent} stop-opacity="0.04" />
-        <stop offset="100%" stop-color={v.bg} stop-opacity="0" />
-      </radialGradient>
-    </defs>
-    <!-- Particles -->
-    <g fill={v.particle} opacity="0.4">
-      <circle cx="80" cy="60" r="1.5" />
-      <circle cx="200" cy="100" r="1.8" />
-      <circle cx="320" cy="80" r="1.3" />
-      <circle cx="140" cy="180" r="1.6" />
-      <circle cx="280" cy="200" r="1.4" />
-      <circle cx="60" cy="240" r="1.5" />
-      <circle cx="350" cy="250" r="1.2" />
-    </g>
-    <g fill={v.accent} opacity="0.25">
-      <circle cx="160" cy="120" r="1" />
-      <circle cx="300" cy="160" r="1.2" />
-      <circle cx="100" cy="200" r="0.8" />
-    </g>
-    <!-- Grid lines -->
-    <g stroke={v.particle} stroke-width="0.5" opacity="0.08">
-      <line x1="0" y1="150" x2="400" y2="150" />
-      <line x1="200" y1="0" x2="200" y2="300" />
-    </g>
-  </svg>
+  {src ? (
+    <img src={src} alt={alt || label} loading="lazy" class="ironside-placeholder-img" />
+  ) : (
+    <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <radialGradient id={`${uid}-g`} cx="65%" cy="35%" r="50%">
+          <stop offset="0%" stop-color={v.accent} stop-opacity="0.18" />
+          <stop offset="60%" stop-color={v.accent} stop-opacity="0.04" />
+          <stop offset="100%" stop-color={v.bg} stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <rect width="400" height="300" fill={v.bg} />
+      <rect width="400" height="300" fill={`url(#${uid}-g)`} opacity="0.6" />
+      <g fill={v.particle} opacity="0.4">
+        <circle cx="80" cy="60" r="1.5" /><circle cx="200" cy="100" r="1.8" />
+        <circle cx="320" cy="80" r="1.3" /><circle cx="140" cy="180" r="1.6" />
+        <circle cx="280" cy="200" r="1.4" /><circle cx="60" cy="240" r="1.5" />
+      </g>
+      <g fill={v.accent} opacity="0.25">
+        <circle cx="160" cy="120" r="1" /><circle cx="300" cy="160" r="1.2" />
+      </g>
+      <g stroke={v.particle} stroke-width="0.5" opacity="0.08">
+        <line x1="0" y1="150" x2="400" y2="150" /><line x1="200" y1="0" x2="200" y2="300" />
+      </g>
+    </svg>
+  )}
   <span class="ironside-placeholder-label">{label}</span>
 </div>
 
@@ -78,24 +69,26 @@ const v = variants[variant] || variants.dark;
     background: var(--color-iron-950);
     border: 1px solid var(--color-iron-800);
   }
-  .ironside-placeholder svg {
+  .ironside-placeholder svg,
+  .ironside-placeholder-img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
   .ironside-placeholder-label {
     position: absolute;
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 1;
     font-family: var(--font-mono-brand);
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-iron-300);
-    background: linear-gradient(180deg, transparent, rgba(11, 13, 16, 0.8));
-    padding: 20px 4px 4px;
+    background: linear-gradient(180deg, transparent, rgba(11, 13, 16, 0.85));
+    padding: 24px 12px 10px;
   }
 </style>
