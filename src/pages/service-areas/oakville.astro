@@ -1,5 +1,6 @@
 ---
 import Ironside from "../../layouts/Ironside.astro";
+import Placeholder from "../../components/PlaceholderImage.astro";
 ---
 
 <Ironside title="Epoxy flooring Oakville" description="Oakville-owned polyaspartic garage floor specialists. 142 installs across 8 neighborhoods. Diamond-ground, 1-day install, lifetime warranty." heroType="dark">
@@ -57,7 +58,7 @@ import Ironside from "../../layouts/Ironside.astro";
         </div>
       </div>
       <div>
-        <div class="placeholder-img" style="aspect-ratio:4/5"><span>Oakville install &middot; Glen Abbey &middot; 04/26</span></div>
+        <Placeholder label="Oakville install &middot; Glen Abbey &middot; 04/26" aspect="4/5" variant="warm" />
       </div>
     </div>
   </div>
@@ -111,12 +112,12 @@ import Ironside from "../../layouts/Ironside.astro";
     <div class="kicker">Recent Oakville installs</div>
     <h2 class="h2 mt-2 mb-8">Six jobs. Six neighborhoods.</h2>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-      <div><div class="placeholder-img" style="aspect-ratio:4/3"><span>Glen Abbey &middot; 04/26 &middot; Premium</span></div></div>
-      <div><div class="placeholder-img" style="aspect-ratio:4/3"><span>Bronte &middot; 03/26 &middot; Standard</span></div></div>
-      <div><div class="placeholder-img" style="aspect-ratio:4/3"><span>Lorne Park &middot; 03/26 &middot; Premium</span></div></div>
-      <div><div class="placeholder-img" style="aspect-ratio:4/3"><span>Uptown Core &middot; 02/26 &middot; Essential</span></div></div>
-      <div><div class="placeholder-img" style="aspect-ratio:4/3"><span>Old Oakville &middot; 02/26 &middot; Premium</span></div></div>
-      <div><div class="placeholder-img" style="aspect-ratio:4/3"><span>Clearview &middot; 01/26 &middot; Standard</span></div></div>
+      <div><Placeholder label="Glen Abbey &middot; 04/26 &middot; Premium" aspect="4/3" variant="copper" /></div>
+      <div><Placeholder label="Bronte &middot; 03/26 &middot; Standard" aspect="4/3" variant="dark" /></div>
+      <div><Placeholder label="Lorne Park &middot; 03/26 &middot; Premium" aspect="4/3" variant="warm" /></div>
+      <div><Placeholder label="Uptown Core &middot; 02/26 &middot; Essential" aspect="4/3" variant="concrete" /></div>
+      <div><Placeholder label="Old Oakville &middot; 02/26 &middot; Premium" aspect="4/3" variant="copper" /></div>
+      <div><Placeholder label="Clearview &middot; 01/26 &middot; Standard" aspect="4/3" variant="light" /></div>
     </div>
   </div>
 </section>

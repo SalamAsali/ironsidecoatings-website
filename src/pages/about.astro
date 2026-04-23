@@ -1,5 +1,6 @@
 ---
 import Ironside from "../layouts/Ironside.astro";
+import Placeholder from "../components/PlaceholderImage.astro";
 ---
 
 <Ironside title="About Ironside Coatings" description="Oakville-owned polyaspartic garage floor specialists. Meet founder Salam Alassali, see our certifications, insurance, and service area." heroType="light">
@@ -27,7 +28,7 @@ import Ironside from "../layouts/Ironside.astro";
         </div>
       </div>
       <div>
-        <div class="placeholder-img" style="aspect-ratio:4/5"><span>Salam Alassali &middot; Owner &middot; Oakville shop</span></div>
+        <Placeholder label="Salam Alassali &middot; Owner &middot; Oakville shop" aspect="4/5" variant="warm" />
       </div>
     </div>
   </div>
@@ -39,7 +40,7 @@ import Ironside from "../layouts/Ironside.astro";
     <div class="kicker">Owner</div>
     <h2 class="h2 mt-2 mb-8" style="max-width:20ch">Salam Alassali.</h2>
     <div style="display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:center">
-      <div class="placeholder-img" style="aspect-ratio:1"><span>Portrait &middot; Salam &middot; 04/26</span></div>
+      <Placeholder label="Portrait &middot; Salam &middot; 04/26" aspect="1" variant="copper" />
       <div>
         <p class="lede" style="max-width:60ch">&ldquo;My rule is simple: I won&rsquo;t sell a floor I wouldn&rsquo;t install at my own house. That means polyaspartic over diamond-ground concrete, moisture-tested first, backed in writing for life. Anything less is someone else&rsquo;s business.&rdquo;</p>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;padding-top:32px;border-top:1px solid var(--border-default)">

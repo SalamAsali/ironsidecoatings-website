@@ -1,5 +1,6 @@
 ---
 import Ironside from "../layouts/Ironside.astro";
+import Placeholder from "../components/PlaceholderImage.astro";
 ---
 
 <Ironside title="Premium polyaspartic garage floors, Oakville" description="Diamond-ground polyaspartic garage floors installed in one day with a lifetime warranty. Oakville-based, serving Burlington, Milton, Hamilton, and Ancaster." heroType="dark">
@@ -147,31 +148,31 @@ import Ironside from "../layouts/Ironside.astro";
     </div>
     <div class="proc">
       <div class="proc-step">
-        <div class="thumb"></div>
+        <Placeholder label="P-01 &middot; Diamond grinder on slab" aspect="4/3" variant="concrete" />
         <div class="num">STEP 01 &middot; 08:00</div>
         <div class="title">Moisture test + diamond grind</div>
         <div class="desc">Calcium-chloride moisture read. Then two passes with a 30hp planetary grinder &mdash; no acid, no shortcuts.</div>
       </div>
       <div class="proc-step">
-        <div class="thumb"></div>
+        <Placeholder label="P-02 &middot; Polyurea crack fill" aspect="4/3" variant="dark" />
         <div class="num">STEP 02 &middot; 09:30</div>
         <div class="title">Crack + joint repair</div>
         <div class="desc">Polyurea crack-chase fill. Expansion joints honored or hard-filled per your call. Every crack documented in photos.</div>
       </div>
       <div class="proc-step">
-        <div class="thumb"></div>
+        <Placeholder label="P-03 &middot; Basecoat roller application" aspect="4/3" variant="warm" />
         <div class="num">STEP 03 &middot; 11:00</div>
         <div class="title">Polyaspartic basecoat</div>
         <div class="desc">Pigmented polyaspartic pour at 12 mil wet. Roller-applied by two techs &mdash; one leads, one back-rolls for even lay-down.</div>
       </div>
       <div class="proc-step">
-        <div class="thumb"></div>
+        <Placeholder label="P-04 &middot; Flake broadcast to rejection" aspect="4/3" variant="copper" />
         <div class="num">STEP 04 &middot; 12:30</div>
         <div class="title">Full flake broadcast</div>
         <div class="desc">Vinyl decorative flake, broadcast to rejection &mdash; 100% coverage. Scraped flush once the basecoat grabs.</div>
       </div>
       <div class="proc-step">
-        <div class="thumb"></div>
+        <Placeholder label="P-05 &middot; Clear topcoat cure" aspect="4/3" variant="light" />
         <div class="num">STEP 05 &middot; 15:00</div>
         <div class="title">Aliphatic topcoat</div>
         <div class="desc">Clear polyaspartic topcoat. UV stable. Cures hard in 2 hours, walkable at 18:00. Park next morning.</div>
@@ -255,22 +256,22 @@ import Ironside from "../layouts/Ironside.astro";
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
       <div>
         <div class="ba">
-          <div class="pane" style="background:#6B7278"><span class="tag">Before</span></div>
-          <div class="pane" style="background:radial-gradient(ellipse at 40% 30%, #2E353B, #0B0D10)"><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
+          <div class="pane"><Placeholder label="BA-01 &middot; Before &middot; cracked slab" aspect="1/1" variant="concrete" /><span class="tag">Before</span></div>
+          <div class="pane"><Placeholder label="BA-01 &middot; After &middot; copper flake" aspect="1/1" variant="copper" /><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
         </div>
         <div class="mono mt-2" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);display:flex;justify-content:space-between"><span>Glen Abbey &middot; Oakville</span><span>Mar 2026</span></div>
       </div>
       <div>
         <div class="ba">
-          <div class="pane" style="background:#8a8f94"><span class="tag">Before</span></div>
-          <div class="pane" style="background:radial-gradient(ellipse at 50% 30%, #2E353B, #0B0D10)"><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
+          <div class="pane"><Placeholder label="BA-02 &middot; Before &middot; stained concrete" aspect="1/1" variant="concrete" /><span class="tag">Before</span></div>
+          <div class="pane"><Placeholder label="BA-02 &middot; After &middot; slate flake" aspect="1/1" variant="dark" /><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
         </div>
         <div class="mono mt-2" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);display:flex;justify-content:space-between"><span>Shoreacres &middot; Burlington</span><span>Feb 2026</span></div>
       </div>
       <div>
         <div class="ba">
-          <div class="pane" style="background:#6B7278"><span class="tag">Before</span></div>
-          <div class="pane" style="background:radial-gradient(ellipse at 60% 40%, #2E353B, #0B0D10)"><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
+          <div class="pane"><Placeholder label="BA-03 &middot; Before &middot; oil-stained" aspect="1/1" variant="concrete" /><span class="tag">Before</span></div>
+          <div class="pane"><Placeholder label="BA-03 &middot; After &middot; charcoal flake" aspect="1/1" variant="warm" /><span class="tag" style="background:var(--accent);color:var(--color-iron-950);border:0">After</span></div>
         </div>
         <div class="mono mt-2" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);display:flex;justify-content:space-between"><span>Bronte &middot; Oakville</span><span>Jan 2026</span></div>
       </div>
