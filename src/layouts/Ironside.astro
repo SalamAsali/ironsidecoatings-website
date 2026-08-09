@@ -10,16 +10,16 @@ import SiteSchema from "../components/SiteSchema.astro";
 import StickyCall from "../components/StickyCall.astro";
 
 interface Props {
-  title: string;
-  description?: string;
-  heroType?: "dark" | "light";
-  robots?: string;
-  /** Absolute or root-relative canonical path. Defaults to the current pathname. */
-  canonical?: string;
+ title: string;
+ description?: string;
+ heroType?: "dark" | "light";
+ robots?: string;
+ /** Absolute or root-relative canonical path. Defaults to the current pathname. */
+ canonical?: string;
 }
 
 const { title, description, heroType = "dark", robots, canonical } = Astro.props;
-const fullTitle = `${title} — Ironside Coatings`;
+const fullTitle = `${title} - Ironside Coatings`;
 
 // Canonical: collapse the trailing slash and any query string so the ~8 live URL
 // variants (http/https x apex/www x slash/no-slash x ?utm_*) all point at one URL.
@@ -28,14 +28,14 @@ const cleanPath = rawPath === "/" ? "/" : rawPath.replace(/\/+$/, "");
 const canonicalUrl = new URL(cleanPath, SITE_URL).href;
 
 const pageCtx = createPublicPageContext({
-  Astro,
-  kind: "custom",
-  pageType: "website",
-  title: fullTitle,
-  pageTitle: title,
-  description,
-  siteName: "Ironside Coatings",
-  seo: { robots },
+ Astro,
+ kind: "custom",
+ pageType: "website",
+ title: fullTitle,
+ pageTitle: title,
+ description,
+ siteName: "Ironside Coatings",
+ seo: { robots },
 });
 
 const isLoggedIn = !!Astro.locals.user;
@@ -47,130 +47,130 @@ const subColor = heroType === "light" ? "var(--color-iron-500)" : "var(--color-i
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <Font cssVariable="--font-display-loaded" preload />
-  <Font cssVariable="--font-sans" />
-  <Font cssVariable="--font-mono" />
-  <title>{fullTitle}</title>
-  <link rel="canonical" href={canonicalUrl} />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <EmDashHead page={pageCtx} />
-  <SiteSchema />
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <Font cssVariable="--font-display-loaded" preload />
+ <Font cssVariable="--font-sans" />
+ <Font cssVariable="--font-mono" />
+ <title>{fullTitle}</title>
+ <link rel="canonical" href={canonicalUrl} />
+ <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+ <EmDashHead page={pageCtx} />
+ <SiteSchema />
 </head>
 <body>
-  <EmDashBodyStart page={pageCtx} />
+ <EmDashBodyStart page={pageCtx} />
 
-  <!-- NAV -->
-  <nav class={navClass}>
-    <a class="nav-logo" href="/">
-      <svg class="mark" viewBox="0 0 220 140">
-        <g fill={logoFill}>
-          <path d="M 30 28 L 170 28 L 195 42 L 195 54 L 170 54 L 170 62 L 30 62 Z"/>
-          <polygon points="60,62 140,62 135,100 65,100"/>
-          <path d="M 35 100 L 165 100 L 180 122 L 20 122 Z"/>
-        </g>
-        <rect x="97" y="72" width="6" height="20" fill="#D95F1F"/>
-      </svg>
-      <div class="wm">
-        <span class="name">IRONSIDE</span>
-        <span class="sub" style={`color:${subColor}`}>COATINGS</span>
-      </div>
-    </a>
-    <div class="nav-links">
-      <div class="nav-drop">
-        <a href="/epoxy-flooring" aria-haspopup="true">
-          Epoxy flooring
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-        </a>
-        <div class="nav-drop-menu">
-          <a href="/epoxy-flooring"><strong>All service areas</strong></a>
-          {CITIES.map((c) => (
-            <a href={`/epoxy-flooring/${c.slug}`}>{c.name}</a>
-          ))}
-          <a href="/service-areas/oakville">Oakville</a>
-        </div>
-      </div>
-      <a href="/polyaspartic-garage-floors">Polyaspartic</a>
-      <a href="/service-areas">Service areas</a>
-      <a href="/about">About</a>
-    </div>
-    <div class="nav-right">
-      <a class="nav-phone" href={`tel:${PHONE_HREF}`}>
-        <span class="dot"></span>{PHONE_DISPLAY}
-      </a>
-      <a href="/quote" class="btn btn-sm btn-primary">
-        Get my free quote
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </nav>
+ <!-- NAV -->
+ <nav class={navClass}>
+ <a class="nav-logo" href="/">
+ <svg class="mark" viewBox="0 0 220 140">
+ <g fill={logoFill}>
+ <path d="M 30 28 L 170 28 L 195 42 L 195 54 L 170 54 L 170 62 L 30 62 Z"/>
+ <polygon points="60,62 140,62 135,100 65,100"/>
+ <path d="M 35 100 L 165 100 L 180 122 L 20 122 Z"/>
+ </g>
+ <rect x="97" y="72" width="6" height="20" fill="#D95F1F"/>
+ </svg>
+ <div class="wm">
+ <span class="name">IRONSIDE</span>
+ <span class="sub" style={`color:${subColor}`}>COATINGS</span>
+ </div>
+ </a>
+ <div class="nav-links">
+ <div class="nav-drop">
+ <a href="/epoxy-flooring" aria-haspopup="true">
+ Epoxy flooring
+ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+ </a>
+ <div class="nav-drop-menu">
+ <a href="/epoxy-flooring"><strong>All service areas</strong></a>
+ {CITIES.map((c) => (
+ <a href={`/epoxy-flooring-${c.slug}`}>{c.name}</a>
+ ))}
+ <a href="/service-areas/oakville">Oakville</a>
+ </div>
+ </div>
+ <a href="/polyaspartic-garage-floors">Polyaspartic</a>
+ <a href="/service-areas">Service areas</a>
+ <a href="/about">About</a>
+ </div>
+ <div class="nav-right">
+ <a class="nav-phone" href={`tel:${PHONE_HREF}`}>
+ <span class="dot"></span>{PHONE_DISPLAY}
+ </a>
+ <a href="/quote" class="btn btn-sm btn-primary">
+ Get my free quote
+ <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+ </a>
+ </div>
+ </nav>
 
-  <main>
-    <slot />
-  </main>
+ <main>
+ <slot />
+ </main>
 
-  <!-- FOOTER -->
-  <footer class="ironside-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <a class="nav-logo" href="/" style="color:var(--fg-inverse)">
-            <svg class="mark" viewBox="0 0 220 140">
-              <g fill="#F4F3EF">
-                <path d="M 30 28 L 170 28 L 195 42 L 195 54 L 170 54 L 170 62 L 30 62 Z"/>
-                <polygon points="60,62 140,62 135,100 65,100"/>
-                <path d="M 35 100 L 165 100 L 180 122 L 20 122 Z"/>
-              </g>
-              <rect x="97" y="72" width="6" height="20" fill="#D95F1F"/>
-            </svg>
-            <div class="wm">
-              <span class="name">IRONSIDE</span>
-              <span class="sub">COATINGS</span>
-            </div>
-          </a>
-          <p style="font-size:14px;line-height:1.6;color:var(--color-iron-300);margin:20px 0;max-width:30ch">Oakville-owned polyaspartic and epoxy specialists. Built like the iron it's named after.</p>
-          <div class="mono" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-iron-500)">Iron-Clad Warranty &middot; Est. 2026</div>
-        </div>
-        <div>
-          <h5>Services</h5>
-          <ul>
-            <li><a href="/epoxy-flooring">Epoxy flooring</a></li>
-            <li><a href="/polyaspartic-garage-floors">Polyaspartic garage floors</a></li>
-            <li><a href="/epoxy-garage-floor-cost">What it costs</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Service areas</h5>
-          <ul>
-            <li><a href="/service-areas/oakville">Oakville</a></li>
-            {CITIES.map((c) => (
-              <li><a href={`/epoxy-flooring/${c.slug}`}>{c.name}</a></li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h5>Contact</h5>
-          <ul>
-            <li><a href={`tel:${PHONE_HREF}`} class="mono">{PHONE_DISPLAY}</a></li>
-            <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
-            <li><a href="/quote">Get a quote</a></li>
-            <li><a href="/about">About Ironside</a></li>
-            <li style="color:var(--color-iron-500);font-size:13px">2285 Speers Rd, Unit 4<br/>Oakville ON L6L 2X8</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div>&copy; 2026 Ironside Coatings Inc.</div>
-        <div><a href="/sitemap-index.xml">Sitemap</a></div>
-      </div>
-    </div>
-  </footer>
+ <!-- FOOTER -->
+ <footer class="ironside-footer">
+ <div class="container">
+ <div class="footer-grid">
+ <div>
+ <a class="nav-logo" href="/" style="color:var(--fg-inverse)">
+ <svg class="mark" viewBox="0 0 220 140">
+ <g fill="#F4F3EF">
+ <path d="M 30 28 L 170 28 L 195 42 L 195 54 L 170 54 L 170 62 L 30 62 Z"/>
+ <polygon points="60,62 140,62 135,100 65,100"/>
+ <path d="M 35 100 L 165 100 L 180 122 L 20 122 Z"/>
+ </g>
+ <rect x="97" y="72" width="6" height="20" fill="#D95F1F"/>
+ </svg>
+ <div class="wm">
+ <span class="name">IRONSIDE</span>
+ <span class="sub">COATINGS</span>
+ </div>
+ </a>
+ <p style="font-size:14px;line-height:1.6;color:var(--color-iron-300);margin:20px 0;max-width:30ch">Oakville-owned polyaspartic and epoxy specialists. Built like the iron it's named after.</p>
+ <div class="mono" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-iron-500)">Iron-Clad Warranty &middot; Est. 2026</div>
+ </div>
+ <div>
+ <h5>Services</h5>
+ <ul>
+ <li><a href="/epoxy-flooring">Epoxy flooring</a></li>
+ <li><a href="/polyaspartic-garage-floors">Polyaspartic garage floors</a></li>
+ <li><a href="/epoxy-garage-floor-cost">What it costs</a></li>
+ </ul>
+ </div>
+ <div>
+ <h5>Service areas</h5>
+ <ul>
+ <li><a href="/service-areas/oakville">Oakville</a></li>
+ {CITIES.map((c) => (
+ <li><a href={`/epoxy-flooring-${c.slug}`}>{c.name}</a></li>
+ ))}
+ </ul>
+ </div>
+ <div>
+ <h5>Contact</h5>
+ <ul>
+ <li><a href={`tel:${PHONE_HREF}`} class="mono">{PHONE_DISPLAY}</a></li>
+ <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+ <li><a href="/quote">Get a quote</a></li>
+ <li><a href="/about">About Ironside</a></li>
+ <li style="color:var(--color-iron-500);font-size:13px">2285 Speers Rd, Unit 4<br/>Oakville ON L6L 2X8</li>
+ </ul>
+ </div>
+ </div>
+ <div class="footer-bottom">
+ <div>&copy; 2026 Ironside Coatings Inc.</div>
+ <div><a href="/sitemap-index.xml">Sitemap</a></div>
+ </div>
+ </div>
+ </footer>
 
-  <StickyCall />
+ <StickyCall />
 
-  {isLoggedIn && <a href="/_emdash/admin" style="position:fixed;bottom:16px;right:16px;z-index:1000;background:var(--color-iron-950);color:var(--fg-inverse);padding:8px 12px;font-family:var(--font-mono-brand);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;text-decoration:none">Admin</a>}
+ {isLoggedIn && <a href="/_emdash/admin" style="position:fixed;bottom:16px;right:16px;z-index:1000;background:var(--color-iron-950);color:var(--fg-inverse);padding:8px 12px;font-family:var(--font-mono-brand);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;text-decoration:none">Admin</a>}
 
-  <EmDashBodyEnd page={pageCtx} />
+ <EmDashBodyEnd page={pageCtx} />
 </body>
 </html>

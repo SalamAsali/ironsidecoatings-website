@@ -6,41 +6,41 @@
  * drift apart - Google requires the marked-up answer to match what the user sees.
  */
 export interface Faq {
-  q: string;
-  a: string;
+ q: string;
+ a: string;
 }
 interface Props {
-  faqs: Faq[];
-  heading?: string;
-  city: string;
+ faqs: Faq[];
+ heading?: string;
+ city: string;
 }
 const { faqs, heading, city } = Astro.props;
 
 const schema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ mainEntity: faqs.map((f) => ({
+ "@type": "Question",
+ name: f.q,
+ acceptedAnswer: { "@type": "Answer", text: f.a },
+ })),
 };
 ---
 <section class="section section-sm">
-  <div class="container-narrow">
-    <div class="kicker">Questions from {city}</div>
-    <h2 class="h2 mt-2">{heading ?? `Epoxy flooring in ${city} — straight answers`}</h2>
-    <div class="faq-list">
-      {faqs.map((f) => (
-        <details class="faq-item">
-          <summary>
-            <span>{f.q}</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p class="p">{f.a}</p>
-        </details>
-      ))}
-    </div>
-  </div>
+ <div class="container-narrow">
+ <div class="kicker">Questions from {city}</div>
+ <h2 class="h2 mt-2">{heading ?? `Epoxy flooring in ${city} - straight answers`}</h2>
+ <div class="faq-list">
+ {faqs.map((f) => (
+ <details class="faq-item">
+ <summary>
+ <span>{f.q}</span>
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+ </summary>
+ <p class="p">{f.a}</p>
+ </details>
+ ))}
+ </div>
+ </div>
 </section>
 <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

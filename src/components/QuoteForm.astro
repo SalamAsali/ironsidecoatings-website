@@ -4,49 +4,49 @@
  * The phone is the primary CTA everywhere; this form is deliberately secondary.
  */
 interface Props {
-  heading?: string;
-  sub?: string;
-  city?: string;
-  compact?: boolean;
+ heading?: string;
+ sub?: string;
+ city?: string;
+ compact?: boolean;
 }
 const {
-  heading = "Get your free quote",
-  sub = "Measured quote, fixed price, no sales visit required.",
-  city,
-  compact = false,
+ heading = "Get your free quote",
+ sub = "Measured quote, fixed price, no sales visit required.",
+ city,
+ compact = false,
 } = Astro.props;
 ---
 
 <form class="quote-form" method="post" action="/quote" data-city={city}>
-  <div class="qf-head">
-    <div class="kicker">{compact ? "Free quote" : "Book a slab assessment"}</div>
-    <h3 class="h3 mt-2">{heading}</h3>
-    <p class="p qf-sub">{sub}</p>
-  </div>
+ <div class="qf-head">
+ <div class="kicker">{compact ? "Free quote" : "Book a slab assessment"}</div>
+ <h3 class="h3 mt-2">{heading}</h3>
+ <p class="p qf-sub">{sub}</p>
+ </div>
 
-  <label class="qf-field">
-    <span>Name</span>
-    <input type="text" name="name" autocomplete="name" required placeholder="Your name" />
-  </label>
+ <label class="qf-field">
+ <span>Name</span>
+ <input type="text" name="name" autocomplete="name" required placeholder="Your name" />
+ </label>
 
-  <label class="qf-field">
-    <span>Phone</span>
-    <input type="tel" name="phone" autocomplete="tel" required placeholder="(905) 000-0000" />
-  </label>
+ <label class="qf-field">
+ <span>Phone</span>
+ <input type="tel" name="phone" autocomplete="tel" required placeholder="(905) 000-0000" />
+ </label>
 
-  <label class="qf-field">
-    <span>Email</span>
-    <input type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
-  </label>
+ <label class="qf-field">
+ <span>Email</span>
+ <input type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
+ </label>
 
-  {city && <input type="hidden" name="city" value={city} />}
+ {city && <input type="hidden" name="city" value={city} />}
 
-  <button type="submit" class="btn btn-lg btn-primary qf-submit">
-    Get my free quote
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-  </button>
+ <button type="submit" class="btn btn-lg btn-primary qf-submit">
+ Get my free quote
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+ </button>
 
-  <p class="qf-fine">
-    Prefer to talk it through? Calling is faster &mdash; most quotes are settled in one call.
-  </p>
+ <p class="qf-fine">
+ Prefer to talk it through? Calling is faster - most quotes are settled in one call.
+ </p>
 </form>

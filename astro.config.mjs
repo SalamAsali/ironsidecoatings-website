@@ -11,6 +11,16 @@ export default defineConfig({
 	// Required for canonical URLs and for @astrojs/sitemap to emit absolute URLs.
 	// Its absence is why the live site currently has no canonical tag on any page.
 	site: "https://ironsidecoatings.ca",
+	// City pages moved from /epoxy-flooring/<city> to flat /epoxy-flooring-<city>.
+	// The nested URLs were live for about an hour, so they 301 rather than 404.
+	redirects: {
+		"/epoxy-flooring/toronto": { status: 301, destination: "/epoxy-flooring-toronto" },
+		"/epoxy-flooring/mississauga": { status: 301, destination: "/epoxy-flooring-mississauga" },
+		"/epoxy-flooring/brampton": { status: 301, destination: "/epoxy-flooring-brampton" },
+		"/epoxy-flooring/hamilton": { status: 301, destination: "/epoxy-flooring-hamilton" },
+		"/epoxy-flooring/vaughan": { status: 301, destination: "/epoxy-flooring-vaughan" },
+		"/epoxy-flooring/milton": { status: 301, destination: "/epoxy-flooring-milton" },
+	},
 	output: "server",
 	adapter: cloudflare(),
 	image: {
