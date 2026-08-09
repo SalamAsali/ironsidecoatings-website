@@ -1,8 +1,9 @@
 ---
 import Ironside from "../layouts/Ironside.astro";
+import { PHONE_HREF, PHONE_DISPLAY } from "../data/site";
 ---
 
-<Ironside title="Epoxy garage floor cost in Ontario" description="Honest pricing for polyaspartic and epoxy garage floor coatings in Ontario. Budget epoxy $5&ndash;6/ft&sup2;, mid polyaspartic $7&ndash;9/ft&sup2;, Ironside premium $10&ndash;16/ft&sup2;. Interactive calculator included." heroType="light">
+<Ironside title="Epoxy garage floor cost in Ontario" description="What actually drives the cost of an epoxy or polyaspartic garage floor in Ontario — slab condition, prep depth, system choice and crew size — and which quotes to be suspicious of." heroType="light">
 
 <!-- HERO -->
 <section class="hero-light" style="padding-top:100px">
@@ -18,21 +19,21 @@ import Ironside from "../layouts/Ironside.astro";
   <div class="container-narrow">
     <div style="background:var(--color-iron-950);color:var(--fg-inverse);padding:48px;border-left:4px solid var(--accent)">
       <div class="kicker" style="color:var(--accent)">TL;DR</div>
-      <h2 class="h2 mt-3" style="color:var(--fg-inverse);max-width:24ch">Expect $5&ndash;16 per square foot installed. The gap is real and explainable.</h2>
+      <h2 class="h2 mt-3" style="color:var(--fg-inverse);max-width:26ch">The spread between quotes is real, and it is explainable.</h2>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px">
         <div style="border-top:1px solid var(--color-iron-800);padding-top:20px">
           <div class="mono" style="font-size:12px;color:var(--color-iron-500);letter-spacing:.1em">BUDGET EPOXY</div>
-          <div class="mono" style="font-size:32px;color:var(--fg-inverse);margin-top:8px">$5&ndash;6</div>
+          <div class="mono" style="font-size:20px;color:var(--fg-inverse);margin-top:8px">Quoted per slab</div>
           <div class="mono" style="font-size:11px;color:var(--color-iron-300);margin-top:4px">/ ft&sup2; &middot; 1&ndash;2 yr warranty</div>
         </div>
         <div style="border-top:1px solid var(--color-iron-800);padding-top:20px">
           <div class="mono" style="font-size:12px;color:var(--color-iron-500);letter-spacing:.1em">MID POLYASPARTIC</div>
-          <div class="mono" style="font-size:32px;color:var(--fg-inverse);margin-top:8px">$7&ndash;9</div>
+          <div class="mono" style="font-size:20px;color:var(--fg-inverse);margin-top:8px">Quoted per slab</div>
           <div class="mono" style="font-size:11px;color:var(--color-iron-300);margin-top:4px">/ ft&sup2; &middot; 5&ndash;15 yr warranty</div>
         </div>
         <div style="border-top:2px solid var(--accent);padding-top:20px">
           <div class="mono" style="font-size:12px;color:var(--accent);letter-spacing:.1em">IRONSIDE PREMIUM</div>
-          <div class="mono" style="font-size:32px;color:var(--fg-inverse);margin-top:8px">$10&ndash;16</div>
+          <div class="mono" style="font-size:20px;color:var(--fg-inverse);margin-top:8px">Quoted per slab</div>
           <div class="mono" style="font-size:11px;color:var(--color-iron-300);margin-top:4px">/ ft&sup2; &middot; lifetime warranty</div>
         </div>
       </div>
@@ -74,7 +75,7 @@ import Ironside from "../layouts/Ironside.astro";
       <div class="card" style="padding:28px">
         <div class="mono" style="font-size:11px;color:var(--accent);letter-spacing:.12em">06</div>
         <div class="h4" style="margin-top:12px">Insurance &amp; licensing</div>
-        <p class="p" style="margin-top:8px;color:var(--fg2)">$5M liability, WSIB coverage, and manufacturer certification add fixed overhead. Uninsured crews can undercut 30&ndash;40%.</p>
+        <p class="p" style="margin-top:8px;color:var(--fg2)">$5M liability, WSIB coverage, and manufacturer certification add fixed overhead. Uninsured crews undercut on price because they are carrying none of it.</p>
       </div>
     </div>
   </div>
@@ -109,8 +110,8 @@ import Ironside from "../layouts/Ironside.astro";
       </div>
       <div style="text-align:center;border-left:1px solid var(--color-iron-800);padding-left:48px">
         <div class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--color-iron-300)">BALLPARK RANGE</div>
-        <div id="est" class="mono" style="font-size:56px;color:var(--fg-inverse);margin-top:8px;line-height:1;letter-spacing:-.02em">$3,300 &ndash; $3,700</div>
-        <div id="rate" class="mono" style="font-size:13px;color:var(--accent);margin-top:12px">$7.50&ndash;$8.50 / ft&sup2; &middot; 440 ft&sup2;</div>
+        <div id="est" class="mono" style="font-size:30px;color:var(--fg-inverse);margin-top:8px;line-height:1.15;letter-spacing:-.01em">Book a measured quote</div>
+        <div id="rate" class="mono" style="font-size:13px;color:var(--accent);margin-top:12px">Priced after moisture test and slab inspection</div>
         <a href="/quote" class="btn btn-md btn-primary" style="margin-top:24px">Get my exact quote</a>
       </div>
     </div>
@@ -123,7 +124,7 @@ import Ironside from "../layouts/Ironside.astro";
     <div class="split-64" style="align-items:start">
       <div>
         <div class="kicker" style="color:var(--color-danger)">Fair warning</div>
-        <h2 class="h2 mt-2" style="max-width:22ch">What a $3/ft&sup2; quote actually hides.</h2>
+        <h2 class="h2 mt-2" style="max-width:24ch">What the cheapest quote actually hides.</h2>
         <div style="display:grid;gap:16px;margin-top:32px">
           <div class="list-row"><span class="x">&times;</span><div><div class="h4" style="font-size:18px">Acid etching instead of diamond grinding</div><div class="p" style="color:var(--fg2);margin-top:4px">Cheaper, faster, and peels within 3 years.</div></div></div>
           <div class="list-row"><span class="x">&times;</span><div><div class="h4" style="font-size:18px">Single-coat &ldquo;flash&rdquo; system</div><div class="p" style="color:var(--fg2);margin-top:4px">Half the dry-film thickness of a proper 3-coat job.</div></div></div>

@@ -1,5 +1,6 @@
 ---
 import Ironside from "../layouts/Ironside.astro";
+import { PHONE_HREF, PHONE_DISPLAY } from "../data/site";
 ---
 
 <Ironside title="Get my free quote" description="Request a free, no-obligation quote for your garage floor coating. Polyaspartic and epoxy options. Ironside Coatings replies within one business day." heroType="light">
@@ -25,7 +26,7 @@ import Ironside from "../layouts/Ironside.astro";
           <div class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--accent)">01 &middot; CONTACT</div>
           <div class="field-grid" style="margin-top:20px">
             <div class="field"><label>Full name</label><input type="text" placeholder="Mark Duncan" /></div>
-            <div class="field"><label>Phone</label><input type="tel" placeholder="905 555 0174" /></div>
+            <div class="field"><label>Phone</label><input type="tel" placeholder="(905) 000-0000" /></div>
           </div>
           <div class="field" style="margin-top:16px"><label>Email</label><input type="email" placeholder="mark@example.com" /></div>
           <div class="field" style="margin-top:16px"><label>Service address</label><input type="text" placeholder="1234 Maple Grove Rd, Oakville" /></div>
@@ -119,7 +120,7 @@ import Ironside from "../layouts/Ironside.astro";
         <!-- Phone -->
         <div style="margin-top:24px;padding:24px;background:var(--bg-elevated);border:1px solid var(--border-default)">
           <div class="kicker plain" style="color:var(--fg1);font-size:12px">Prefer to call?</div>
-          <a href="tel:9055550174" class="mono" style="display:block;margin-top:8px;font-size:24px;font-weight:600;color:var(--fg1);text-decoration:none">905 &middot; 555 &middot; 0174</a>
+          <a href={`tel:${PHONE_HREF}`} class="mono" style="display:block;margin-top:8px;font-size:24px;font-weight:600;color:var(--fg1);text-decoration:none">{PHONE_DISPLAY}</a>
           <div class="caption" style="margin-top:4px">Mon&ndash;Fri 8a&ndash;6p &middot; Sat 9a&ndash;2p</div>
         </div>
 

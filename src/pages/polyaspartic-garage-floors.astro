@@ -1,5 +1,6 @@
 ---
 import Ironside from "../layouts/Ironside.astro";
+import { PHONE_HREF, PHONE_DISPLAY } from "../data/site";
 ---
 
 <Ironside title="Polyaspartic garage floors" description="The Ironside polyaspartic system: diamond grind, polyaspartic basecoat, full-broadcast flake, aliphatic topcoat. UV-stable, hot-tire resistant, cures in 2 hours. Installed in one day, warranted for life." heroType="dark">
@@ -105,8 +106,8 @@ import Ironside from "../layouts/Ironside.astro";
           </tr>
           <tr>
             <td style="border-color:var(--color-iron-800)">Price range</td>
-            <td class="mono" style="border-color:var(--color-iron-800)">$7&ndash;16 / ft&sup2;</td>
-            <td class="mono" style="border-color:var(--color-iron-800);color:var(--color-iron-300)">$5&ndash;6 / ft&sup2;</td>
+            <td class="mono" style="border-color:var(--color-iron-800)">Quoted per slab</td>
+            <td class="mono" style="border-color:var(--color-iron-800);color:var(--color-iron-300)">Lower</td>
           </tr>
         </tbody>
       </table>
@@ -294,7 +295,7 @@ import Ironside from "../layouts/Ironside.astro";
       </div>
       <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-end">
         <a href="/quote" class="btn btn-lg btn-primary" style="min-width:260px">Get my free quote</a>
-        <a href="tel:9055550174" class="btn btn-lg btn-ghost-dark" style="min-width:260px">905 &middot; 555 &middot; 0174</a>
+        <a href={`tel:${PHONE_HREF}`} class="btn btn-lg btn-ghost-dark" style="min-width:260px">{PHONE_DISPLAY}</a>
       </div>
     </div>
   </div>
