@@ -1,0 +1,108 @@
+---
+// NOTE: deliberately NOT prerendered. With `prerender = true` the Emdash middleware
+// intercepts at build time (no D1 binding during `astro build`) and the emitted HTML
+// is the /_emdash/admin/setup screen rather than this page. Verified: the prerendered
+// output carried a canonical of /_emdash/admin/setup and zero JSON-LD. Leave as SSR.
+import Ironside from "../layouts/Ironside.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import { CITIES } from "../data/cities";
+import { SITE_URL, BRAND } from "../data/site";
+
+const title = "Epoxy flooring across the GTA and Hamilton";
+const description =
+ "Diamond-ground epoxy and polyaspartic floor coatings for garages, basements and shops across the GTA and Hamilton. Oakville-based crews, one-day installs, written warranty.";
+
+const breadcrumb = {
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ itemListElement: [
+ { "@type": "ListItem", position: 1, name: BRAND, item: SITE_URL },
+ { "@type": "ListItem", position: 2, name: "Epoxy flooring", item: `${SITE_URL}/epoxy-flooring` },
+ ],
+};
+---
+
+<Ironside title={title} description={description} heroType="dark">
+ <section class="hero-dark compact">
+ <div class="hero-grad"></div><div class="hero-grain"></div><div class="hero-rim"></div>
+ <div class="hero-inner">
+ <div class="kicker mb-2">Epoxy &amp; polyaspartic floor coatings</div>
+ <h1 class="h-hero" style="margin-top:12px;max-width:18ch">Epoxy flooring, done once, across the GTA and Hamilton.</h1>
+ <p class="lede" style="color:var(--color-iron-300);margin-top:24px;max-width:62ch">
+ We diamond-grind every slab, broadcast full-refusal flake, and finish with an aliphatic
+ topcoat that will not amber. Crews dispatch from Oakville and work a corridor from Hamilton
+ to north Vaughan. Pick your city below for the specifics - slab age, access, and how
+ scheduling actually works where you live.
+ </p>
+ <div class="meta-rule" style="margin-top:36px">
+ <span>Residential &middot; commercial &middot; industrial</span><span class="sep"></span>
+ <span>Diamond-grind prep, never acid etch</span><span class="sep"></span>
+ <span>Written transferable warranty</span>
+ </div>
+ </div>
+ </section>
+
+ <section class="section">
+ <div class="container">
+ <div class="split-64" style="align-items:end">
+ <div>
+ <div class="kicker">Service areas</div>
+ <h2 class="h1 mt-2" style="max-width:20ch">Epoxy flooring service areas: six markets plus Oakville</h2>
+ </div>
+ <p class="p" style="color:var(--fg2);max-width:52ch">
+ Each page covers the housing stock and slab conditions we actually meet in that
+ municipality - a 1958 Bramalea slab and a 2021 Hawthorne Village slab fail in opposite
+ ways, and they need different prep.
+ </p>
+ </div>
+
+ <div class="svc-grid" style="margin-top:40px">
+ <a href="/service-areas/oakville" class="svc-card">
+ <span class="badge badge-accent">Home base</span>
+ <h3>Epoxy flooring Oakville</h3>
+ <div class="desc">Where the shop is. Glen Abbey, Bronte, Old Oakville, Clearview, River Oaks.</div>
+ <div class="more">Oakville details <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+ </a>
+ {CITIES.map((c) => (
+ <a href={`/epoxy-flooring-${c.slug}`} class="svc-card">
+ <h3>Epoxy flooring {c.name}</h3>
+ <div class="desc">{c.neighbourhoods.slice(0, 4).join(", ")}.</div>
+ <div class="stat-row"><span>{c.driveMinutes} min from Oakville</span></div>
+ <div class="more">Epoxy flooring {c.name} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+ </a>
+ ))}
+ </div>
+ </div>
+ </section>
+
+ <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+ <div class="container">
+ <div class="split-64" style="align-items:start;gap:56px">
+ <div>
+ <div class="kicker">What "epoxy flooring" covers here</div>
+ <h2 class="h2 mt-2" style="max-width:24ch">Epoxy flooring, garage floor coating and metallic on one page</h2>
+ <p class="p" style="color:var(--fg2);margin-top:20px;max-width:60ch">
+ Homeowners search <em>epoxy flooring</em>, <em>garage floor coating</em> and
+ <em>metallic epoxy</em> interchangeably, and the results they get back are largely the
+ same companies. So each city page covers all of them rather than splitting hairs across
+ near-identical pages.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+ Two jobs genuinely are different and get their own pages:
+ <a href="/polyaspartic-garage-floors">polyaspartic garage floors</a>, which is a
+ different chemistry with a different cure window, and concrete resurfacing, which is
+ slab repair rather than coating.
+ </p>
+ <div class="nearby">
+ <a href="/polyaspartic-garage-floors">Polyaspartic garage floors</a>
+ <a href="/epoxy-garage-floor-cost">What a floor costs</a>
+ <a href="/about">How we work</a>
+ </div>
+ </div>
+ <QuoteForm compact heading="Which city are you in?" sub="Tell us where the slab is and we'll come measure it." />
+ </div>
+ </div>
+ </section>
+</Ironside>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} is:inline />

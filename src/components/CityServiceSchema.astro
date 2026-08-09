@@ -9,44 +9,44 @@ import { SITE_URL, BRAND } from "../data/site";
  * business, so there is exactly one business node in the graph.
  */
 interface Props {
-  city: string;
-  citySlug: string;
-  wikidata: string;
-  serviceType?: string;
-  description: string;
+ city: string;
+ citySlug: string;
+ wikidata: string;
+ serviceType?: string;
+ description: string;
 }
 const {
-  city, citySlug, wikidata,
-  serviceType = "Epoxy and polyaspartic floor coating",
-  description,
+ city, citySlug, wikidata,
+ serviceType = "Epoxy and polyaspartic floor coating",
+ description,
 } = Astro.props;
 
-const pageUrl = `${SITE_URL}/epoxy-flooring/${citySlug}`;
+const pageUrl = `${SITE_URL}/epoxy-flooring-${citySlug}`;
 
 const service = {
-  "@type": "Service",
-  "@id": `${pageUrl}#service`,
-  name: `Epoxy flooring in ${city}, Ontario`,
-  serviceType,
-  description,
-  provider: { "@id": `${SITE_URL}/#localbusiness` },
-  areaServed: {
-    "@type": "City",
-    name: city,
-    sameAs: `https://www.wikidata.org/wiki/${wikidata}`,
-  },
-  url: pageUrl,
-  // No `offers`: the site publishes no pricing.
+ "@type": "Service",
+ "@id": `${pageUrl}#service`,
+ name: `Epoxy flooring in ${city}, Ontario`,
+ serviceType,
+ description,
+ provider: { "@id": `${SITE_URL}/#localbusiness` },
+ areaServed: {
+ "@type": "City",
+ name: city,
+ sameAs: `https://www.wikidata.org/wiki/${wikidata}`,
+ },
+ url: pageUrl,
+ // No `offers`: the site publishes no pricing.
 };
 
 const breadcrumb = {
-  "@type": "BreadcrumbList",
-  "@id": `${pageUrl}#breadcrumb`,
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: BRAND, item: SITE_URL },
-    { "@type": "ListItem", position: 2, name: "Epoxy flooring", item: `${SITE_URL}/epoxy-flooring` },
-    { "@type": "ListItem", position: 3, name: city, item: pageUrl },
-  ],
+ "@type": "BreadcrumbList",
+ "@id": `${pageUrl}#breadcrumb`,
+ itemListElement: [
+ { "@type": "ListItem", position: 1, name: BRAND, item: SITE_URL },
+ { "@type": "ListItem", position: 2, name: "Epoxy flooring", item: `${SITE_URL}/epoxy-flooring` },
+ { "@type": "ListItem", position: 3, name: city, item: pageUrl },
+ ],
 };
 
 const graph = { "@context": "https://schema.org", "@graph": [service, breadcrumb] };

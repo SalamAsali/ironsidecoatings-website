@@ -1,0 +1,294 @@
+---
+import Ironside from "../layouts/Ironside.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import CityFaq from "../components/CityFaq.astro";
+import CityServiceSchema from "../components/CityServiceSchema.astro";
+import ServiceAreaMap from "../components/ServiceAreaMap.astro";
+import { cityBySlug, siblingsOf } from "../data/cities";
+
+const city = cityBySlug("toronto")!;
+const nearby = siblingsOf("toronto");
+
+const title = "Epoxy flooring Toronto";
+const description =
+ "Epoxy and polyaspartic garage floor coatings across Toronto - laneway garages, pre-war slabs, Etobicoke to Scarborough. Diamond-ground prep, one-day install.";
+
+const faqs = [
+ {
+ q: "Can you coat a laneway or detached garage in the old city?",
+ a: "Yes, and it is most of what we do downtown. Detached garages off laneways in Riverdale, Leslieville and the Annex are usually single-bay slabs poured directly on grade with no vapour barrier. We moisture-test before quoting, and where readings are high we start with a moisture-tolerant primer instead of coating straight onto the slab. The constraint is rarely the floor - it is getting the grinder and dust extractor down a 2.4 m laneway, which is why we schedule laneway jobs first thing in the morning before cars box us in.",
+ },
+ {
+ q: "My garage was built in the 1920s and the floor is cracked and uneven. Is it worth coating?",
+ a: "Often yes, but not always. A slab with hairline shrinkage cracks and some spalling is a good candidate - we chase the cracks out, fill with a rigid polyurea, then grind flat. A slab that has heaved into separate plates with a step of more than about 10 mm, or one that is actively wet from a failed perimeter, is a repair job before it is a coating job. We will tell you which one you have at the quote rather than coating over a problem.",
+ },
+ {
+ q: "Do you work in Etobicoke, Scarborough and North York, or just the old city?",
+ a: "All of them. The Toronto crew covers the amalgamated city - The Kingsway and Islington in Etobicoke, Willowdale and Bayview Village in North York, Guildwood and Cliffcrest in Scarborough, plus the pre-war core. Post-war North York and Scarborough bungalows tend to have the easiest slabs in the city: 1950s and 60s pours, generously thick, usually flat, with an attached single or double garage and a driveway you can park the truck on.",
+ },
+ {
+ q: "Will I need a parking permit for your truck?",
+ a: "On most residential streets, no - we work off your driveway or the laneway apron. In permit-parking zones downtown where there is no driveway, we will ask you to arrange a temporary on-street spot for the morning, because the grinder and vacuum run off the truck and the hose reach is about 30 m. It is worth sorting before install day; a truck circling for a spot is the single most common cause of a late start in the old city.",
+ },
+ {
+ q: "How does road salt in Toronto affect a garage floor coating?",
+ a: "The city salts heavily and the brine comes home on your tires. On bare or sealed concrete it drives freeze-thaw damage into the surface and you get pitting within a few winters. That is a coating's strongest argument here: a properly ground and bonded polyaspartic or epoxy system is chemically resistant to chloride, so the salt sits on top and gets mopped off. What it does not tolerate is being applied over a contaminated slab - if the floor has been soaking up brine for twenty years, the grind has to go deep enough to get past it.",
+ },
+ {
+ q: "Can you do the floor of a commercial unit or a condo parking level?",
+ a: "Commercial units, yes - shops, studios and small warehouse bays across the city, usually scheduled over a weekend so you do not lose trading days. Full condo parking levels are a different trade: they need traffic-deck membrane rather than a garage coating, and they are normally tendered through the corporation's engineer. If you are a board member asking, we would rather point you at the right contractor than sell you the wrong system.",
+ },
+ {
+ q: "How long before I can park on it?",
+ a: "With polyaspartic, next morning. We usually finish the topcoat mid-afternoon, it is walkable in about two hours, and vehicle-ready after roughly 24 hours. Standard epoxy is slower - foot traffic the following day, vehicles after four to five days, and it is genuinely worth waiting because hot-tire pickup on a green epoxy floor is how coatings end up peeling in sheets.",
+ },
+];
+---
+
+<Ironside title={title} description={description} heroType="dark">
+ <CityServiceSchema
+ city={city.name}
+ citySlug={city.slug}
+ wikidata={city.wikidata}
+ description={description}
+ />
+
+ <section class="hero-dark compact">
+ <div class="hero-grad"></div><div class="hero-grain"></div><div class="hero-rim"></div>
+ <div class="hero-inner">
+ <div class="city-hero-grid">
+ <div>
+ <div class="kicker mb-2">Epoxy &amp; polyaspartic &middot; Toronto</div>
+ <h1 class="h-hero" style="margin-top:12px;max-width:16ch">Epoxy flooring in Toronto.</h1>
+ <p class="lede" style="color:var(--color-iron-300);margin-top:24px;max-width:56ch">
+ Laneway garages, pre-war slabs, post-war bungalows and commercial bays - across the old
+ city, Etobicoke, North York and Scarborough. We diamond-grind every floor, never acid
+ etch, and hand you a written warranty at the end.
+ </p>
+ <div style="display:flex;gap:12px;margin-top:36px;flex-wrap:wrap">
+ <a href="#quote" class="btn btn-lg btn-primary">Book a slab assessment</a>
+ </div>
+ <div class="meta-rule" style="margin-top:36px">
+ <span>{city.driveMinutes} min from the Oakville shop</span><span class="sep"></span>
+ <span>Old city &middot; Etobicoke &middot; North York &middot; Scarborough</span>
+ </div>
+ </div>
+ <div id="quote">
+ <QuoteForm city={city.name} heading="Free quote in Toronto" sub="We measure the slab, test it for moisture, and quote a fixed price." />
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section class="section">
+ <div class="container">
+ <div class="split-64" style="align-items:end">
+ <div>
+ <div class="kicker">Toronto slabs</div>
+ <h2 class="h1 mt-2" style="max-width:22ch">Epoxy flooring across Toronto&rsquo;s four housing eras</h2>
+ </div>
+ <p class="p" style="color:var(--fg2);max-width:52ch">
+ Toronto is not one market. The garage behind a 1925 semi and the garage under a 2018 infill
+ build have almost nothing in common, and quoting them the same way is how contractors end
+ up losing money or losing the floor.
+ </p>
+ </div>
+
+ <div class="hood-grid">
+ <div class="hood">
+ <h4>Pre-war core - the Annex, Riverdale, Leslieville</h4>
+ <p>Detached laneway garages, single bay, slab poured on grade with no vapour barrier and often no rebar. Expect moisture from below and a slab that is thinner than it looks. Moisture testing is not optional here.</p>
+ </div>
+ <div class="hood">
+ <h4>Post-war suburbs - Willowdale, Guildwood, Cliffcrest</h4>
+ <p>1950s-60s attached garages on thick, well-cured slabs. The easiest floors in the city. Usually just grinding, crack chase and coat - and the driveway gives us somewhere to stage.</p>
+ </div>
+ <div class="hood">
+ <h4>Established west - The Kingsway, High Park</h4>
+ <p>A mix of original detached garages and newer rebuilds. The original ones often have an oil-soaked centre from decades of use; contaminated concrete has to be ground past, not sealed over.</p>
+ </div>
+ <div class="hood">
+ <h4>Infill and new build - Leaside, Lawrence Park</h4>
+ <p>Slabs poured in the last decade, frequently still releasing moisture if the build is recent. Newer is not automatically easier - a slab under about six months old needs a calcium chloride test before anything goes down.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+ <div class="container">
+ <div class="split-64" style="align-items:start;gap:56px">
+ <div>
+ <div class="kicker">Access and logistics</div>
+ <h2 class="h2 mt-2" style="max-width:24ch">Garage floor coating access in downtown Toronto</h2>
+ <p class="p" style="color:var(--fg2);margin-top:20px;max-width:60ch">
+ Our crews leave Oakville and run the QEW and Gardiner in, so a Toronto install starts on
+ site around 8am. That matters more than it sounds: polyaspartic has a working window
+ measured in minutes once it is mixed, and a job that starts late gets finished in the
+ dark or gets rescheduled.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+ Three things slow a Toronto job down, and all three are fixable in advance. Laneway
+ width - we need roughly 2.4 m clear to get equipment to the door. On-street parking in
+ permit zones, where the truck needs a legal spot within hose reach. And a garage that is
+ still full: we do not move your belongings, and a half-emptied garage means a half-coated
+ floor. Clearing it the night before is the single best thing you can do for the schedule.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+ Winter work is genuinely possible here, which surprises people. Polyaspartic cures at
+ temperatures well below what epoxy tolerates, so an unheated Toronto garage in February
+ is a workable job. Standard epoxy in that same garage is not - it will not cross-link
+ properly below about 10&deg;C and you will be recoating it inside two years.
+ </p>
+ </div>
+ <div>
+ <ServiceAreaMap city={city.name} lat={city.lat} lng={city.lng} span={0.16} />
+ <div style="margin-top:24px">
+ <div class="kicker">Districts we cover</div>
+ <div class="nearby">
+ {city.neighbourhoods.map((n) => <a href="#quote">{n}</a>)}
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section class="section">
+ <div class="container-narrow">
+ <div class="kicker">What we install</div>
+ <h2 class="h2 mt-2">The epoxy and polyaspartic systems that suit a Toronto garage</h2>
+ <p class="p" style="color:var(--fg2);margin-top:20px">
+ Most Toronto homeowners searching for <em>epoxy flooring</em> end up with a polyaspartic
+ floor, because the one-day turnaround and the cold-weather window fit a city where garages
+ are small, street parking is scarce and winters are long. We still install true epoxy where
+ it is the better answer - large commercial bays where cure time is not a constraint and the
+ budget per square foot matters more than the schedule.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ The prep is identical either way, and it is the part that decides whether a floor lasts.
+ Diamond grinding to a CSP-2 or CSP-3 profile, crack chase and rigid fill, moisture test,
+ then coat. We do not acid etch. Acid leaves salts in the surface and traps moisture under
+ the coating, and it is the most common reason a three-year-old garage floor is lifting at
+ the edges.
+ </p>
+ <div class="nearby">
+ <a href="/polyaspartic-garage-floors">How polyaspartic differs from epoxy</a>
+ <a href="/epoxy-garage-floor-cost">What a floor costs</a>
+ <a href="/epoxy-flooring">All service areas</a>
+ </div>
+ </div>
+ </section>
+
+
+ <section class="section section-sm" style="border-top:1px solid var(--color-iron-100)">
+ <div class="container-narrow">
+ <div class="kicker">Working through the seasons</div>
+ <h2 class="h2 mt-2">Epoxy flooring in Toronto runs a longer season than people assume</h2>
+ <p class="p" style="color:var(--fg2);margin-top:20px">
+ The conventional wisdom is that garage floors are a summer job. That is true for standard
+ epoxy and largely false for polyaspartic, and the distinction matters more in Toronto than
+ almost anywhere else we work because so many garages here are small, detached and unheated - exactly the spaces that stay cold from November through March.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ Epoxy is a temperature-dependent cure. Below roughly 10&deg;C the resin and hardener stop
+ cross-linking properly, and what you get is a floor that feels dry, looks finished, and never
+ reaches full hardness. It scuffs, it stays slightly tacky in warm weather, and it fails early.
+ A contractor who offers you epoxy in a cold Toronto garage in January is either heating the
+ space properly or selling you a floor that will not last.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ Polyaspartic cures across a far wider temperature band, which is why our winter book in
+ Toronto is genuinely busy. There is a trade-off: the colder it is, the shorter the working
+ window becomes once the material is mixed, so a winter install needs a bigger crew on the
+ same floor and tighter sequencing. That is a scheduling problem for us rather than a quality
+ problem for you.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ The genuinely bad window in this city is not deep winter - it is the humid stretch of late
+ July and August, when a laneway garage with one door and no ventilation can hold enough
+ moisture to affect the surface finish. On those days we open the garage up, run air movement,
+ and sometimes start earlier to get the topcoat down before the afternoon peak.
+ </p>
+ </div>
+ </section>
+
+ <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+ <div class="container-narrow">
+ <div class="kicker">Before you sign anything</div>
+ <h2 class="h2 mt-2">Four questions to ask any Toronto epoxy flooring contractor</h2>
+ <p class="p" style="color:var(--fg2);margin-top:20px">
+ Toronto has the most crowded market for garage coatings in the province, and quality varies
+ enormously. These four questions separate the operators from the resellers faster than any
+ amount of browsing photographs.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ <strong>"Do you grind or acid etch?"</strong> If the answer is acid, walk away. Etching is
+ cheaper and faster and it leaves salts in the surface that stop the coating bonding properly.
+ It is the single most common cause of the failures we get called to look at.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ <strong>"Will you moisture-test my slab?"</strong> On a pre-war laneway garage with no vapour
+ barrier this is not optional. A contractor who quotes over the phone from your square
+ footage has not tested anything and is pricing an average, not your floor.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ <strong>"Is the flake broadcast to refusal?"</strong> Full-broadcast means chips are thrown
+ until the surface will not take any more, then scraped back and sealed. A partial broadcast
+ uses far less material, looks similar on day one, and wears through in the traffic path.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ <strong>"What exactly does the warranty cover, in writing?"</strong> A lifetime warranty that
+ excludes delamination, hot-tire pickup and moisture is a warranty against nothing. Ask for
+ the document before you sign, not after.
+ </p>
+ </div>
+ </section>
+
+
+ <section class="section section-sm">
+ <div class="container-narrow">
+ <div class="kicker">Install day</div>
+ <h2 class="h2 mt-2">How a Toronto epoxy floor install actually runs</h2>
+ <p class="p" style="color:var(--fg2);margin-top:20px">
+ The crew leaves Oakville early enough to be unloading by 8am. First job is masking and
+ protection - bay door tracks, the wall line, anything in the driveway - because grinding
+ throws fine dust and the extractor catches most of it but never all of it. If you share a
+ laneway, this is the point at which we would rather have spoken to your neighbour already.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ Grinding takes the largest share of the day. On a typical single-bay laneway garage that is
+ two to three hours; on a Willowdale double it is longer simply because there is more of it.
+ We profile the whole slab, chase out cracks, then vacuum and inspect before anything wet goes
+ down. This is the stage where a slab occasionally reveals a problem that was not visible at
+ quote - an old patch that debonds under the grinder, or moisture appearing where the surface
+ opens up. If that happens we stop and talk to you rather than coating over it.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ Basecoat, full flake broadcast to refusal, then scrape-back once it has set. The topcoat goes
+ down mid-afternoon and the garage is walkable a couple of hours later. You get the space back
+ the same evening for foot traffic and the car goes in the following morning.
+ </p>
+ <p class="p" style="color:var(--fg2);margin-top:16px">
+ The same sequence runs on every job we do, whether it is here, in
+ <a href="/epoxy-flooring-mississauga">Mississauga</a> or across the water in
+ <a href="/epoxy-flooring-hamilton">Hamilton</a>. More on
+ <a href="/about">how we work</a>, and the full
+ <a href="/service-areas">service-area map</a>.
+ </p>
+ </div>
+ </section>
+
+ <CityFaq faqs={faqs} city={city.name} />
+
+ <section class="section section-sm">
+ <div class="container">
+ <div class="kicker">Nearby</div>
+ <h2 class="h3 mt-2">Epoxy flooring in nearby cities</h2>
+ <div class="nearby">
+ <a href="/service-areas/oakville">Oakville</a>
+ {nearby.map((c) => <a href={`/epoxy-flooring-${c.slug}`}>{c.name}</a>)}
+ </div>
+ </div>
+ </section>
+</Ironside>

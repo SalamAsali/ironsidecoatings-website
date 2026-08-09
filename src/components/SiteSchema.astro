@@ -1,50 +1,50 @@
 ---
 import { CITIES, PRIMARY_CITY } from "../data/cities";
 import {
-  BRAND, SITE_URL, EMAIL, PHONE_HREF, PHONE_PLACEHOLDER,
-  BASE_LOCALITY, BASE_REGION, BASE_COUNTRY,
+ BRAND, SITE_URL, EMAIL, PHONE_HREF, PHONE_PLACEHOLDER,
+ BASE_LOCALITY, BASE_REGION, BASE_COUNTRY,
 } from "../data/site";
 
 /**
  * Site-wide identity graph: Organization + WebSite + LocalBusiness.
  *
  * Deliberate choices, per the 2026 schema findings:
- *  - `areaServed` (not the deprecated `serviceArea`), as an array of City nodes
- *    each carrying its verified Wikidata sameAs.
- *  - NO `streetAddress`. Ironside dispatches from Oakville; publishing a street
- *    address for a non-public dispatch point next to a wide areaServed is the
- *    storefront/SAB mismatch that gets filtered. Locality + region only.
- *  - NO AggregateRating / Review. The business has no reviews yet; fabricating
- *    review schema is a manual-action risk.
- *  - `priceRange` is a coarse band, not pricing, so it stays.
- *  - `telephone` is omitted entirely while the number is still a 555 placeholder -
- *    publishing a fictional number in structured data would seed bad citations.
+ * - `areaServed` (not the deprecated `serviceArea`), as an array of City nodes
+ * each carrying its verified Wikidata sameAs.
+ * - NO `streetAddress`. Ironside dispatches from Oakville; publishing a street
+ * address for a non-public dispatch point next to a wide areaServed is the
+ * storefront/SAB mismatch that gets filtered. Locality + region only.
+ * - NO AggregateRating / Review. The business has no reviews yet; fabricating
+ * review schema is a manual-action risk.
+ * - `priceRange` is a coarse band, not pricing, so it stays.
+ * - `telephone` is omitted entirely while the number is still a 555 placeholder -
+ * publishing a fictional number in structured data would seed bad citations.
  */
 const ORG_ID = `${SITE_URL}/#organization`;
 const BIZ_ID = `${SITE_URL}/#localbusiness`;
 
 const areaServed = [
-  {
-    "@type": "City",
-    name: PRIMARY_CITY.name,
-    sameAs: `https://www.wikidata.org/wiki/${PRIMARY_CITY.wikidata}`,
-  },
-  ...CITIES.map((c) => ({
-    "@type": "City",
-    name: c.name,
-    sameAs: `https://www.wikidata.org/wiki/${c.wikidata}`,
-  })),
+ {
+ "@type": "City",
+ name: PRIMARY_CITY.name,
+ sameAs: `https://www.wikidata.org/wiki/${PRIMARY_CITY.wikidata}`,
+ },
+ ...CITIES.map((c) => ({
+ "@type": "City",
+ name: c.name,
+ sameAs: `https://www.wikidata.org/wiki/${c.wikidata}`,
+ })),
 ];
 
 const organization = {
-  "@type": "Organization",
-  "@id": ORG_ID,
-  name: BRAND,
-  url: SITE_URL,
-  email: EMAIL,
-  ...(PHONE_PLACEHOLDER ? {} : { telephone: `+1${PHONE_HREF}` }),
-  // sameAs intentionally omitted: no verified social profiles exist yet. An empty
-  // or invented sameAs is worse than none.
+ "@type": "Organization",
+ "@id": ORG_ID,
+ name: BRAND,
+ url: SITE_URL,
+ email: EMAIL,
+ ...(PHONE_PLACEHOLDER ? {} : { telephone: `+1${PHONE_HREF}` }),
+ // sameAs intentionally omitted: no verified social profiles exist yet. An empty
+ // or invented sameAs is worse than none.
 };
 
 // NB: no WebSite node here. EmDashHead already emits one on every page, and two
@@ -52,29 +52,29 @@ const organization = {
 // built output: emitting both produced WebSite twice per page.
 
 const localBusiness = {
-  "@type": "HomeAndConstructionBusiness",
-  "@id": BIZ_ID,
-  name: BRAND,
-  url: SITE_URL,
-  parentOrganization: { "@id": ORG_ID },
-  email: EMAIL,
-  ...(PHONE_PLACEHOLDER ? {} : { telephone: `+1${PHONE_HREF}` }),
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: BASE_LOCALITY,
-    addressRegion: BASE_REGION,
-    addressCountry: BASE_COUNTRY,
-  },
-  areaServed,
-  priceRange: "$$",
-  currenciesAccepted: "CAD",
-  knowsAbout: [
-    "Polyaspartic garage floor coating",
-    "Epoxy floor coating",
-    "Concrete diamond grinding",
-    "Metallic epoxy flooring",
-    "Commercial and industrial floor coating",
-  ],
+ "@type": "HomeAndConstructionBusiness",
+ "@id": BIZ_ID,
+ name: BRAND,
+ url: SITE_URL,
+ parentOrganization: { "@id": ORG_ID },
+ email: EMAIL,
+ ...(PHONE_PLACEHOLDER ? {} : { telephone: `+1${PHONE_HREF}` }),
+ address: {
+ "@type": "PostalAddress",
+ addressLocality: BASE_LOCALITY,
+ addressRegion: BASE_REGION,
+ addressCountry: BASE_COUNTRY,
+ },
+ areaServed,
+ priceRange: "$$",
+ currenciesAccepted: "CAD",
+ knowsAbout: [
+ "Polyaspartic garage floor coating",
+ "Epoxy floor coating",
+ "Concrete diamond grinding",
+ "Metallic epoxy flooring",
+ "Commercial and industrial floor coating",
+ ],
 };
 
 const graph = { "@context": "https://schema.org", "@graph": [organization, localBusiness] };

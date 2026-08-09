@@ -1,5 +1,5 @@
 /* ============================================================
-   Ironside Coatings — Design System
+   Ironside Coatings - Design System
    Industrial-premium polyaspartic/epoxy brand. Iron + Molten.
    Combined: colors_and_type.css + site.css
    ============================================================ */
@@ -474,7 +474,7 @@ h1,h2,h3,h4,h5,h6{margin:0;font-family:var(--font-display);letter-spacing:-.02em
 }
 
 /* ==========================================================================
-   City+service architecture — nav dropdown, quote form, sticky call, FAQ, map
+   City+service architecture - nav dropdown, quote form, sticky call, FAQ, map
    ========================================================================== */
 
 /* --- header service dropdown --- */
