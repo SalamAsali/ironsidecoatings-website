@@ -1,9 +1,20 @@
 ---
+import ServiceSchema from "../components/ServiceSchema.astro";
+import { CITIES } from "../data/cities";
+
 import Ironside from "../layouts/Ironside.astro";
 import { PHONE_HREF, PHONE_DISPLAY } from "../data/site";
 ---
 
 <Ironside title="Polyaspartic garage floors" description="The Ironside polyaspartic system: diamond grind, polyaspartic basecoat, full-broadcast flake, aliphatic topcoat. UV-stable, hot-tire resistant, cures in 2 hours. Installed in one day, warranted for life." heroType="dark">
+ <ServiceSchema
+ slug="polyaspartic-garage-floors"
+ name="Polyaspartic garage floor coating"
+ serviceType="Polyaspartic garage floor coating"
+ description="Diamond-ground polyaspartic garage floor coating installed in a day across Oakville, Toronto, Mississauga, Brampton, Hamilton, Vaughan and Milton."
+ breadcrumb="Polyaspartic garage floors"
+ />
+
 
 <!-- HERO (compact) -->
 <section class="hero-dark compact">
@@ -300,5 +311,28 @@ import { PHONE_HREF, PHONE_DISPLAY } from "../data/site";
  </div>
  </div>
 </section>
+
+
+ <section class="section section-sm">
+ <div class="container">
+ <div class="kicker">Where we work</div>
+ <h2 class="h3 mt-2">Polyaspartic garage floors across our service area</h2>
+ <p class="p" style="color:var(--fg2);max-width:64ch;margin-top:12px">
+ Crews dispatch from Oakville and cover a corridor from Hamilton through Halton and Peel up to
+ north Vaughan. Each city page covers the slab conditions and access constraints we actually
+ meet there.
+ </p>
+ <div class="nearby">
+ <a href="/service-areas/oakville">Oakville</a>
+ {CITIES.map((c) => (<a href={`/epoxy-flooring-${c.slug}`}>{c.name}</a>))}
+ </div>
+ <div class="nearby" style="margin-top:16px">
+ <a href="/epoxy-flooring">Epoxy flooring by city</a>
+ <a href="/metallic-epoxy-flooring">Metallic epoxy flooring</a>
+ <a href="/basement-floor-coating">Basement floor coating</a>
+ <a href="/epoxy-garage-floor-cost">What a floor costs</a>
+ </div>
+ </div>
+ </section>
 
 </Ironside>
