@@ -1,0 +1,302 @@
+---
+import Ironside from "../layouts/Ironside.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import CityFaq from "../components/CityFaq.astro";
+import ServiceSchema from "../components/ServiceSchema.astro";
+import { CITIES } from "../data/cities";
+
+/**
+ * Targets `basement floor coating` (880/mo) and `basement epoxy floor` /
+ * `basement epoxy flooring` / `epoxy basement floor` (480/mo each, one bucket).
+ * Combined cluster ~1,360/mo. Every city-suffixed variant measured 0/mo, so this
+ * is GTA-scoped rather than city-scoped.
+ */
+const title = "Basement floor coating and basement epoxy flooring";
+const description =
+  "Basement floor coating and epoxy for below-grade concrete across the GTA. Moisture-mitigating primers, low-VOC systems safe for occupied homes, one-day install.";
+
+const faqs = [
+  {
+    q: "Is a basement slab different from a garage slab?",
+    a: "Fundamentally, yes, and it is the reason basement work is priced separately. A garage slab dries in two directions and sits above grade. A basement slab is surrounded by soil, sits below the water table in a lot of the GTA, and can only dry upward - into your basement. That means moisture is not an occasional complication here, it is the default condition. Every basement we coat gets tested, and a good proportion need a moisture-mitigating primer before anything decorative goes down.",
+  },
+  {
+    q: "Will the coating trap moisture and make things worse?",
+    a: "It can, if the wrong system is used, and this is the single most important thing to get right. A standard coating applied over a slab pushing vapour upward will blister and delaminate, and in the meantime it can drive that moisture sideways to the wall junction. The fix is a moisture-mitigating primer designed to tolerate high vapour transmission, applied after an actual test rather than a guess. If the reading is high enough that even a primer is marginal, we will tell you that a coating is the wrong purchase.",
+  },
+  {
+    q: "Are the fumes a problem in a finished basement?",
+    a: "This is why the product choice differs from a garage. Basements have limited air exchange and are usually attached to living space, so we specify low-VOC formulations for occupied homes rather than the higher-solvent systems that are perfectly acceptable in a ventilated garage. You will still want windows open and the space unoccupied during install and for the cure, and we will tell you how long that is for your specific system, but it is hours rather than days.",
+  },
+  {
+    q: "Can you coat a basement that has flooded before?",
+    a: "Often, but the order of operations matters. If the flooding came from a plumbing failure that has been fixed, and the slab has dried, it is a normal job. If it came from hydrostatic pressure, a failed weeping tile, or a backup that could recur, coating the floor is treating a symptom. We would rather see the drainage issue resolved first, because a coating over an unresolved water problem is money spent twice. We are happy to look and say which situation you are in.",
+  },
+  {
+    q: "What finishes are available for a basement floor?",
+    a: "The same families as a garage, with a different emphasis. Full-broadcast flake is the workhorse and hides dust well. Solid-colour polyaspartic gives a cleaner, more finished look that suits a basement that functions as living space. Metallic is possible in a basement and looks dramatic under artificial light, though it shows every footprint, so it belongs in a display or entertainment space rather than a laundry and storage area.",
+  },
+  {
+    q: "Do you coat basement stairs and the cold room?",
+    a: "Stairs, yes - concrete basement stairs take a coating well and are one of the more worthwhile parts of the job, since bare concrete treads shed dust constantly. Cold rooms are a judgement call. They are typically the dampest part of the basement with the least ventilation, and a coating there fails more often than it succeeds. We will usually recommend leaving a cold room alone and putting the budget into the main floor area.",
+  },
+  {
+    q: "How long does a basement floor coating take?",
+    a: "One day for most residential basements, the same as a garage, provided the slab is ready and the space is clear. Where it stretches is when a moisture-mitigating primer is needed, since that has its own cure window before the build coats can go on - that turns it into a two-day job. We will know which it is after the moisture test, and we quote it before we start rather than adjusting on the day.",
+  },
+];
+---
+
+<Ironside title={title} description={description} heroType="dark">
+  <ServiceSchema
+    slug="basement-floor-coating"
+    name="Basement floor coating and basement epoxy flooring"
+    serviceType="Basement concrete floor coating"
+    description={description}
+    breadcrumb="Basement floor coating"
+  />
+
+  <section class="hero-dark compact">
+    <div class="hero-grad"></div><div class="hero-grain"></div><div class="hero-rim"></div>
+    <div class="hero-inner">
+      <div class="city-hero-grid">
+        <div>
+          <div class="kicker mb-2">Below-grade concrete &middot; GTA</div>
+          <h1 class="h-hero" style="margin-top:12px;max-width:18ch">Basement floor coating and basement epoxy flooring.</h1>
+          <p class="lede" style="color:var(--color-iron-300);margin-top:24px;max-width:56ch">
+            A basement slab can only dry in one direction: up, into your house. That single fact
+            changes the primer, the product and the price. We test every slab before we quote it,
+            and we use low-VOC systems that are safe to install under an occupied home.
+          </p>
+          <div style="display:flex;gap:12px;margin-top:36px;flex-wrap:wrap">
+            <a href="#quote" class="btn btn-lg btn-primary">Book a slab assessment</a>
+          </div>
+          <div class="meta-rule" style="margin-top:36px">
+            <span>Moisture-tested before quoting</span><span class="sep"></span>
+            <span>Low-VOC, occupied-home safe</span><span class="sep"></span>
+            <span>Usually one day</span>
+          </div>
+        </div>
+        <div id="quote">
+          <QuoteForm heading="Free basement floor quote" sub="We measure the slab, moisture-test it, and quote a fixed price." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split-64" style="align-items:end">
+        <div>
+          <div class="kicker">Why basements are different</div>
+          <h2 class="h1 mt-2" style="max-width:24ch">Basement floor coating is a moisture job first.</h2>
+        </div>
+        <p class="p" style="color:var(--fg2);max-width:52ch">
+          Most coating failures we are called to look at in basements come down to one decision made
+          badly at the start: somebody skipped the moisture test.
+        </p>
+      </div>
+
+      <div class="hood-grid">
+        <div class="hood">
+          <h4>It dries in one direction</h4>
+          <p>A garage slab breathes out of both faces. A basement slab is capped by soil below and can only release vapour upward, into the coating you just applied.</p>
+        </div>
+        <div class="hood">
+          <h4>The water table is close</h4>
+          <p>Across much of the GTA, and particularly near the lake and the older river valleys, ground water sits close enough to keep a slab permanently damp.</p>
+        </div>
+        <div class="hood">
+          <h4>There is no ventilation</h4>
+          <p>Basements exchange air slowly and connect to living space, which rules out the higher-solvent systems that are fine in a garage with the door open.</p>
+        </div>
+        <div class="hood">
+          <h4>Older slabs have no barrier</h4>
+          <p>Pre-1970s GTA basements were routinely poured without a vapour barrier under the slab. Those are the floors most likely to need a mitigating primer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+    <div class="container">
+      <div class="split-64" style="align-items:start;gap:56px">
+        <div>
+          <div class="kicker">How we do it</div>
+          <h2 class="h2 mt-2" style="max-width:26ch">Basement epoxy flooring, in the right order.</h2>
+          <p class="p" style="color:var(--fg2);margin-top:20px;max-width:60ch">
+            The sequence matters more here than in any other room in the house. First we test - a
+            calcium chloride or in-slab relative humidity reading, not a plastic sheet taped down
+            overnight. That number decides the entire specification, so it happens before the quote
+            rather than after.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            Then we diamond grind. Basement slabs are frequently smoother than garage slabs because
+            they were power-trowelled to a tighter finish, and a tight, closed surface is exactly what
+            a coating cannot grip. Grinding opens the surface to a proper profile. We never acid etch,
+            and in a basement that matters twice over: acid leaves salts behind, and salts plus rising
+            moisture is the precise recipe for a coating letting go from underneath.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            Where the moisture reading is high, a mitigating primer goes down and cures before
+            anything else happens. Where it is low, we move straight to the build coats. Either way
+            cracks are chased and filled, the perimeter is cut in by hand, and the finish coat goes on
+            last. Most basements are back in use the following day.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            One thing we will not do is coat a basement floor that is actively wet or that has an
+            unresolved drainage problem. It is a short conversation and an unpopular one, but a
+            coating cannot hold water back, and putting one over a live leak converts a drainage
+            repair into a drainage repair plus a floor replacement.
+          </p>
+        </div>
+        <div>
+          <div class="card" style="padding:28px">
+            <div class="kicker">Good candidates</div>
+            <ul style="list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px;font-size:14.5px;color:var(--fg2)">
+              <li>Finished basements and rec rooms</li>
+              <li>Home gyms and workshops</li>
+              <li>Laundry and utility areas</li>
+              <li>Basement stairs and landings</li>
+              <li>Storage and mechanical rooms</li>
+            </ul>
+          </div>
+          <div class="card" style="padding:28px;margin-top:20px">
+            <div class="kicker">Poor candidates</div>
+            <ul style="list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px;font-size:14.5px;color:var(--fg2)">
+              <li>Cold rooms - damp, unventilated, high failure rate</li>
+              <li>Slabs with active water ingress</li>
+              <li>Floors over an unresolved weeping tile fault</li>
+              <li>Slabs that have heaved into separate plates</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow">
+      <div class="kicker">Choosing a finish</div>
+      <h2 class="h2 mt-2">Which basement floor coating suits the room</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        A basement is not one room, and the right finish depends on what the space is actually for.
+        A home gym wants grip and impact tolerance. A finished rec room wants something that reads as
+        a floor rather than as industrial coating. A laundry area wants something that cleans easily
+        and does not stain.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Full-broadcast flake</strong> is the default and the safest choice. Chips are thrown
+        into the wet basecoat to refusal, scraped back and sealed, which produces a hard-wearing
+        surface with enough visual texture to hide dust and the odd scuff. In a basement that sees
+        laundry baskets, bikes and storage bins, this is almost always the right answer.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Solid-colour polyaspartic</strong> gives a cleaner, more deliberate look for a
+        basement that functions as living space. It is smoother than flake, so it shows more, but in a
+        finished basement that is rarely the constraint.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Metallic</strong> is possible and looks striking under basement lighting, but it is a
+        display finish. In a laundry or storage area it will disappoint you within a season. We will
+        say so before you buy it rather than after.
+      </p>
+      <div class="nearby">
+        <a href="/polyaspartic-garage-floors">Polyaspartic garage floors</a>
+        <a href="/metallic-epoxy-flooring">Metallic epoxy flooring</a>
+        <a href="/epoxy-flooring">Epoxy flooring by city</a>
+        <a href="/epoxy-garage-floor-cost">What a floor costs</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section section-sm" style="border-top:1px solid var(--color-iron-100)">
+    <div class="container-narrow">
+      <div class="kicker">Regional context</div>
+      <h2 class="h2 mt-2">Why GTA basements behave the way they do</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        Basement floor coating is unusually location-sensitive, and the housing stock across our
+        service area splits into three groups that behave very differently once you put a grinder on
+        the slab.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Pre-1970 basements</strong> - much of the older Toronto core, Westdale and the Durand
+        in Hamilton, Old Milton, Streetsville and the original Oakville village. These were commonly
+        poured without a vapour barrier beneath the slab, sometimes over nothing more than compacted
+        fill. They are also frequently thinner than a modern pour and were never intended as finished
+        space. This is where moisture readings come back high most often, and where a mitigating
+        primer is closer to the rule than the exception.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>1970s to 1990s subdivisions</strong> - Erin Mills, Meadowvale, Bramalea, most of the
+        Hamilton Mountain and a good deal of Burlington. Barriers were becoming standard through this
+        period, so readings are usually moderate. The more common issue here is a slab that was
+        power-trowelled to a very tight, closed finish, which looks pristine and gives a coating
+        almost nothing to grip. Those need a genuinely aggressive grind rather than a light pass.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Post-2000 builds</strong> - Springdale, Mount Pleasant, Churchill Meadows, Vellore
+        Village, Hawthorne Village and everything newer. Barriers are standard and the slabs are flat
+        and predictable. The variable here is age rather than construction: a basement slab in a house
+        finished within the last year is still giving up construction water, and that is a wait-a-
+        season conversation rather than a primer conversation.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        There is also a geography effect that cuts across all three. Properties close to the lake in
+        Port Credit, Clarkson, Bronte and the Toronto waterfront, and those in the older river valleys,
+        sit nearer the water table. Two identical houses built the same year can return very different
+        readings if one is four streets closer to the shoreline.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+    <div class="container-narrow">
+      <div class="kicker">What goes wrong</div>
+      <h2 class="h2 mt-2">The three ways a basement floor coating fails</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        We get called to look at failed basement floors more often than failed garage floors, and in
+        practice it is nearly always one of three things. All three are decisions, not accidents.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Blistering from underneath.</strong> Small domes appear across the floor, usually
+        within a year, and pop when you press them. That is vapour pressure lifting the coating off
+        the slab because nobody tested for it. There is no repair: the coating has to come off, the
+        slab has to be re-prepped, and a mitigating primer has to go down. It is the most expensive
+        possible way to save the cost of a moisture test.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Peeling at the edges and doorways.</strong> The coating lifts in sheets starting at
+        the perimeter. That is a bond failure, and it usually means the slab was acid-etched instead
+        of ground, or the grind never reached a proper profile in the awkward areas where a hand
+        grinder is needed. Edges are slow, and they are the first thing a rushed crew shortcuts.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Persistent tackiness or a lingering smell.</strong> The floor never quite hardens and
+        the basement smells for weeks. That is a cure problem - usually a product mixed at the wrong
+        ratio, applied below its minimum temperature, or a garage-grade high-solvent system used in a
+        space with no air exchange. In an occupied home this is the one that matters most, which is
+        why the product choice for a basement is not the same as for a garage.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        None of the three is exotic and none is bad luck. Test the slab, grind properly including the
+        edges, and specify a system made for an enclosed occupied space. Get those three right and a
+        basement floor is one of the most durable surfaces in the house.
+      </p>
+    </div>
+  </section>
+
+  <CityFaq faqs={faqs} city="basements" heading="Basement floor coating - straight answers" />
+
+  <section class="section section-sm">
+    <div class="container">
+      <div class="kicker">Where we work</div>
+      <h2 class="h3 mt-2">Basement floor coating across the GTA</h2>
+      <div class="nearby">
+        <a href="/service-areas/oakville">Oakville</a>
+        {CITIES.map((c) => <a href={`/epoxy-flooring-${c.slug}`}>{c.name}</a>)}
+      </div>
+    </div>
+  </section>
+</Ironside>

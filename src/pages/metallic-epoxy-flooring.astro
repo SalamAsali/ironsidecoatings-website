@@ -1,0 +1,300 @@
+---
+import Ironside from "../layouts/Ironside.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import CityFaq from "../components/CityFaq.astro";
+import ServiceSchema from "../components/ServiceSchema.astro";
+import { CITIES } from "../data/cities";
+
+/**
+ * Targets `metallic epoxy flooring` / `metallic epoxy floor` (480/mo, one bucket)
+ * plus `metallic epoxy garage floor` (110/mo). City-suffixed variants read 0/mo,
+ * so this is GTA-scoped. Vaughan carries the heaviest demand for it in practice,
+ * hence the cross-link.
+ */
+const title = "Metallic epoxy flooring";
+const description =
+  "Hand-troweled metallic epoxy flooring across the GTA. Poured, worked and sealed by hand so no two floors match. Sample board in your palette before install day.";
+
+const faqs = [
+  {
+    q: "What actually makes a metallic epoxy floor look like that?",
+    a: "Metallic pigment suspended in a clear resin, then moved. The installer pours the mixed resin, spreads it, and then works it with a trowel, a roller and often a leaf blower while it is still fluid. The pigment migrates as the resin moves, and that migration is what creates the depth, the veining and the sense that you are looking into the floor rather than at it. Nothing about the effect is printed or pre-made, which is why no two floors come out the same and why the installer's hand matters more than the product brand.",
+  },
+  {
+    q: "How is it different from the flake floors most companies install?",
+    a: "Almost entirely. Flake is a broadcast system: vinyl chips are thrown into a wet basecoat until the surface will not take any more, then scraped back and sealed. The result is hard-wearing, slightly textured, and very good at hiding dirt and tyre marks. Metallic has no chips at all. It is smooth, high-gloss and dramatic, and it shows everything a flake floor hides. Flake is the working floor. Metallic is the feature floor. Plenty of clients put metallic in one bay and flake in the others.",
+  },
+  {
+    q: "Can you match a specific colour?",
+    a: "Approximately, never exactly, and we would rather set that expectation before you commit. The pigment moves during installation - that movement is the entire effect - so what you get is a family of related tones rather than a flat colour. We make a sample board using the actual pigments for your floor so you can see the real range on real concrete before install day. If you need a precise uniform colour, the honest recommendation is a solid-colour polyaspartic instead of a metallic.",
+  },
+  {
+    q: "Is metallic epoxy durable enough for a garage?",
+    a: "Mechanically, yes - it is a resin floor with a protective topcoat and it takes vehicle traffic without difficulty. The issue is cosmetic, not structural. A mirror-gloss surface shows grit, water spotting and tyre scuffing in a way a flake floor does not. In a heated, finished garage that houses a car collection, it stays looking superb. In a working garage that takes a salt-covered daily driver every January, you will spend the winter cleaning it. That is the honest trade.",
+  },
+  {
+    q: "Where does metallic epoxy work best?",
+    a: "Heated and finished garages, showrooms, retail and hospitality floors, home gyms and basement entertainment spaces - anywhere the floor is meant to be looked at and stays reasonably dry. Across our service area the concentration is in Vaughan, particularly the Kleinburg and Patterson estate homes where the garage is genuinely part of the house. We also install it in Lorne Park and Mineola rebuilds in Mississauga and in Oakville's larger properties.",
+  },
+  {
+    q: "Does the prep differ from a normal epoxy floor?",
+    a: "It is more demanding, not less, which surprises people who assume a decorative finish is mostly about the topcoat. A metallic floor has no chips to hide behind, so every dip, every old trowel mark and every unevenly ground patch reads straight through the gloss. We diamond grind as normal, chase and fill cracks, moisture test - and then spend noticeably longer on flatness than we would under a flake floor. That extra time is most of what separates a floor that looks like liquid from one that looks like paint.",
+  },
+  {
+    q: "How long does a metallic floor take, and can I park on it?",
+    a: "Two days for most residential installs, because the decorative layer and the protective topcoat each need their own window and neither can be rushed. Foot traffic the day after the topcoat, vehicles after roughly 72 hours - longer than our polyaspartic flake system, and worth respecting. Rushing a metallic floor back into service is how you get tyre marks pressed into a surface that has not fully hardened.",
+  },
+];
+---
+
+<Ironside title={title} description={description} heroType="dark">
+  <ServiceSchema
+    slug="metallic-epoxy-flooring"
+    name="Metallic epoxy flooring"
+    serviceType="Decorative metallic epoxy floor coating"
+    description={description}
+    breadcrumb="Metallic epoxy flooring"
+  />
+
+  <section class="hero-dark compact">
+    <div class="hero-grad"></div><div class="hero-grain"></div><div class="hero-rim"></div>
+    <div class="hero-inner">
+      <div class="city-hero-grid">
+        <div>
+          <div class="kicker mb-2">Decorative resin &middot; GTA</div>
+          <h1 class="h-hero" style="margin-top:12px;max-width:16ch">Metallic epoxy flooring.</h1>
+          <p class="lede" style="color:var(--color-iron-300);margin-top:24px;max-width:56ch">
+            Poured, worked by hand and sealed. The pigment moves while the resin is still live, which
+            is why no two floors are the same and why the installer matters more than the label on
+            the pail. We make you a sample board before install day.
+          </p>
+          <div style="display:flex;gap:12px;margin-top:36px;flex-wrap:wrap">
+            <a href="#quote" class="btn btn-lg btn-primary">Book a slab assessment</a>
+          </div>
+          <div class="meta-rule" style="margin-top:36px">
+            <span>Sample board in your palette</span><span class="sep"></span>
+            <span>Hand-troweled, never rolled flat</span><span class="sep"></span>
+            <span>Two days</span>
+          </div>
+        </div>
+        <div id="quote">
+          <QuoteForm heading="Free metallic floor quote" sub="We measure the slab, moisture-test it, and quote a fixed price." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split-64" style="align-items:end">
+        <div>
+          <div class="kicker">What it is</div>
+          <h2 class="h1 mt-2" style="max-width:24ch">Metallic epoxy flooring is a hand skill, not a product.</h2>
+        </div>
+        <p class="p" style="color:var(--fg2);max-width:52ch">
+          Two installers can buy the same pigment and the same resin and produce completely different
+          floors. That is not a flaw in the system, it is the system.
+        </p>
+      </div>
+
+      <div class="hood-grid">
+        <div class="hood">
+          <h4>The pour</h4>
+          <p>Pigmented resin goes down over a prepared, primed slab. At this stage it looks like nothing much - flat, wet and unconvincing.</p>
+        </div>
+        <div class="hood">
+          <h4>The work</h4>
+          <p>Trowel, roller and air move the resin while it is live. The pigment migrates with it, and the veining and depth appear in the space of a few minutes.</p>
+        </div>
+        <div class="hood">
+          <h4>The point of no return</h4>
+          <p>Once the resin starts to set, what you have is what you keep. There is no adjusting a metallic floor afterwards, which is why it is booked as its own day.</p>
+        </div>
+        <div class="hood">
+          <h4>The topcoat</h4>
+          <p>A clear protective layer goes on the following day. This is what takes the wear, and it is why the floor underneath keeps its clarity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+    <div class="container">
+      <div class="split-64" style="align-items:start;gap:56px">
+        <div>
+          <div class="kicker">Before you commit</div>
+          <h2 class="h2 mt-2" style="max-width:26ch">When metallic epoxy flooring is the wrong choice</h2>
+          <p class="p" style="color:var(--fg2);margin-top:20px;max-width:60ch">
+            We install more metallic than most contractors in this region, and we also talk more
+            people out of it. Both come from the same place: it is expensive enough that getting the
+            specification wrong is a costly disappointment, and it is the one finish where the
+            failure mode is aesthetic rather than technical.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            The floor will not fail. It will simply stop looking the way it looked on day one, faster
+            than you expected, if it is in the wrong room. A high-gloss surface is a mirror, and
+            mirrors show grit, salt residue, water spots and the scuff a tyre leaves when it turns
+            while stationary. None of that damages the coating. All of it changes how the floor reads.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            So the question we ask first is not about colour, it is about use. Is the garage heated?
+            Is it finished? Does a daily driver live in it through a Canadian winter, or is this a
+            space for two cars that come out in May? The answers decide whether metallic is the right
+            purchase far more than any preference about pigment.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            The compromise that works well in a multi-bay garage is to split the floor: metallic in
+            the display bay, full-broadcast flake in the working bays, with a deliberate transition
+            line rather than an apologetic one. It costs less than doing the whole floor in metallic
+            and it ages considerably better.
+          </p>
+        </div>
+        <div>
+          <div class="card" style="padding:28px">
+            <div class="kicker">Suits metallic</div>
+            <ul style="list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px;font-size:14.5px;color:var(--fg2)">
+              <li>Heated, finished garages</li>
+              <li>Car collections and display bays</li>
+              <li>Showrooms, studios and retail</li>
+              <li>Basement entertainment space</li>
+              <li>Home gyms that stay dry</li>
+            </ul>
+          </div>
+          <div class="card" style="padding:28px;margin-top:20px">
+            <div class="kicker">Choose flake instead</div>
+            <ul style="list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px;font-size:14.5px;color:var(--fg2)">
+              <li>Unheated garages</li>
+              <li>Daily drivers through winter</li>
+              <li>Workshops and hoists</li>
+              <li>Anywhere salt arrives on tyres</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow">
+      <div class="kicker">Prep</div>
+      <h2 class="h2 mt-2">A metallic epoxy floor still starts with a grinder</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        It is tempting to think a decorative floor is mostly about what goes on last. It is not. A
+        metallic floor is more sensitive to preparation than a flake floor, because there are no chips
+        to break up the surface. Every low spot collects resin and reads darker. Every ridge left by
+        the original power-trowelling reads as a line. Every patch of slab that was ground to a
+        different profile takes the pigment differently.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        So the sequence is the same one we run on every floor, with more time in the middle of it:
+        diamond grind to a CSP-2 or CSP-3 profile, chase and fill cracks with a rigid polyurea,
+        moisture test, prime, and only then build. We do not acid etch, on any job. On a metallic
+        floor the flatness pass takes noticeably longer than it would under flake, and that is the
+        part of the quote that is doing the real work.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        Across our service area, most of this work lands in
+        <a href="/epoxy-flooring-vaughan">Vaughan</a> - Kleinburg and Patterson in particular - with a
+        steady run of it in <a href="/epoxy-flooring-mississauga">Mississauga</a> and
+        <a href="/service-areas/oakville">Oakville</a> rebuilds.
+      </p>
+      <div class="nearby">
+        <a href="/polyaspartic-garage-floors">Polyaspartic garage floors</a>
+        <a href="/basement-floor-coating">Basement floor coating</a>
+        <a href="/epoxy-flooring">Epoxy flooring by city</a>
+        <a href="/epoxy-garage-floor-cost">What a floor costs</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section section-sm" style="border-top:1px solid var(--color-iron-100)">
+    <div class="container-narrow">
+      <div class="kicker">Choosing a palette</div>
+      <h2 class="h2 mt-2">How to choose a metallic epoxy flooring colour</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        This is the part clients find hardest, because a metallic floor cannot be shown to you before
+        it exists. Photographs of somebody else's garage tell you about an installer's taste and
+        control, but not about what your floor will look like under your lighting in your space.
+        There are a few things worth knowing before you pick.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Base tone sets the mood, the accent does the work.</strong> Most metallic floors are
+        built from a dominant base with one or two accent pigments worked through it. The base decides
+        whether the room reads warm or cool. The accent creates the veining that people actually
+        notice. Two accents is usually the practical limit; beyond that the movement turns muddy
+        rather than dramatic.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Darker floors show more, not less.</strong> This runs against intuition. A dark
+        charcoal or graphite metallic looks spectacular and shows every speck of dust and every dried
+        water droplet. Mid-tones with genuine variation through them are far more forgiving, because
+        the pattern breaks up what lands on the surface.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Lighting changes it completely.</strong> Metallic reads differently under warm
+        incandescent, cool LED and daylight through an open bay door, because the effect depends on
+        how light travels into the resin and reflects back. If your garage has a specific lighting
+        setup, tell us, and look at the sample board in that light rather than in the driveway.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Match the room, not the car.</strong> Cars change. A floor keyed to the exact blue of
+        a vehicle you own now is a floor you may resent in three years. Keying it to the walls,
+        cabinetry and lighting ages considerably better.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        We make a sample board using the actual pigments for your floor before install day. It is the
+        single most useful thing in the whole process, and any contractor doing serious decorative
+        work will offer one without being asked.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+    <div class="container-narrow">
+      <div class="kicker">Living with it</div>
+      <h2 class="h2 mt-2">Maintaining a metallic epoxy floor</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        A metallic floor is not high-maintenance in the sense of needing treatment or resealing. The
+        protective topcoat does the work and it lasts. What it does need is more frequent cleaning
+        than a flake floor, because a gloss surface simply shows more.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Day to day</strong> is a dust mop, and that is genuinely most of it. Grit is the only
+        thing that will actually harm the finish, because grit underfoot or under a tyre is an
+        abrasive. Getting it off the floor regularly is worth more than any product you can buy.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Washing</strong> should be a pH-neutral cleaner and warm water. Avoid anything
+        citrus-based, anything with ammonia, and vinegar - all of them will dull a gloss topcoat over
+        time. There is no need for a stripper or a polish, and polishes in particular tend to build up
+        into a haze that is harder to remove than the dirt was.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Winter</strong> is where a metallic floor in a working garage earns its reputation.
+        Road brine dries into visible white spotting on a gloss surface. It washes off easily, but it
+        needs doing weekly rather than seasonally. This is the practical reason we steer daily-driver
+        garages toward flake, and it is a maintenance preference rather than a durability limit.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Damage</strong> is rare and usually cosmetic. A dropped tool can chip the topcoat, and
+        unlike flake, a chip in a metallic floor is visible because there is no pattern to absorb it.
+        Spot repairs are possible but never invisible, since the surrounding floor is unique. If you
+        run a workshop, put the workbench area in flake and keep the metallic for the display side.
+      </p>
+    </div>
+  </section>
+
+  <CityFaq faqs={faqs} city="metallic floors" heading="Metallic epoxy flooring - straight answers" />
+
+  <section class="section section-sm">
+    <div class="container">
+      <div class="kicker">Where we work</div>
+      <h2 class="h3 mt-2">Metallic epoxy flooring across the GTA</h2>
+      <div class="nearby">
+        <a href="/service-areas/oakville">Oakville</a>
+        {CITIES.map((c) => <a href={`/epoxy-flooring-${c.slug}`}>{c.name}</a>)}
+      </div>
+    </div>
+  </section>
+</Ironside>

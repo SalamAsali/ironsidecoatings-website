@@ -136,6 +136,28 @@ export const cityBySlug = (slug: string) => CITIES.find((c) => c.slug === slug);
 /** Sibling links for the "nearby" block. Keeps every city page 5 internal links richer. */
 export const siblingsOf = (slug: string) => CITIES.filter((c) => c.slug !== slug);
 
+/**
+ * Standalone service pages. City-suffixed variants of all three read 0/mo
+ * (checked Aug 2026: "metallic epoxy oakville" 0, "basement floor coating oakville" 0,
+ * "polyaspartic oakville" 0), so these are GTA-scoped rather than city-scoped.
+ */
+export interface ServicePage {
+  slug: string;
+  nav: string;
+  /** Head term the page targets, with its measured monthly volume. */
+  target: string;
+  volume: number;
+}
+
+export const SERVICE_PAGES: ServicePage[] = [
+  { slug: "polyaspartic-garage-floors", nav: "Polyaspartic garage floors",
+    target: "polyaspartic floor coating", volume: 1300 },
+  { slug: "basement-floor-coating", nav: "Basement floor coating",
+    target: "basement floor coating", volume: 880 },
+  { slug: "metallic-epoxy-flooring", nav: "Metallic epoxy flooring",
+    target: "metallic epoxy flooring", volume: 480 },
+];
+
 export const SERVICE = {
  slug: "epoxy-flooring",
  name: "Epoxy flooring",
