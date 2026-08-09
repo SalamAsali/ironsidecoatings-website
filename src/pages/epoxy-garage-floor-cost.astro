@@ -81,39 +81,21 @@ import { PHONE_HREF, PHONE_DISPLAY } from "../data/site";
  </div>
 </section>
 
-<!-- INTERACTIVE CALCULATOR -->
+<!-- WHAT DRIVES YOUR NUMBER -->
 <section class="section" style="background:var(--color-iron-950);color:var(--fg-inverse);padding:64px 0">
  <div class="container-narrow">
- <div class="kicker">Interactive &middot; rough estimate</div>
- <h2 class="h2 mt-2 mb-4" style="color:var(--fg-inverse);max-width:20ch">Ballpark my garage floor coating</h2>
- <p class="lede" style="color:var(--color-iron-300);max-width:56ch">Not a quote. A ballpark for your planning spreadsheet. Final price requires a site visit + moisture test.</p>
-
- <div style="background:var(--color-iron-900);border:1px solid var(--color-iron-800);padding:40px;margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
- <div>
- <div style="margin-bottom:28px">
- <label class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--color-iron-300);display:block;margin-bottom:12px">GARAGE SIZE</label>
- <div style="display:flex;gap:6px;flex-wrap:wrap">
- <button class="pill" data-size="1">1-car &middot; 240ft&sup2;</button>
- <button class="pill active" data-size="2">2-car &middot; 440ft&sup2;</button>
- <button class="pill" data-size="3">3-car &middot; 680ft&sup2;</button>
- <button class="pill" data-size="4">Larger &middot; 900ft&sup2;</button>
- </div>
- </div>
- <div>
- <label class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--color-iron-300);display:block;margin-bottom:12px">TIER</label>
- <div style="display:flex;gap:6px;flex-wrap:wrap">
- <button class="pill" data-rate="5.5">Essential</button>
- <button class="pill active" data-rate="8">Standard</button>
- <button class="pill" data-rate="13">Premium</button>
- </div>
- </div>
- </div>
- <div style="text-align:center;border-left:1px solid var(--color-iron-800);padding-left:48px">
- <div class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--color-iron-300)">BALLPARK RANGE</div>
- <div id="est" class="mono" style="font-size:30px;color:var(--fg-inverse);margin-top:8px;line-height:1.15;letter-spacing:-.01em">Book a measured quote</div>
- <div id="rate" class="mono" style="font-size:13px;color:var(--accent);margin-top:12px">Priced after moisture test and slab inspection</div>
- <a href="/quote" class="btn btn-md btn-primary" style="margin-top:24px">Get my exact quote</a>
- </div>
+ <div class="kicker">Getting a real number</div>
+ <h2 class="h2 mt-2 mb-4" style="color:var(--fg-inverse);max-width:24ch">What decides your garage floor coating price</h2>
+ <p class="lede" style="color:var(--color-iron-300);max-width:60ch">There is no honest per-square-foot number that can be quoted before somebody has looked at your slab. Two garages of identical size routinely price differently, and these are the reasons why.</p>
+ <div style="background:var(--color-iron-900);border:1px solid var(--color-iron-800);padding:40px;margin-top:32px">
+ <ul style="list-style:none;padding:0;margin:0;display:grid;gap:20px">
+ <li><strong style="color:var(--fg-inverse)">Slab condition.</strong> <span style="color:var(--color-iron-300)">Scaling, oil contamination or a previous coating all mean a deeper grind before anything goes down.</span></li>
+ <li><strong style="color:var(--fg-inverse)">Moisture reading.</strong> <span style="color:var(--color-iron-300)">A high reading means a mitigating primer, which is a real line item. A low one means it is not needed.</span></li>
+ <li><strong style="color:var(--fg-inverse)">Crack and joint work.</strong> <span style="color:var(--color-iron-300)">Chasing and filling is priced by linear metre, not by floor area.</span></li>
+ <li><strong style="color:var(--fg-inverse)">System choice.</strong> <span style="color:var(--color-iron-300)">Epoxy, polyaspartic and metallic are different materials with different labour profiles.</span></li>
+ <li><strong style="color:var(--fg-inverse)">Edge-to-area ratio.</strong> <span style="color:var(--color-iron-300)">Edges are cut by hand. A narrow townhouse bay costs more per square foot than an open double.</span></li>
+ </ul>
+ <a href="/quote" class="btn btn-md btn-primary" style="margin-top:32px">Book a measured quote</a>
  </div>
  </div>
 </section>
@@ -206,35 +188,5 @@ import { PHONE_HREF, PHONE_DISPLAY } from "../data/site";
  </div>
  </div>
 </section>
-
-<script>
-(function(){
- const state={size:440,rate:8};
- function fmt(n){return '$'+Math.round(n).toLocaleString()}
- function fmtRate(r){return '$'+(r-.5).toFixed(2)+'\u2013$'+(r+.5).toFixed(2)+' / ft\u00B2 \u00B7 '+state.size+' ft\u00B2'}
- function update(){
- const low=state.size*(state.rate-.5), high=state.size*(state.rate+.5);
- document.getElementById('est').textContent=fmt(low)+' \u2013 '+fmt(high);
- document.getElementById('rate').textContent=fmtRate(state.rate);
- }
- document.querySelectorAll('[data-size]').forEach(function(b){
- b.onclick=function(){
- document.querySelectorAll('[data-size]').forEach(function(x){x.classList.remove('active')});
- b.classList.add('active');
- var s=+b.dataset.size;
- state.size=s===1?240:s===2?440:s===3?680:900;
- update();
- };
- });
- document.querySelectorAll('[data-rate]').forEach(function(b){
- b.onclick=function(){
- document.querySelectorAll('[data-rate]').forEach(function(x){x.classList.remove('active')});
- b.classList.add('active');
- state.rate=+b.dataset.rate;
- update();
- };
- });
-})();
-</script>
 
 </Ironside>
