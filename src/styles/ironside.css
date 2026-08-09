@@ -472,3 +472,112 @@ h1,h2,h3,h4,h5,h6{margin:0;font-family:var(--font-display);letter-spacing:-.02em
   .ironside-footer{padding:48px 0 24px}
   .footer-bottom{flex-direction:column;gap:12px;text-align:center}
 }
+
+/* ==========================================================================
+   City+service architecture — nav dropdown, quote form, sticky call, FAQ, map
+   ========================================================================== */
+
+/* --- header service dropdown --- */
+.nav-drop{position:relative;display:inline-flex}
+.nav-drop > a{display:inline-flex;align-items:center;gap:6px}
+.nav-drop-menu{
+  position:absolute;top:100%;left:-16px;min-width:232px;padding:8px 0;
+  background:var(--color-iron-950);border:1px solid var(--color-iron-800);
+  box-shadow:0 24px 60px -12px rgba(0,0,0,.7);
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .16s ease,transform .16s ease,visibility .16s;z-index:60;
+}
+.nav-drop:hover .nav-drop-menu,
+.nav-drop:focus-within .nav-drop-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-drop-menu a{
+  display:block;padding:9px 20px;font-size:14px;color:var(--color-iron-300);
+  text-decoration:none;white-space:nowrap;
+}
+.nav-drop-menu a:hover{background:var(--color-iron-900);color:var(--color-white)}
+.nav-drop-menu a strong{color:var(--color-white);font-weight:600}
+.nav-light .nav-drop-menu{background:var(--color-white);border-color:var(--color-iron-100)}
+.nav-light .nav-drop-menu a{color:var(--color-iron-700)}
+.nav-light .nav-drop-menu a:hover{background:var(--color-iron-50);color:var(--color-iron-950)}
+.nav-light .nav-drop-menu a strong{color:var(--color-iron-950)}
+
+/* --- hero quote form (name / phone / email only) --- */
+.quote-form{
+  background:var(--color-white);border:1px solid var(--color-iron-100);
+  padding:32px;box-shadow:0 24px 60px -16px rgba(0,0,0,.35);
+}
+.quote-form .qf-head{margin-bottom:24px}
+.quote-form .qf-sub{font-size:14px;color:var(--fg2);margin-top:8px}
+.qf-field{display:block;margin-bottom:14px}
+.qf-field > span{
+  display:block;font-family:var(--font-mono-brand);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--color-iron-500);margin-bottom:6px;
+}
+.qf-field input{
+  width:100%;padding:13px 14px;font-size:15px;font-family:inherit;
+  border:1px solid var(--color-iron-100);background:var(--color-iron-50);color:var(--fg1);
+}
+.qf-field input:focus{
+  outline:none;border-color:var(--color-molten-600);background:var(--color-white);
+  box-shadow:0 0 0 3px rgba(217,95,31,.12);
+}
+.qf-submit{width:100%;justify-content:center;margin-top:8px}
+.qf-fine{font-size:12.5px;color:var(--color-iron-500);margin-top:14px;text-align:center;line-height:1.5}
+
+/* --- mobile sticky call bar; phone is the primary CTA --- */
+.sticky-call{display:none}
+@media (max-width:860px){
+  .sticky-call{
+    display:grid;grid-template-columns:1fr auto;gap:1px;
+    position:fixed;left:0;right:0;bottom:0;z-index:900;
+    background:var(--color-iron-800);
+    box-shadow:0 -8px 24px rgba(0,0,0,.28);
+  }
+  .sticky-call-phone{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:16px 12px;background:var(--color-molten-600);color:#fff;
+    font-weight:700;font-size:16px;letter-spacing:.01em;text-decoration:none;
+  }
+  .sticky-call-form{
+    display:flex;align-items:center;padding:16px 22px;background:var(--color-iron-950);
+    color:var(--color-iron-300);font-size:14px;text-decoration:none;
+  }
+  /* keep the bar from covering the last line of any page */
+  body{padding-bottom:56px}
+}
+
+/* --- FAQ accordion --- */
+.faq-list{margin-top:32px;border-top:1px solid var(--color-iron-100)}
+.faq-item{border-bottom:1px solid var(--color-iron-100)}
+.faq-item > summary{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:20px 0;cursor:pointer;list-style:none;
+  font-size:17px;font-weight:600;color:var(--fg1);
+}
+.faq-item > summary::-webkit-details-marker{display:none}
+.faq-item > summary svg{flex-shrink:0;color:var(--color-iron-500);transition:transform .18s ease}
+.faq-item[open] > summary svg{transform:rotate(180deg)}
+.faq-item[open] > summary{color:var(--color-molten-600)}
+.faq-item > p{padding:0 0 22px;color:var(--fg2);max-width:68ch;margin:0}
+
+/* --- service-area map --- */
+.area-map{margin:0}
+.area-map iframe{display:block;width:100%;border:1px solid var(--color-iron-100);filter:grayscale(.35)}
+.area-map figcaption{
+  margin-top:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-iron-500);
+}
+
+/* --- city page bits --- */
+.hood-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:28px}
+.hood{border:1px solid var(--color-iron-100);padding:20px;background:var(--color-white)}
+.hood h4{font-size:15px;font-weight:700;margin:0 0 8px}
+.hood p{font-size:14px;color:var(--fg2);margin:0;line-height:1.55}
+.nearby{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.nearby a{
+  display:inline-flex;align-items:center;gap:8px;padding:9px 16px;
+  border:1px solid var(--color-iron-100);background:var(--color-white);
+  font-size:14px;color:var(--fg1);text-decoration:none;
+}
+.nearby a:hover{border-color:var(--color-molten-600);color:var(--color-molten-600)}
+.city-hero-grid{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:start}
+@media (max-width:960px){.city-hero-grid{grid-template-columns:1fr;gap:36px}}
