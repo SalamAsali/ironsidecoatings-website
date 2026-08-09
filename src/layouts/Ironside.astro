@@ -91,7 +91,18 @@ const subColor = heroType === "light" ? "var(--color-iron-500)" : "var(--color-i
  <a href="/service-areas/oakville">Oakville</a>
  </div>
  </div>
- <a href="/polyaspartic-garage-floors">Polyaspartic</a>
+ <div class="nav-drop">
+ <a href="/polyaspartic-garage-floors" aria-haspopup="true">
+ Services
+ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+ </a>
+ <div class="nav-drop-menu">
+ {SERVICE_PAGES.map((sp) => (
+ <a href={`/${sp.slug}`}>{sp.nav}</a>
+ ))}
+ <a href="/epoxy-garage-floor-cost">What a floor costs</a>
+ </div>
+ </div>
  <a href="/service-areas">Service areas</a>
  <a href="/about">About</a>
  </div>
@@ -136,7 +147,9 @@ const subColor = heroType === "light" ? "var(--color-iron-500)" : "var(--color-i
  <h5>Services</h5>
  <ul>
  <li><a href="/epoxy-flooring">Epoxy flooring</a></li>
- <li><a href="/polyaspartic-garage-floors">Polyaspartic garage floors</a></li>
+ {SERVICE_PAGES.map((sp) => (
+ <li><a href={`/${sp.slug}`}>{sp.nav}</a></li>
+ ))}
  <li><a href="/epoxy-garage-floor-cost">What it costs</a></li>
  </ul>
  </div>
