@@ -29,6 +29,9 @@ const areaServed = [
  name: PRIMARY_CITY.name,
  sameAs: `https://www.wikidata.org/wiki/${PRIMARY_CITY.wikidata}`,
  },
+ // Claimed in copy across the site but has no city page of its own (10/mo).
+ // Wikidata ID verified against the API.
+ { "@type": "City", name: "Burlington", sameAs: "https://www.wikidata.org/wiki/Q34218" },
  ...CITIES.map((c) => ({
  "@type": "City",
  name: c.name,
