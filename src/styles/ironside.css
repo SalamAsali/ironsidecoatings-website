@@ -581,3 +581,31 @@ h1,h2,h3,h4,h5,h6{margin:0;font-family:var(--font-display);letter-spacing:-.02em
 .nearby a:hover{border-color:var(--color-molten-600);color:var(--color-molten-600)}
 .city-hero-grid{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:start}
 @media (max-width:960px){.city-hero-grid{grid-template-columns:1fr;gap:36px}}
+
+/* --- quote form: force dark text on the white card ---------------------------
+   .hero-dark and .section-dark set `color: var(--fg-inverse) !important` on
+   every h1-h3 inside them. The quote form is a white card that lives inside the
+   dark hero, so its heading inherited near-white on white and was effectively
+   invisible. These rules are scoped to .quote-form and carry !important so they
+   beat the section-level rule regardless of which section the form sits in. */
+.quote-form,
+.quote-form p,
+.quote-form label,
+.quote-form span {
+  color: var(--fg1);
+}
+.hero-dark .quote-form h1, .hero-dark .quote-form h2, .hero-dark .quote-form h3,
+.hero-dark .quote-form .h1, .hero-dark .quote-form .h2, .hero-dark .quote-form .h3,
+.section-dark .quote-form h1, .section-dark .quote-form h2, .section-dark .quote-form h3,
+.section-dark .quote-form .h1, .section-dark .quote-form .h2, .section-dark .quote-form .h3,
+.quote-form h1, .quote-form h2, .quote-form h3,
+.quote-form .h1, .quote-form .h2, .quote-form .h3 {
+  color: var(--fg1) !important;
+}
+/* sub-copy and field labels stay secondary, but still dark */
+.quote-form .qf-sub { color: var(--fg2) !important; }
+.quote-form .qf-field > span { color: var(--color-iron-500) !important; }
+.quote-form .qf-fine { color: var(--color-iron-500) !important; }
+.quote-form .qf-field input { color: var(--fg1) !important; }
+/* the kicker keeps the accent colour - it reads fine on white */
+.quote-form .kicker { color: var(--accent) !important; }
