@@ -1,0 +1,55 @@
+---
+import { SITE_URL, BRAND } from "../data/site";
+import { CITIES, PRIMARY_CITY } from "../data/cities";
+
+/**
+ * Schema for a standalone (non-city) service page: Service + BreadcrumbList.
+ *
+ * areaServed is the whole served region rather than one City, because these
+ * pages are GTA-scoped - every city-suffixed variant of these services measured
+ * 0/mo, so there is no city page to point at.
+ */
+interface Props {
+  slug: string;
+  name: string;
+  serviceType: string;
+  description: string;
+  breadcrumb: string;
+}
+const { slug, name, serviceType, description, breadcrumb } = Astro.props;
+const pageUrl = `${SITE_URL}/${slug}`;
+
+const areaServed = [
+  { "@type": "City", name: PRIMARY_CITY.name,
+    sameAs: `https://www.wikidata.org/wiki/${PRIMARY_CITY.wikidata}` },
+  ...CITIES.map((c) => ({
+    "@type": "City", name: c.name,
+    sameAs: `https://www.wikidata.org/wiki/${c.wikidata}`,
+  })),
+];
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": `${pageUrl}#service`,
+      name,
+      serviceType,
+      description,
+      provider: { "@id": `${SITE_URL}/#localbusiness` },
+      areaServed,
+      url: pageUrl,
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: BRAND, item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: breadcrumb, item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(graph)} is:inline />
