@@ -1,9 +1,12 @@
 ---
 import Ironside from "../layouts/Ironside.astro";
 import Placeholder from "../components/PlaceholderImage.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import { CITIES } from "../data/cities";
+import { PHONE_HREF, PHONE_DISPLAY } from "../data/site";
 ---
 
-<Ironside title="Premium polyaspartic garage floors, Oakville" description="Diamond-ground polyaspartic garage floors installed in one day with a lifetime warranty. Oakville-based, serving Burlington, Milton, Hamilton, and Ancaster." heroType="dark">
+<Ironside title="Epoxy flooring in Oakville — garage floor coating" description="Diamond-ground epoxy and polyaspartic garage floors in Oakville, installed in one day with a written transferable warranty. Serving Toronto, Mississauga, Hamilton, Brampton, Vaughan and Milton." heroType="dark">
 
 <!-- HERO -->
 <section class="hero-dark">
@@ -14,26 +17,19 @@ import Placeholder from "../components/PlaceholderImage.astro";
 
   <div class="hero-inner" style="display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:center;min-height:620px">
     <div>
-      <div class="kicker mb-2">Polyaspartic specialists &middot; Oakville</div>
-      <h1 class="h-hero" style="margin-top:12px;max-width:14ch">The garage floor<br/>that outlasts the slab.</h1>
-      <p class="lede" style="color:var(--color-iron-300);margin-top:28px">Diamond-ground. Polyaspartic. Installed in one day. Backed by a transferable lifetime warranty. Oakville-owned, serving Burlington, Milton, Hamilton, and Ancaster.</p>
-      <div style="display:flex;gap:12px;margin-top:40px;flex-wrap:wrap">
-        <a href="/quote" class="btn btn-lg btn-primary">Get my free quote
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <div class="kicker mb-2">Epoxy &amp; polyaspartic &middot; Oakville</div>
+      <h1 class="h-hero" style="margin-top:12px;max-width:16ch">Epoxy flooring in Oakville that outlasts the slab.</h1>
+      <p class="lede" style="color:var(--color-iron-300);margin-top:28px">Diamond-ground epoxy and polyaspartic garage floors, installed in one day and backed by a written transferable warranty. Oakville-owned, working from Hamilton to north Vaughan.</p>
+      <div style="display:flex;gap:12px;margin-top:40px;flex-wrap:wrap;align-items:center">
+        <a href={`tel:${PHONE_HREF}`} class="btn btn-lg btn-primary" style="font-size:19px;padding:20px 30px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          {PHONE_DISPLAY}
         </a>
-        <a href="/pricing" class="btn btn-lg btn-ghost-dark">See pricing tiers</a>
+        <a href="#quote" class="btn btn-lg btn-ghost-dark">Or request a quote</a>
       </div>
     </div>
-    <div>
-      <div style="position:relative;aspect-ratio:4/5;border:1px solid #1F2428;background:#0B0D10;box-shadow:0 24px 60px -12px rgba(0,0,0,.7);overflow:hidden">
-        <img src="https://images.unsplash.com/photo-1769641240978-fff8b96d3b42?w=600&h=750&fit=crop&q=80" alt="Luxury vehicle on polished garage floor" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.7" />
-        <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(11,13,16,0.2) 0%, rgba(11,13,16,0) 40%, rgba(11,13,16,0.7) 100%)"></div>
-        <span style="position:absolute;top:20px;left:20px;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(11,13,16,.7);border:1px solid rgba(255,255,255,.08);font-family:var(--font-mono-brand);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#E7E5DF"><span style="width:6px;height:6px;background:#D95F1F"></span>Install &middot; Glen Abbey</span>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 24px;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--font-mono-brand);font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(180deg, transparent, rgba(11,13,16,.85))">
-          <div><div style="color:#F4F3EF;font-weight:500">H-01 &middot; Oakville install</div><div style="color:#6B7278;margin-top:4px">04 / 2026 &middot; 680 ft&sup2;</div></div>
-          <div style="text-align:right;color:#6B7278"><div>Premium</div><div>polyaspartic</div></div>
-        </div>
-      </div>
+    <div id="quote">
+      <QuoteForm heading="Get your free quote" sub="We measure the slab, moisture-test it, and quote a fixed price." />
     </div>
   </div>
 
@@ -90,7 +86,7 @@ import Placeholder from "../components/PlaceholderImage.astro";
         <div class="kicker">Services</div>
         <h2 class="h1 mt-2" style="max-width:20ch">Four systems. One crew. One warranty.</h2>
       </div>
-      <a href="/polyaspartic-garage-floors" class="btn btn-md btn-ghost">All services &rarr;</a>
+      <a href="/epoxy-flooring" class="btn btn-md btn-ghost">All service areas &rarr;</a>
     </div>
     <div class="svc-grid">
       <a href="/polyaspartic-garage-floors" class="svc-card">
@@ -98,28 +94,28 @@ import Placeholder from "../components/PlaceholderImage.astro";
         <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L4 14 L12 14 L11 22 L20 10 L12 10 Z"/></svg>
         <h3>Polyaspartic garage floors</h3>
         <div class="desc">The Ironside System. Diamond-ground, full-broadcast flake, aliphatic topcoat. Cures in 2 hours.</div>
-        <div class="stat-row"><span>$10&ndash;16 / ft&sup2;</span><span>1 day</span></div>
+        <div class="stat-row"><span>Flagship system</span><span>1 day</span></div>
         <div class="more">Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </a>
-      <a href="/epoxy-garage-floors" class="svc-card">
+      <a href="/epoxy-flooring" class="svc-card">
         <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M9 3v18"/></svg>
         <h3>Epoxy garage floors</h3>
         <div class="desc">100% solids epoxy with urethane topcoat. The budget-tier entry point when polyaspartic isn't required.</div>
-        <div class="stat-row"><span>$5&ndash;6 / ft&sup2;</span><span>2 days</span></div>
+        <div class="stat-row"><span>Budget tier</span><span>2 days</span></div>
         <div class="more">Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </a>
-      <a href="/basement-epoxy-flooring" class="svc-card">
+      <a href="/epoxy-flooring" class="svc-card">
         <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6v10H3z"/><path d="M9 20v-6h6v6"/></svg>
         <h3>Basement epoxy</h3>
         <div class="desc">Moisture-mitigating basecoat for below-grade slabs. Low-VOC formulation safe for occupied homes.</div>
-        <div class="stat-row"><span>$7&ndash;10 / ft&sup2;</span><span>1&ndash;2 days</span></div>
+        <div class="stat-row"><span>Below-grade</span><span>1&ndash;2 days</span></div>
         <div class="more">Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </a>
-      <a href="/metallic-epoxy-floors" class="svc-card">
+      <a href="/epoxy-flooring/vaughan" class="svc-card">
         <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 010 18M3 12h18"/></svg>
         <h3>Metallic epoxy</h3>
         <div class="desc">Hand-troweled metallic pigment, swirled and cleared. For statement showrooms and heated garages.</div>
-        <div class="stat-row"><span>$14&ndash;22 / ft&sup2;</span><span>2 days</span></div>
+        <div class="stat-row"><span>Decorative</span><span>2 days</span></div>
         <div class="more">Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </a>
     </div>
@@ -269,87 +265,26 @@ import Placeholder from "../components/PlaceholderImage.astro";
   </div>
 </section>
 
-<!-- PRICING PREVIEW -->
+<!-- SERVICE AREAS -->
 <section class="section section-dark">
   <div class="container">
-    <div style="text-align:center;margin-bottom:64px">
-      <div class="kicker plain" style="justify-content:center;display:inline-flex">Pricing preview</div>
-      <h2 class="h1 mt-2" style="max-width:20ch;margin:16px auto 0">Three tiers. One standard. Honest pricing.</h2>
+    <div style="text-align:center;margin-bottom:56px">
+      <div class="kicker plain" style="justify-content:center;display:inline-flex">Where we work</div>
+      <h2 class="h1 mt-2" style="max-width:22ch;margin:16px auto 0">One shop in Oakville. Seven markets.</h2>
+      <p class="p" style="color:var(--color-iron-300);max-width:60ch;margin:20px auto 0">
+        Every city page covers the slab conditions and access constraints we actually meet there &mdash;
+        a 1958 Bramalea pour and a 2023 Milton pour fail in opposite ways.
+      </p>
     </div>
-    <div class="tier-grid">
-      <div class="tier">
-        <div class="tier-name">Essential</div>
-        <div class="pos">Single-car garage, clean slab, 1-color full broadcast.</div>
-        <div class="price">$5&ndash;6<span style="font-size:14px;letter-spacing:.1em;margin-left:6px">/ ft&sup2;</span></div>
-        <div class="price-sub">Starts at $2,500</div>
-        <ul class="feat">
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Diamond grind prep</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>100% solids epoxy basecoat</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Urethane topcoat</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>5-year warranty</li>
-        </ul>
-        <a class="btn btn-md btn-ghost cta" href="/pricing">See details</a>
-      </div>
-      <div class="tier highlight">
-        <div class="tier-flag">Most installed</div>
-        <div class="tier-name">Standard</div>
-        <div class="pos">Polyaspartic system, full-flake, 2-car garage, most popular.</div>
-        <div class="price">$7&ndash;9<span style="font-size:14px;letter-spacing:.1em;margin-left:6px">/ ft&sup2;</span></div>
-        <div class="price-sub">Starts at $4,200</div>
-        <ul class="feat">
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Everything in Essential</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Polyaspartic basecoat + topcoat</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Full-broadcast vinyl flake</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>15-year warranty</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>1-day install</li>
-        </ul>
-        <a class="btn btn-md btn-primary cta" href="/quote">Get my quote</a>
-      </div>
-      <div class="tier premium">
-        <div class="tier-badge">Ironside Premium</div>
-        <div class="tier-name">Premium</div>
-        <div class="pos">Iron-Clad Warranty, 2-coat topcoat, custom flake blend.</div>
-        <div class="price">$10&ndash;16<span style="font-size:14px;letter-spacing:.1em;margin-left:6px">/ ft&sup2;</span></div>
-        <div class="price-sub">Starts at $6,800</div>
-        <ul class="feat">
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Everything in Standard</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Custom flake blend (8+ colors)</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Double aliphatic topcoat</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Iron-Clad Lifetime Warranty</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>Post-install care kit</li>
-        </ul>
-        <a class="btn btn-md btn-inverse cta" href="/quote">Book consult</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REVIEWS -->
-<section class="section">
-  <div class="container">
-    <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:48px">
-      <div>
-        <div class="kicker">What neighbors say</div>
-        <h2 class="h1 mt-2">Verified reviews from GTA West.</h2>
-      </div>
-      <div class="mono" style="font-size:13px;color:var(--fg2)"><strong style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--fg1);letter-spacing:-.02em">5.0</strong> &middot; 47 reviews &middot; Google</div>
-    </div>
-    <div class="rev-grid">
-      <div class="rev">
-        <div class="stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg></div>
-        <p class="q">"Three quotes came in between $8K and $14K. Ironside was the highest and the only one that moisture-tested. Two years in, no hot-tire marks. Worth it."</p>
-        <div class="who"><span class="name">Marcus L.</span><span>Oakville &middot; Glen Abbey</span></div>
-      </div>
-      <div class="rev">
-        <div class="stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg></div>
-        <p class="q">"Truck off the floor at 8, crew gone by 5, parked on it Tuesday. They sent photos of every step. Best contractor experience I've had in twenty years of home ownership."</p>
-        <div class="who"><span class="name">Diane K.</span><span>Burlington &middot; Shoreacres</span></div>
-      </div>
-      <div class="rev">
-        <div class="stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 10 L17 15 L18 22 L12 19 L6 22 L7 15 L2 10 L9 9 Z"/></svg></div>
-        <p class="q">"Salam showed up for the consult in a clean truck with a sample kit. Explained why he wouldn't do acid etch. That's the moment I signed. Floor's flawless eighteen months later."</p>
-        <div class="who"><span class="name">Jim R.</span><span>Ancaster &middot; Meadowlands</span></div>
-      </div>
+    <div class="svc-grid">
+      {CITIES.map((c) => (
+        <a href={`/epoxy-flooring/${c.slug}`} class="svc-card">
+          <h3>Epoxy flooring {c.name}</h3>
+          <div class="desc">{c.neighbourhoods.slice(0, 3).join(", ")}.</div>
+          <div class="stat-row"><span>{c.driveMinutes} min from base</span></div>
+          <div class="more">See {c.name} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+      ))}
     </div>
   </div>
 </section>
@@ -401,7 +336,7 @@ import Placeholder from "../components/PlaceholderImage.astro";
         <a href="/quote" class="btn btn-lg btn-primary" style="min-width:260px">Get my free quote
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="tel:9055550174" class="btn btn-lg btn-ghost-dark" style="min-width:260px">905 &middot; 555 &middot; 0174</a>
+        <a href={`tel:${PHONE_HREF}`} class="btn btn-lg btn-ghost-dark" style="min-width:260px">{PHONE_DISPLAY}</a>
         <div class="mono" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-iron-500)">Mon&ndash;Sat &middot; 7a&ndash;7p</div>
       </div>
     </div>
