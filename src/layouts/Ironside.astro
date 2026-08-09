@@ -4,16 +4,28 @@ import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import { Font } from "astro:assets";
 import "../styles/ironside.css";
+import { CITIES } from "../data/cities";
+import { PHONE_HREF, PHONE_DISPLAY, EMAIL, SITE_URL } from "../data/site";
+import SiteSchema from "../components/SiteSchema.astro";
+import StickyCall from "../components/StickyCall.astro";
 
 interface Props {
   title: string;
   description?: string;
   heroType?: "dark" | "light";
   robots?: string;
+  /** Absolute or root-relative canonical path. Defaults to the current pathname. */
+  canonical?: string;
 }
 
-const { title, description, heroType = "dark", robots } = Astro.props;
+const { title, description, heroType = "dark", robots, canonical } = Astro.props;
 const fullTitle = `${title} — Ironside Coatings`;
+
+// Canonical: collapse the trailing slash and any query string so the ~8 live URL
+// variants (http/https x apex/www x slash/no-slash x ?utm_*) all point at one URL.
+const rawPath = canonical ?? Astro.url.pathname;
+const cleanPath = rawPath === "/" ? "/" : rawPath.replace(/\/+$/, "");
+const canonicalUrl = new URL(cleanPath, SITE_URL).href;
 
 const pageCtx = createPublicPageContext({
   Astro,
@@ -41,8 +53,10 @@ const subColor = heroType === "light" ? "var(--color-iron-500)" : "var(--color-i
   <Font cssVariable="--font-sans" />
   <Font cssVariable="--font-mono" />
   <title>{fullTitle}</title>
+  <link rel="canonical" href={canonicalUrl} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <EmDashHead page={pageCtx} />
+  <SiteSchema />
 </head>
 <body>
   <EmDashBodyStart page={pageCtx} />
@@ -64,14 +78,26 @@ const subColor = heroType === "light" ? "var(--color-iron-500)" : "var(--color-i
       </div>
     </a>
     <div class="nav-links">
-      <a href="/polyaspartic-garage-floors">Services</a>
+      <div class="nav-drop">
+        <a href="/epoxy-flooring" aria-haspopup="true">
+          Epoxy flooring
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="nav-drop-menu">
+          <a href="/epoxy-flooring"><strong>All service areas</strong></a>
+          {CITIES.map((c) => (
+            <a href={`/epoxy-flooring/${c.slug}`}>{c.name}</a>
+          ))}
+          <a href="/service-areas/oakville">Oakville</a>
+        </div>
+      </div>
+      <a href="/polyaspartic-garage-floors">Polyaspartic</a>
       <a href="/service-areas">Service areas</a>
-      <a href="/pricing">Pricing</a>
       <a href="/about">About</a>
     </div>
     <div class="nav-right">
-      <a class="nav-phone" href="tel:9055550174">
-        <span class="dot"></span>905 &middot; 555 &middot; 0174
+      <a class="nav-phone" href={`tel:${PHONE_HREF}`}>
+        <span class="dot"></span>{PHONE_DISPLAY}
       </a>
       <a href="/quote" class="btn btn-sm btn-primary">
         Get my free quote
@@ -109,38 +135,25 @@ const subColor = heroType === "light" ? "var(--color-iron-500)" : "var(--color-i
         <div>
           <h5>Services</h5>
           <ul>
-            <li><a href="/polyaspartic-garage-floors">Polyaspartic</a></li>
-            <li><a href="/epoxy-garage-floors">Epoxy garage</a></li>
-            <li><a href="/basement-epoxy-flooring">Basement epoxy</a></li>
-            <li><a href="/metallic-epoxy-floors">Metallic epoxy</a></li>
-            <li><a href="/polyaspartic-vs-epoxy">Polyaspartic vs epoxy</a></li>
+            <li><a href="/epoxy-flooring">Epoxy flooring</a></li>
+            <li><a href="/polyaspartic-garage-floors">Polyaspartic garage floors</a></li>
+            <li><a href="/epoxy-garage-floor-cost">What it costs</a></li>
           </ul>
         </div>
         <div>
           <h5>Service areas</h5>
           <ul>
             <li><a href="/service-areas/oakville">Oakville</a></li>
-            <li><a href="/service-areas/burlington">Burlington</a></li>
-            <li><a href="/service-areas/milton">Milton</a></li>
-            <li><a href="/service-areas/hamilton">Hamilton</a></li>
-            <li><a href="/service-areas/ancaster">Ancaster</a></li>
-            <li><a href="/service-areas/mississauga">Mississauga</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Resources</h5>
-          <ul>
-            <li><a href="/epoxy-garage-floor-cost">Cost guide</a></li>
-            <li><a href="/pricing">Pricing tiers</a></li>
-            <li><a href="/warranty">Warranty</a></li>
-            <li><a href="/gallery">Gallery</a></li>
+            {CITIES.map((c) => (
+              <li><a href={`/epoxy-flooring/${c.slug}`}>{c.name}</a></li>
+            ))}
           </ul>
         </div>
         <div>
           <h5>Contact</h5>
           <ul>
-            <li><a href="tel:9055550174" class="mono">905 &middot; 555 &middot; 0174</a></li>
-            <li><a href="mailto:quote@ironsidecoatings.ca">quote@ironsidecoatings.ca</a></li>
+            <li><a href={`tel:${PHONE_HREF}`} class="mono">{PHONE_DISPLAY}</a></li>
+            <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
             <li><a href="/quote">Get a quote</a></li>
             <li><a href="/about">About Ironside</a></li>
             <li style="color:var(--color-iron-500);font-size:13px">2285 Speers Rd, Unit 4<br/>Oakville ON L6L 2X8</li>
@@ -149,10 +162,12 @@ const subColor = heroType === "light" ? "var(--color-iron-500)" : "var(--color-i
       </div>
       <div class="footer-bottom">
         <div>&copy; 2026 Ironside Coatings Inc.</div>
-        <div>Privacy &middot; Terms &middot; Sitemap</div>
+        <div><a href="/sitemap-index.xml">Sitemap</a></div>
       </div>
     </div>
   </footer>
+
+  <StickyCall />
 
   {isLoggedIn && <a href="/_emdash/admin" style="position:fixed;bottom:16px;right:16px;z-index:1000;background:var(--color-iron-950);color:var(--fg-inverse);padding:8px 12px;font-family:var(--font-mono-brand);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;text-decoration:none">Admin</a>}
 

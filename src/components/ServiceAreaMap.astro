@@ -1,0 +1,35 @@
+---
+/**
+ * Service-area map embed.
+ *
+ * Uses OpenStreetMap rather than a Google Maps embed: the Google embed requires an
+ * API key this project does not carry, and OSM needs no key, no cookie and no
+ * third-party script. loading="lazy" keeps it off the critical path - the site's
+ * LCP is already TTFB-bound.
+ */
+interface Props {
+  city: string;
+  lat: number;
+  lng: number;
+  /** Half-width of the bbox in degrees. ~0.09 deg lat is roughly 10km. */
+  span?: number;
+}
+const { city, lat, lng, span = 0.11 } = Astro.props;
+const bbox = [lng - span * 1.4, lat - span, lng + span * 1.4, lat + span]
+  .map((n) => n.toFixed(4))
+  .join(",");
+const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat},${lng}`;
+---
+<figure class="area-map">
+  <iframe
+    src={src}
+    title={`Ironside Coatings service area map centred on ${city}, Ontario`}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    width="100%"
+    height="340"
+  ></iframe>
+  <figcaption class="mono">
+    Service area &middot; {city}, Ontario &mdash; crews dispatch from Oakville
+  </figcaption>
+</figure>

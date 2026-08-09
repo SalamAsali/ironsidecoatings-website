@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Admin surface and conversion endpoints carry no search value.
+Disallow: /_emdash/
+Disallow: /quote
+Disallow: /search
+
+Sitemap: https://ironsidecoatings.ca/sitemap-index.xml

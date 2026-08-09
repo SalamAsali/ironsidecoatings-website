@@ -1,0 +1,304 @@
+---
+import Ironside from "../../layouts/Ironside.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+import CityFaq from "../../components/CityFaq.astro";
+import CityServiceSchema from "../../components/CityServiceSchema.astro";
+import ServiceAreaMap from "../../components/ServiceAreaMap.astro";
+import { cityBySlug, siblingsOf } from "../../data/cities";
+
+const city = cityBySlug("milton")!;
+const nearby = siblingsOf("milton");
+
+const title = "Epoxy flooring Milton";
+const description =
+  "Epoxy and polyaspartic garage floors in Milton — Hawthorne Village, Willmott, Scott, Ford and Old Milton. New-build slabs tested before we quote.";
+
+const faqs = [
+  {
+    q: "We just took possession in Ford. Can we coat the garage right away?",
+    a: "Probably not immediately, and this is the most common question we get in Milton. Concrete hits design strength at around 28 days but keeps giving up construction moisture for months after that. On a brand-new build we would rather test the slab than sell you a coating that blisters in the spring. If the reading is high the recommendation is simply to wait — usually until the slab has been through a winter — and that advice costs you nothing.",
+  },
+  {
+    q: "Is the limestone dust from the quarries an issue?",
+    a: "Not for the coating itself, but it is worth knowing about if you are on the west side near the escarpment. Fine dust settles on everything, including a freshly coated floor if the bay door is open while the topcoat is still wet. On breezy days we manage the door rather than working with the garage wide open. Once the floor is cured, dust is a sweeping job, and a coated slab is far easier to keep clean than a bare one.",
+  },
+  {
+    q: "My garage in Old Milton is from the 1940s. Is that a different job?",
+    a: "Yes, and it is a small fraction of what we do here — Milton is overwhelmingly a new-build town, so the pre-war core stands out. Those garages are typically single-bay detached structures with thin slabs poured on grade, no vapour barrier and sixty-plus years of settlement. Some are excellent candidates. Some have broken into plates and need replacing rather than coating. We will tell you which at the quote.",
+  },
+  {
+    q: "The builder's garage floor has a big crack across it already. Is that normal?",
+    a: "A single straight crack across a new garage slab is usually shrinkage rather than structural failure — concrete shrinks as it cures and, if the control joints were cut shallow or late, it relieves the stress by cracking where it wants to. It is cosmetic and it is routine in fast-built subdivisions. We chase it out to sound material, fill it with a rigid polyurea, grind flush and coat over it. What is not routine is a crack with a vertical step across it, or one that is visibly wet, and those we will look at carefully before quoting.",
+  },
+  {
+    q: "How close is Milton to your base?",
+    a: "About twenty minutes up the 407, which makes it one of our two closest markets alongside Mississauga. That has a practical benefit beyond convenience: we can come and look at a floor without it being a half-day expedition, so we quote in person rather than from photographs and a square-footage estimate. For a town where most of the slabs are young enough that moisture is the deciding variable, seeing the floor genuinely matters.",
+  },
+  {
+    q: "Can you coat the garage in a townhouse?",
+    a: "Yes, and Milton has a lot of them. Townhouse garages are small single bays, frequently with the furnace or a utility cupboard taking up part of the footprint, and often a step up into the house. That means a high proportion of hand-cut edge relative to open floor, so they take longer per square foot than a big open double. They are still comfortably a one-day job.",
+  },
+  {
+    q: "Will a coating help with the salt we track in over winter?",
+    a: "That is one of the clearer arguments for it. Milton sits on the escarpment edge and the through-roads are salted heavily, so a lot of brine comes home on tyres. On bare concrete that soaks in and drives freeze-thaw damage from the surface down; on a bonded coating it sits on top and mops off. The caveat is that the coating has to be genuinely bonded — which means grinding, not acid etching, and testing the slab first.",
+  },
+];
+---
+
+<Ironside title={title} description={description} heroType="dark">
+  <CityServiceSchema
+    city={city.name}
+    citySlug={city.slug}
+    wikidata={city.wikidata}
+    description={description}
+  />
+
+  <section class="hero-dark compact">
+    <div class="hero-grad"></div><div class="hero-grain"></div><div class="hero-rim"></div>
+    <div class="hero-inner">
+      <div class="city-hero-grid">
+        <div>
+          <div class="kicker mb-2">Epoxy &amp; polyaspartic &middot; Milton</div>
+          <h1 class="h-hero" style="margin-top:12px;max-width:16ch">Epoxy flooring in Milton.</h1>
+          <p class="lede" style="color:var(--color-iron-300);margin-top:24px;max-width:56ch">
+            The newest slabs in the region, which makes moisture the deciding question rather than
+            wear. We test before we quote — and we will tell you to wait if the concrete is not
+            ready.
+          </p>
+          <div style="display:flex;gap:12px;margin-top:36px;flex-wrap:wrap">
+            <a href="#quote" class="btn btn-lg btn-primary">Book a slab assessment</a>
+          </div>
+          <div class="meta-rule" style="margin-top:36px">
+            <span>{city.driveMinutes} min from the Oakville shop</span><span class="sep"></span>
+            <span>New builds, townhouses and the Old Milton core</span>
+          </div>
+        </div>
+        <div id="quote">
+          <QuoteForm city={city.name} heading="Free quote in Milton" sub="We measure the slab, test it for moisture, and quote a fixed price." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split-64" style="align-items:end">
+        <div>
+          <div class="kicker">Milton slabs</div>
+          <h2 class="h1 mt-2" style="max-width:22ch">A town that grew faster than its concrete could cure.</h2>
+        </div>
+        <p class="p" style="color:var(--fg2);max-width:52ch">
+          Milton went from a small escarpment town to one of the fastest-growing municipalities in
+          the country inside two decades. Almost every garage floor here is younger than the mortgage,
+          and that single fact drives everything about how we quote in this town.
+        </p>
+      </div>
+
+      <div class="hood-grid">
+        <div class="hood">
+          <h4>Hawthorne Village</h4>
+          <p>Early-2000s subdivision, now old enough that the slabs are fully cured and stable. The most predictable floors in Milton and a straightforward one-day install.</p>
+        </div>
+        <div class="hood">
+          <h4>Willmott &amp; Scott</h4>
+          <p>2010s stock across the west side. Flat, well-poured slabs with the usual builder shrinkage cracking, which is a prep item rather than a problem.</p>
+        </div>
+        <div class="hood">
+          <h4>Ford</h4>
+          <p>The newest neighbourhood we work in. Genuinely young concrete — this is where we most often recommend testing first and, sometimes, waiting a season.</p>
+        </div>
+        <div class="hood">
+          <h4>Old Milton</h4>
+          <p>The pre-war core. Detached single-bay garages, thin slabs on grade, decades of settlement. A minority of Milton jobs and by far the most variable.</p>
+        </div>
+        <div class="hood">
+          <h4>Townhouse blocks</h4>
+          <p>Small single bays with utility cupboards eating into the footprint. High edge-to-area ratio, so slower per square foot than they look, but still a single day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+    <div class="container">
+      <div class="split-64" style="align-items:start;gap:56px">
+        <div>
+          <div class="kicker">New-build slabs</div>
+          <h2 class="h2 mt-2" style="max-width:24ch">The advice that loses us work, and should.</h2>
+          <p class="p" style="color:var(--fg2);margin-top:20px;max-width:60ch">
+            A freshly poured garage slab is not ready for a coating, and in a town building at
+            Milton's pace that is a conversation we have most weeks. Concrete reaches its design
+            strength in around 28 days, but it keeps releasing water for a long time afterwards as
+            the pour dries from the inside out. Bond a coating to the top of a slab that is still
+            pushing moisture upward and the vapour has nowhere to go: it collects under the film and
+            lifts it.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            So on a recent build we test rather than assume. Where the reading is acceptable, we
+            proceed as normal. Where it is not, the choice is a moisture-mitigating primer — which is
+            real cost — or waiting until the slab has dried out, usually after a full heating season.
+            For most homeowners waiting is the better answer, and we would rather say that than book
+            the job and hand you a warranty claim in eighteen months.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            The corollary is good news: once a Milton slab is ready, it is about as easy a floor as
+            we coat. Flat, well-finished, no decades of oil contamination, no scaling, no legacy
+            coating to strip. The prep is quick and the finish comes out clean.
+          </p>
+        </div>
+        <div>
+          <ServiceAreaMap city={city.name} lat={city.lat} lng={city.lng} span={0.1} />
+          <div style="margin-top:24px">
+            <div class="kicker">Areas we cover</div>
+            <div class="nearby">
+              {city.neighbourhoods.map((n) => <a href="#quote">{n}</a>)}
+              <a href="#quote">Beaty</a>
+              <a href="#quote">Coates</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow">
+      <div class="kicker">What goes down</div>
+      <h2 class="h2 mt-2">Polyaspartic suits a Milton garage particularly well.</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        Two local factors point the same way. The first is salt: escarpment-edge roads are treated
+        heavily and a bonded, chloride-resistant surface earns its keep. The second is that a lot of
+        Milton garages are unheated and get used year-round, which rules out installing standard
+        epoxy through the colder half of the year — it will not cross-link properly below roughly
+        10&deg;C.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        Polyaspartic handles both. It cures across a much wider temperature range, comes back to
+        vehicle service in about a day, and its aliphatic topcoat will not amber where afternoon sun
+        comes through an open bay door. We still install true epoxy where it fits — larger commercial
+        floors where a longer cure is acceptable and cost per square foot dominates.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        Either way the preparation is identical and it is the part that decides the outcome: diamond
+        grind to profile, chase and fill the shrinkage cracks that nearly every Milton slab has,
+        moisture test, then coat. No acid etching.
+      </p>
+      <div class="nearby">
+        <a href="/polyaspartic-garage-floors">How polyaspartic differs from epoxy</a>
+        <a href="/epoxy-garage-floor-cost">What a floor costs</a>
+        <a href="/epoxy-flooring">All service areas</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section section-sm" style="border-top:1px solid var(--color-iron-100)">
+    <div class="container-narrow">
+      <div class="kicker">Working through the seasons</div>
+      <h2 class="h2 mt-2">The escarpment makes Milton colder than the lakeshore.</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        Milton sits at the base of the Niagara Escarpment and away from the lake's moderating
+        influence, which makes it reliably a couple of degrees colder than Oakville on the same
+        morning and gives it a longer stretch of sub-zero nights. For an unheated garage that means a
+        slab which stays cold well into spring, long after the air temperature has recovered.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        This catches people out in April. The afternoon feels mild, so it seems like coating weather,
+        but the concrete is still holding winter and a slab at 4&deg;C will not cure a standard epoxy
+        no matter how pleasant it is outside. We measure slab temperature rather than air temperature
+        before starting, which occasionally means telling somebody their perfect spring Saturday is
+        not actually a working day.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        Polyaspartic tolerates a cold slab far better, which is why it is what we install here
+        through most of the year. The practical upside is that Milton has a genuine winter season:
+        an unheated garage in Willmott or Scott in February is a workable job, and it is often easier
+        to schedule than the same job in June.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        The other local factor is wind. The escarpment edge is exposed, and an open bay door on a
+        windy day pulls dust and grit across a wet floor. On breezy days we work with the door
+        managed rather than wide open, which slows things slightly and is much cheaper than
+        recoating.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+    <div class="container-narrow">
+      <div class="kicker">Before you sign anything</div>
+      <h2 class="h2 mt-2">What to ask when your house is nearly new.</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        Most Milton homeowners booking a garage floor are working with concrete that is under fifteen
+        years old, and a good number are working with concrete under five. That is a different
+        buying situation from an older market, and the questions that matter are different too.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>"Will you test the slab, and what reading would make you walk away?"</strong> A
+        contractor who has a threshold in mind has thought about this. One who says it will be fine
+        has not.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>"How will you treat the shrinkage crack?"</strong> Nearly every Milton slab has one.
+        The right answer is chase it out and fill it with a rigid material, then grind flush. The
+        wrong answer is that the flake will hide it.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>"Does my builder's warranty cover the garage slab?"</strong> Worth checking before
+        you coat, because coating a floor can complicate a claim on a slab defect. If your home is
+        still within its new-home warranty period and the slab has a genuine defect, get that
+        resolved first.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>"What is the minimum age of slab you will coat?"</strong> Anyone willing to coat
+        concrete poured last month is not managing your risk, they are managing their schedule.
+      </p>
+    </div>
+  </section>
+
+
+  <section class="section section-sm">
+    <div class="container-narrow">
+      <div class="kicker">Install day</div>
+      <h2 class="h2 mt-2">How a Milton install actually runs.</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        Twenty minutes from the shop, so the crew is set up early. First step on a Milton job is
+        almost always a slab temperature check alongside the moisture reading, because the escarpment
+        keeps concrete colder later into the spring than the air temperature suggests. That reading
+        decides the material and occasionally the date.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        Masking next, with particular attention to the service door into the house — Milton garages
+        are almost all attached, and dust travels. Then the grind. On newer slabs this goes quickly;
+        the time goes instead into chasing and filling the shrinkage crack that most Milton floors
+        have, which is done before grinding flush so the fill sits level with the finished surface
+        rather than proud of it.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        Vacuum, inspect, basecoat, flake broadcast to refusal, scrape-back, topcoat. On a windy day
+        the bay door gets managed rather than left open, which slows the day slightly and keeps grit
+        out of the finish. Walkable the same evening, car back in the following morning. Townhouse
+        bays finish earlier; they are small, but the edge work is disproportionate.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        The same sequence runs in <a href="/epoxy-flooring/hamilton">Hamilton</a> and
+        <a href="/epoxy-flooring/mississauga">Mississauga</a>. More on
+        <a href="/about">how we work</a>, and the full
+        <a href="/service-areas">service-area map</a>.
+      </p>
+    </div>
+  </section>
+
+  <CityFaq faqs={faqs} city={city.name} />
+
+  <section class="section section-sm">
+    <div class="container">
+      <div class="kicker">Nearby</div>
+      <h2 class="h3 mt-2">We also coat floors in</h2>
+      <div class="nearby">
+        <a href="/service-areas/oakville">Oakville</a>
+        {nearby.map((c) => <a href={`/epoxy-flooring/${c.slug}`}>{c.name}</a>)}
+      </div>
+    </div>
+  </section>
+</Ironside>

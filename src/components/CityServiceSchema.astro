@@ -1,0 +1,54 @@
+---
+import { SITE_URL, BRAND } from "../data/site";
+
+/**
+ * Per-city-page schema: Service + BreadcrumbList.
+ * FAQPage is emitted separately by CityFaq.astro so it always matches visible copy.
+ *
+ * `provider` points at the site-wide LocalBusiness @id rather than restating the
+ * business, so there is exactly one business node in the graph.
+ */
+interface Props {
+  city: string;
+  citySlug: string;
+  wikidata: string;
+  serviceType?: string;
+  description: string;
+}
+const {
+  city, citySlug, wikidata,
+  serviceType = "Epoxy and polyaspartic floor coating",
+  description,
+} = Astro.props;
+
+const pageUrl = `${SITE_URL}/epoxy-flooring/${citySlug}`;
+
+const service = {
+  "@type": "Service",
+  "@id": `${pageUrl}#service`,
+  name: `Epoxy flooring in ${city}, Ontario`,
+  serviceType,
+  description,
+  provider: { "@id": `${SITE_URL}/#localbusiness` },
+  areaServed: {
+    "@type": "City",
+    name: city,
+    sameAs: `https://www.wikidata.org/wiki/${wikidata}`,
+  },
+  url: pageUrl,
+  // No `offers`: the site publishes no pricing.
+};
+
+const breadcrumb = {
+  "@type": "BreadcrumbList",
+  "@id": `${pageUrl}#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: BRAND, item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Epoxy flooring", item: `${SITE_URL}/epoxy-flooring` },
+    { "@type": "ListItem", position: 3, name: city, item: pageUrl },
+  ],
+};
+
+const graph = { "@context": "https://schema.org", "@graph": [service, breadcrumb] };
+---
+<script type="application/ld+json" set:html={JSON.stringify(graph)} is:inline />

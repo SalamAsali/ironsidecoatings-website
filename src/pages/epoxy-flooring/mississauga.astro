@@ -1,0 +1,300 @@
+---
+import Ironside from "../../layouts/Ironside.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+import CityFaq from "../../components/CityFaq.astro";
+import CityServiceSchema from "../../components/CityServiceSchema.astro";
+import ServiceAreaMap from "../../components/ServiceAreaMap.astro";
+import { cityBySlug, siblingsOf } from "../../data/cities";
+
+const city = cityBySlug("mississauga")!;
+const nearby = siblingsOf("mississauga");
+
+const title = "Epoxy flooring Mississauga";
+const description =
+  "Epoxy and polyaspartic garage floors in Mississauga — Lorne Park, Port Credit, Streetsville, Erin Mills. Diamond-ground prep, moisture-tested, one-day install.";
+
+const faqs = [
+  {
+    q: "My garage is in Erin Mills and the control joints have opened up. Can that be coated?",
+    a: "Usually yes. Erin Mills and Meadowvale slabs are mostly late-1970s to mid-1980s, and by now the saw-cut control joints have widened and the edges have crumbled a little. That is normal ageing, not slab failure. We chase the joints out to sound concrete, fill them with a semi-rigid polyurea that flexes with seasonal movement, then grind the whole floor flat. What we will not do is skim over an open joint with topcoat — it telegraphs through and cracks again in the first hard winter.",
+  },
+  {
+    q: "Does being close to the lake in Port Credit or Clarkson change anything?",
+    a: "It changes the moisture picture, yes. Shoreline properties south of Lakeshore sit on a higher water table, and the 1950s and 60s slabs down there were commonly poured without a vapour barrier. We run a calcium chloride or in-slab RH test on every job in that strip rather than relying on a plastic-sheet spot check. Where the reading is high, a moisture-mitigating primer goes down first. Skipping that step is how a coating ends up blistering from underneath a year later, and it is not a repair — it is a full removal and redo.",
+  },
+  {
+    q: "I have a three-car garage in Lorne Park. How long does that take?",
+    a: "Still one day for polyaspartic, but it is a bigger crew day. A three-bay Lorne Park garage is typically 700 to 900 square feet, which means more grinding time up front and a tighter working window on the broadcast. We schedule those as a full-day job with an early start rather than trying to squeeze them in, and we will tell you at quote if the layout means the last bay gets finished late in the afternoon.",
+  },
+  {
+    q: "Can you match a floor to a finished basement or a renovated interior?",
+    a: "Within limits. Full-broadcast flake systems come in set blends, and you pick the blend — greys, tans, blue-greys, black and white. If you want something closer to a continuous colour or a marbled look, that is metallic epoxy, which is hand-worked and genuinely bespoke. Metallic looks superb in a heated, finished garage and is a poor choice for a working garage that sees a snow-covered car every day, because every mark shows.",
+  },
+  {
+    q: "Do you cover Streetsville and the older village properties?",
+    a: "Yes. Streetsville's older core has the smallest garages we work in anywhere in Mississauga — a lot of single bays, some barely nine feet wide, occasionally with a step down into the house that complicates the edge detail. Small does not mean quick, because the ratio of edge work to open floor is much higher and edges are done by hand. We price by condition and complexity, not by a flat square-foot rate.",
+  },
+  {
+    q: "How new is too new? My Churchill Meadows house was finished last year.",
+    a: "Concrete needs roughly 28 days to reach design strength and considerably longer to give up construction moisture. For a slab poured within the last six months we will test rather than guess, and if the reading is high the honest answer is to wait rather than sell you a primer you may not need. A brand-new slab that has been sitting through a winter is usually fine by spring.",
+  },
+  {
+    q: "Is a coating worth it if I am selling the house?",
+    a: "It shows well, and a clean coated garage photographs better than a stained one. But be realistic about the return — this is a finish, not a structural improvement, and buyers do not pay a premium for it the way they do for a kitchen. If you are coating primarily to sell, the polyaspartic system with a written transferable warranty is the one worth doing, because you can hand the paperwork to the buyer.",
+  },
+];
+---
+
+<Ironside title={title} description={description} heroType="dark">
+  <CityServiceSchema
+    city={city.name}
+    citySlug={city.slug}
+    wikidata={city.wikidata}
+    description={description}
+  />
+
+  <section class="hero-dark compact">
+    <div class="hero-grad"></div><div class="hero-grain"></div><div class="hero-rim"></div>
+    <div class="hero-inner">
+      <div class="city-hero-grid">
+        <div>
+          <div class="kicker mb-2">Epoxy &amp; polyaspartic &middot; Mississauga</div>
+          <h1 class="h-hero" style="margin-top:12px;max-width:16ch">Epoxy flooring in Mississauga.</h1>
+          <p class="lede" style="color:var(--color-iron-300);margin-top:24px;max-width:56ch">
+            From the 1950s shoreline slabs in Port Credit to last year's pours in Churchill Meadows
+            — one crew, diamond-ground prep, and a floor that is ready to park on the next morning.
+          </p>
+          <div style="display:flex;gap:12px;margin-top:36px;flex-wrap:wrap">
+            <a href="#quote" class="btn btn-lg btn-primary">Book a slab assessment</a>
+          </div>
+          <div class="meta-rule" style="margin-top:36px">
+            <span>{city.driveMinutes} min from the Oakville shop</span><span class="sep"></span>
+            <span>Halton–Peel border, so mornings start early</span>
+          </div>
+        </div>
+        <div id="quote">
+          <QuoteForm city={city.name} heading="Free quote in Mississauga" sub="We measure the slab, test it for moisture, and quote a fixed price." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split-64" style="align-items:end">
+        <div>
+          <div class="kicker">Mississauga slabs</div>
+          <h2 class="h1 mt-2" style="max-width:22ch">A city built in waves, and each wave ages differently.</h2>
+        </div>
+        <p class="p" style="color:var(--fg2);max-width:52ch">
+          Mississauga grew in distinct bursts, and you can read the decade off a garage floor. Knowing
+          which wave your house belongs to tells us most of what we need before we arrive.
+        </p>
+      </div>
+
+      <div class="hood-grid">
+        <div class="hood">
+          <h4>Lorne Park &amp; Mineola</h4>
+          <p>Large lots, deep double and triple garages, and a wide spread of slab ages because so many properties have been rebuilt. Expect the biggest floors we quote in the city and the highest expectations on finish quality.</p>
+        </div>
+        <div class="hood">
+          <h4>Port Credit &amp; Clarkson</h4>
+          <p>Shoreline properties on a high water table, many with 1950s–60s slabs poured before vapour barriers were routine. This is the part of Mississauga where moisture testing changes the quote most often.</p>
+        </div>
+        <div class="hood">
+          <h4>Erin Mills &amp; Meadowvale</h4>
+          <p>Late-70s and 80s subdivisions. Structurally sound slabs with tired control joints and some surface scaling from decades of salt. Straightforward jobs, once the joints are dealt with properly.</p>
+        </div>
+        <div class="hood">
+          <h4>Streetsville</h4>
+          <p>The village core has the tightest garages in the city — narrow single bays, awkward steps, and a high proportion of hand-worked edge relative to open floor.</p>
+        </div>
+        <div class="hood">
+          <h4>Churchill Meadows &amp; Lisgar</h4>
+          <p>1990s through 2000s builder stock, plus genuinely recent pours. Flat, predictable slabs. The only real question is whether the concrete is old enough to have finished releasing moisture.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+    <div class="container">
+      <div class="split-64" style="align-items:start;gap:56px">
+        <div>
+          <div class="kicker">Scheduling from Oakville</div>
+          <h2 class="h2 mt-2" style="max-width:24ch">Our closest market, and it shows in the schedule.</h2>
+          <p class="p" style="color:var(--fg2);margin-top:20px;max-width:60ch">
+            Mississauga is about {city.driveMinutes} minutes up the QEW from the shop, which makes it
+            the easiest city we serve to schedule. Crews are on site before 8am without fighting
+            highway traffic, and if a slab turns out to need more grinding than expected there is
+            room in the day to absorb it rather than pushing you to a second visit.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            It also means we can come out to look at a floor without making a production of it. For
+            anything unusual — a heaved slab, an oil-soaked bay, a garage that has already been
+            coated once and is failing — we would rather see it in person than quote off photographs.
+            Coating over someone else's failing epoxy is the fastest way to inherit their problem,
+            and removal is a different job with a different price.
+          </p>
+          <p class="p" style="color:var(--fg2);margin-top:16px;max-width:60ch">
+            One local quirk worth knowing: a lot of Mississauga garages have a service door to the
+            side yard and a step down from the house. Both are edge details, both are done by hand,
+            and both are where a rushed installer leaves a ragged line. It is the first thing to look
+            at when you compare finished photos from any contractor here.
+          </p>
+        </div>
+        <div>
+          <ServiceAreaMap city={city.name} lat={city.lat} lng={city.lng} span={0.13} />
+          <div style="margin-top:24px">
+            <div class="kicker">Areas we cover</div>
+            <div class="nearby">
+              {city.neighbourhoods.map((n) => <a href="#quote">{n}</a>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow">
+      <div class="kicker">Choosing a system</div>
+      <h2 class="h2 mt-2">Epoxy, polyaspartic, or metallic — what actually suits the job.</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        Most people arrive asking for epoxy and leave with polyaspartic, and that is not an upsell —
+        it is a cure-window question. Polyaspartic goes down and comes back to service in a day,
+        tolerates cold, and will not yellow where sun comes through an open bay door. True epoxy is
+        the better economic answer on large commercial floors where a multi-day cure is acceptable.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        Metallic epoxy sits apart from both. It is a decorative system, hand-troweled, and it belongs
+        in heated showroom-style garages rather than working ones. In Mississauga we install it most
+        often in Lorne Park and Mineola rebuilds where the garage is genuinely part of the house.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        Whatever goes on top, the preparation is the same and it is the whole ballgame: diamond grind
+        to profile, chase and fill cracks, moisture test, then coat. No acid etching, on any job, in
+        any city. Acid leaves salts behind and traps moisture under the film — it is the single most
+        common reason we get called out to look at a three-year-old floor that is lifting.
+      </p>
+      <div class="nearby">
+        <a href="/polyaspartic-garage-floors">How polyaspartic differs from epoxy</a>
+        <a href="/epoxy-garage-floor-cost">What a floor costs</a>
+        <a href="/epoxy-flooring">All service areas</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section section-sm" style="border-top:1px solid var(--color-iron-100)">
+    <div class="container-narrow">
+      <div class="kicker">Working through the seasons</div>
+      <h2 class="h2 mt-2">The lake sets the calendar in south Mississauga.</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        Mississauga's weather is not uniform across the city, and for coating work the difference is
+        big enough to change how we schedule. South of the QEW, and particularly in the strip below
+        Lakeshore through Port Credit and Clarkson, lake effect keeps humidity high well into autumn
+        and holds spring temperatures down by a few degrees compared with Meadowvale or Churchill
+        Meadows on the same morning.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        High ambient humidity matters because concrete is porous and slabs breathe. On a humid day a
+        slab that tested acceptably in July can be releasing noticeably more vapour, and vapour that
+        arrives at the underside of a curing film has to go somewhere. In practice that means we test
+        close to install rather than relying on a reading taken weeks earlier at quote, and on
+        borderline slabs in the lakeside strip we default to the moisture-mitigating primer rather
+        than gambling.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        North of Dundas the picture is simpler. Erin Mills, Meadowvale, Churchill Meadows and Lisgar
+        behave like ordinary inland suburbs — drier, more predictable, and a straightforward one-day
+        install in almost any month. Polyaspartic gives us a genuine winter season across the whole
+        city, which is useful in a market where most people would rather not lose their garage in the
+        middle of summer anyway.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        The one seasonal habit worth adopting regardless of neighbourhood: if you are planning a
+        coating, stop parking a salt-covered car in the garage for a couple of weeks beforehand.
+        Fresh brine soaking into the slab immediately before a grind makes the prep harder and the
+        result less predictable.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-sm" style="background:var(--color-iron-50);border-top:1px solid var(--color-iron-100);border-bottom:1px solid var(--color-iron-100)">
+    <div class="container-narrow">
+      <div class="kicker">Before you sign anything</div>
+      <h2 class="h2 mt-2">What a proper Mississauga quote should contain.</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        A quote for a garage floor is not a number on a business card. Because Mississauga spans
+        seventy years of construction, the same square footage can mean two completely different jobs,
+        and the quote should show that it has been thought about.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>A measured area, not an estimate.</strong> "Standard double garage" is not a
+        measurement. Bays here vary by several hundred square feet between a 1970s Erin Mills build
+        and a Lorne Park rebuild.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>A stated moisture result.</strong> If you are south of Lakeshore and the quote does
+        not reference a moisture reading, it has been priced blind. Ask what the number was.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>Named prep steps.</strong> Diamond grind, profile achieved, crack chase and fill,
+        joint treatment. "Surface preparation" as a single line item tells you nothing about how deep
+        anyone is going.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        <strong>The system, by name and coat count.</strong> How many coats, which chemistry, which
+        topcoat. A quote that says only "epoxy floor" could be anything from a rolled single coat to
+        a full broadcast build, and the difference in lifespan is a decade.
+      </p>
+    </div>
+  </section>
+
+
+  <section class="section section-sm">
+    <div class="container-narrow">
+      <div class="kicker">Install day</div>
+      <h2 class="h2 mt-2">How a Mississauga install actually runs.</h2>
+      <p class="p" style="color:var(--fg2);margin-top:20px">
+        Being twenty minutes from the shop means an early, unhurried start. The crew masks the bay
+        door tracks, the wall line and anything staying in the driveway, then sets up dust extraction
+        before the grinder is switched on. Mississauga garages are mostly attached with a service
+        door into the house, so we seal that doorway properly — grinding dust finds its way into a
+        laundry room otherwise.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        The grind is the bulk of the morning. On a 1980s Erin Mills double we are also opening and
+        refilling the control joints, which adds time but is the difference between a floor that
+        stays flat and one that cracks along the old lines within a year. On a newer Churchill
+        Meadows slab there is usually less to do and the day runs shorter.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        After vacuuming we inspect the profile, confirm the moisture reading has not changed, then
+        lay the basecoat and broadcast flake to refusal. Scrape-back once set, topcoat mid-afternoon,
+        walkable by early evening, car back in the next morning. Three-bay Lorne Park floors run
+        later and we will tell you that when we book rather than on the day.
+      </p>
+      <p class="p" style="color:var(--fg2);margin-top:16px">
+        It is the same process we run in <a href="/epoxy-flooring/brampton">Brampton</a> and
+        <a href="/epoxy-flooring/milton">Milton</a>. More on
+        <a href="/about">how we work</a>, and the full
+        <a href="/service-areas">service-area map</a>.
+      </p>
+    </div>
+  </section>
+
+  <CityFaq faqs={faqs} city={city.name} />
+
+  <section class="section section-sm">
+    <div class="container">
+      <div class="kicker">Nearby</div>
+      <h2 class="h3 mt-2">We also coat floors in</h2>
+      <div class="nearby">
+        <a href="/service-areas/oakville">Oakville</a>
+        {nearby.map((c) => <a href={`/epoxy-flooring/${c.slug}`}>{c.name}</a>)}
+      </div>
+    </div>
+  </section>
+</Ironside>
