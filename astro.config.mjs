@@ -1,5 +1,6 @@
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
 import { d1, r2, sandbox } from "@emdash-cms/cloudflare";
 import { formsPlugin } from "@emdash-cms/plugin-forms";
 import { webhookNotifierPlugin } from "@emdash-cms/plugin-webhook-notifier";
@@ -7,6 +8,9 @@ import { defineConfig, fontProviders } from "astro/config";
 import emdash from "emdash/astro";
 
 export default defineConfig({
+	// Required for canonical URLs and for @astrojs/sitemap to emit absolute URLs.
+	// Its absence is why the live site currently has no canonical tag on any page.
+	site: "https://ironsidecoatings.ca",
 	output: "server",
 	adapter: cloudflare(),
 	image: {
@@ -15,6 +19,35 @@ export default defineConfig({
 	},
 	integrations: [
 		react(),
+		sitemap({
+			// Excluded on purpose:
+			//  /_emdash/*  admin surface
+			//  /search     un-themed Astro starter page, still titled "Search — My Blog"
+			//  /posts      empty blog shell inherited from the starter template
+			//  /quote      conversion endpoint, no search value
+			//  /404        error route
+			filter: (page) =>
+				!page.includes("/_emdash") &&
+				!page.includes("/search") &&
+				!page.includes("/posts") &&
+				!page.includes("/quote") &&
+				!page.includes("/404"),
+			serialize(item) {
+				// Canonical tags are emitted without a trailing slash. A sitemap that
+				// disagrees with the canonical is a self-inflicted duplicate signal, so
+				// normalise here rather than leaving the two to drift.
+				const bare = item.url.replace(/\/+$/, "");
+				item.url = bare === "https://ironsidecoatings.ca" ? `${bare}/` : bare;
+				if (item.url === "https://ironsidecoatings.ca/") {
+					item.priority = 1.0;
+					item.changefreq = "weekly";
+				} else if (item.url.includes("/epoxy-flooring")) {
+					item.priority = 0.8;
+					item.changefreq = "monthly";
+				}
+				return item;
+			},
+		}),
 		emdash({
 			database: d1({ binding: "DB", session: "auto" }),
 			storage: r2({ binding: "MEDIA" }),
